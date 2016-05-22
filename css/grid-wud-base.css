@@ -1,0 +1,238 @@
+/*
+ *	=== Grid WUD ===
+*/
+
+/* Container (Categorie box) */
+.grid-wud-container{
+	width: 100%;
+    overflow: hidden;
+	font-size: 100%; 
+	font-family:inherit;
+}
+
+/* Wrapper (Grid) */
+.grid-wud-wrapper{
+	float:left;
+	color: #FFFFFF;
+	overflow: hidden;
+	position: relative;	
+}
+
+.grid-wud-wrapper-box{
+	float:left;
+	color: #FFFFFF;
+	overflow: hidden;
+	position: relative;	
+	box-shadow: 2px 2px 6px #000000;
+}
+
+
+/* Background image */
+.grid-wud-image{
+	position: absolute;
+	background-position: center;
+	height:100%; width:100%; 
+	background-size: cover;	
+	transition: all 1s ease;
+   -moz-transition: all 1s ease;
+   -ms-transition: all 1s ease;
+   -webkit-transition: all 1s ease;
+   -o-transition: all 1s ease;
+}
+
+
+/* Excerpt = 0 */
+.grid-wud-excerpt {
+	background-color: rgba(255, 255, 255, 0.78);
+	color: #616161;
+	font-size: 16px; font-size: 0.8vw;
+	position: absolute;
+	display: block;
+	overflow: hidden;	
+	text-overflow: ellipsis;
+	width:100%;
+	bottom: 0;
+	max-height: 0;
+	transition: all 1s ease;
+   -moz-transition: all 1s ease;
+   -ms-transition: all 1s ease;
+   -webkit-transition: all 1s ease;
+   -o-transition: all 1s ease;	
+}
+
+.grid-wud-wrapper-box:hover .grid-wud-excerpt{
+	padding: 8px 4px 8px 4px;
+	height: auto !important;
+	max-height: 50% !important;
+	transition-property: all !important;
+	transition-duration: .4s !important;
+	transition-timing-function: cubic-bezier(255, 255, 255, 0.78) !important;
+}	
+
+.grid-wud-wrapper:hover .grid-wud-excerpt{
+	padding: 8px 4px 8px 4px;
+	height: auto !important;
+	max-height: 50% !important;
+	transition-property: all !important;
+	transition-duration: .4s !important;
+	transition-timing-function: cubic-bezier(255, 255, 255, 0.78) !important;
+}
+
+
+/* Excerpt = 2 */
+.grid-wud-excerpt-2 {
+	padding: 2% 1% 2% 1%;
+	background-color: rgba(255, 255, 255, 0.78);
+	color: #616161;
+	font-size: 16px; font-size: 0.8vw;
+	position: absolute;
+	display: block;
+	overflow: hidden;
+	white-space: pre-line;
+	text-overflow: ellipsis;
+	width:98%;
+	bottom: 0;
+	max-height: 40% !important;	
+}
+
+/* Category title */
+.grid-wud-h1 {
+    font-weight: bold;
+	padding-right: 20px;
+    margin-bottom: 5px;
+	padding-left: 20px;
+	padding-top: 0.6vw; 
+	padding-bottom: 0.6vw; 	
+	overflow: hidden;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Post title standard*/
+.grid-wud-h2 {
+	padding: 2px 4px 2px 4px;
+	background-color: rgba(255, 255, 255, 0.78);
+	color: #616161;
+	height: auto;
+	overflow: hidden;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+	position: absolute; 
+	width:100%;
+}
+
+/* Post title standard*/
+.grid-wud-h4 {
+	padding: 2px 4px 12px 4px;
+	background-color: rgba(255, 255, 255, 0.78);
+	color: #616161;
+	height: auto;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: right;
+    white-space: nowrap;
+	position: absolute; 
+	right: 0px;
+}
+
+#grid-wud-h4-top{
+	top: 0px;
+}
+
+#grid-wud-h4-bottom{
+	bottom: 0px;
+}
+
+
+.grid-wud-wrapper:hover #grid-wud-h4-bottom{
+	display: none;
+	visibility: hidden;
+}
+
+.grid-wud-wrapper-box:hover #grid-wud-h4-bottom{
+	display: none;
+	visibility: hidden;
+}
+
+#grid-wud-h2{
+	bottom: 0px;
+}
+
+.grid-wud-wrapper:hover #grid-wud-h2{
+	display: none;
+	visibility: hidden;
+}
+
+.grid-wud-wrapper-box:hover #grid-wud-h2{
+	display: none;
+	visibility: hidden;
+}
+
+
+/* Read more space */
+.grid-wud-bottom {
+	width:100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 5px;
+	font-family:inherit;
+}
+
+/* Read more button (+) */
+.grid-wud-h3 {
+	font-weight: bolder;
+	float:right;
+	margin:10px;
+	padding: 4px 16px 4px 16px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Read more button (txt) */
+.grid-wud-h3-txt {
+	font-weight: bolder;
+	float:right;
+	margin:10px;
+	border: none;
+	padding: 4px 16px 4px 16px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.grid-wud-h3:hover{
+	background-color: #68737D;
+}
+
+/* Responsive at 920px */
+@media screen and (max-width: 920px) {
+.grid-wud-wrapper{
+	width: 100% !important;
+	height: 0;	
+	padding-bottom: 100% !important;
+	margin: 0.5%;
+}
+.grid-wud-wrapper-box{
+	width: 100% !important;
+	height: 0;	
+	padding-bottom: 100% !important;
+	margin: 0.5%;
+}
+.grid-wud-excerpt {
+	padding: 2% 1% 2% 1%;
+	font-size:200% !important;
+	max-height: 98% !important;
+}
+.grid-wud-h2 {
+	font-size: 400% !important;
+    height: 8% !important;
+    padding: 20px 20px 40px 20px !important;
+}
+.grid-wud-excerpt-2 {
+	padding: 2% 1% 2% 1%;
+	font-size:200% !important;
+	max-height: 20% !important;	
+}
+}

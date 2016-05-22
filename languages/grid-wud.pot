@@ -1,0 +1,260 @@
+# Copyright (C) 2016 Grid WUD
+# This file is distributed under the same license as the Grid WUD package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Grid WUD\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/grid-wud\n"
+"POT-Creation-Date: 2016-03-03 20:30:47+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"Last-Translator: DANNY WUD <info@wistudat.be>\n"
+
+#: pages/grid-wud-admin.php:11
+msgid "More than just grids"
+msgstr ""
+
+#: pages/grid-wud-admin.php:193
+msgid "If selected, <b>all</b> Wordpress category\\'s and Tags pages will be displayed as grids!<br>Remove the selection to de-activate it."
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Grid WUD adds responsive, customizable and dynamic grids to WordPress posts and pages."
+msgstr ""
+
+#: pages/grid-wud-admin.php:288
+msgid "Fade in grids"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Grid WUD"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://wistudat.be"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Danny WUD"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://wistudat.be"
+msgstr ""
+
+#. Tags of the plugin/theme
+msgid "grid, responsive, slug, grid, shortcode, slugs, grids, gallery, filter, display, list, page, pages, posts, post, query, custom post type"
+msgstr ""
+
+#: pages/grid-wud-admin.php:297
+msgid "Visit our website"
+msgstr ""
+
+#: pages/grid-wud-admin.php:297
+msgid "Get FREE Support"
+msgstr ""
+
+#: grid-wud.php:81
+msgid "Settings"
+msgstr ""
+
+#: pages/grid-wud-admin.php:272
+msgid "Order direction"
+msgstr ""
+
+#: pages/grid-wud-admin.php:273
+msgid "Sort order grids"
+msgstr ""
+
+#: pages/grid-wud-admin.php:277
+msgid "Show not"
+msgstr ""
+
+#: pages/grid-wud-admin.php:278
+msgid "Without title"
+msgstr ""
+
+#: pages/grid-wud-admin.php:279
+msgid "With title"
+msgstr ""
+
+#: pages/grid-wud-admin.php:280
+msgid "Show always"
+msgstr ""
+
+#: pages/grid-wud-admin.php:282
+msgid "The excerpt"
+msgstr ""
+
+#: pages/grid-wud-admin.php:283
+msgid "Show/Hide ..."
+msgstr ""
+
+#: pages/grid-wud-admin.php:286
+msgid "Maximum words"
+msgstr ""
+
+#: pages/grid-wud-admin.php:294
+msgid "Save Changes"
+msgstr ""
+
+#: pages/grid-wud-admin.php:270
+msgid "Descending"
+msgstr ""
+
+#: pages/grid-wud-admin.php:262
+msgid "Post ID"
+msgstr ""
+
+#: pages/grid-wud-admin.php:264
+msgid "Order by"
+msgstr ""
+
+#: pages/grid-wud-admin.php:265
+msgid "Order grids by"
+msgstr ""
+
+#: pages/grid-wud-admin.php:269
+msgid "Ascending"
+msgstr ""
+
+#: pages/grid-wud-admin.php:261
+msgid "Name"
+msgstr ""
+
+#: pages/grid-wud-admin.php:253
+msgid "Grids"
+msgstr ""
+
+#: pages/grid-wud-admin.php:255
+msgid "Target: read more button"
+msgstr ""
+
+#: pages/grid-wud-admin.php:256
+msgid "Archive or grids"
+msgstr ""
+
+#: pages/grid-wud-admin.php:260
+msgid "Date"
+msgstr ""
+
+#: pages/grid-wud-admin.php:187
+msgid "Set as primary to display"
+msgstr ""
+
+#: pages/grid-wud-admin.php:191
+msgid "Activate Grid Pages"
+msgstr ""
+
+#: pages/grid-wud-admin.php:196
+msgid "Archive: read more button or text"
+msgstr ""
+
+#: pages/grid-wud-admin.php:197 pages/grid-wud-admin.php:200
+msgid "Empty = button"
+msgstr ""
+
+#: pages/grid-wud-admin.php:199
+msgid "Grids: read more button or text"
+msgstr ""
+
+#: pages/grid-wud-admin.php:206
+msgid "Buttons"
+msgstr ""
+
+#: pages/grid-wud-admin.php:222
+msgid "Lay-out grids"
+msgstr ""
+
+#: pages/grid-wud-admin.php:223
+msgid "Choose lay-out"
+msgstr ""
+
+#: pages/grid-wud-admin.php:236
+msgid "Number of grids to show"
+msgstr ""
+
+#: pages/grid-wud-admin.php:237
+msgid "Maximum"
+msgstr ""
+
+#: pages/grid-wud-admin.php:247
+msgid "Show more grids button"
+msgstr ""
+
+#: pages/grid-wud-admin.php:248
+msgid "Number of extra grids to show"
+msgstr ""
+
+#: pages/grid-wud-admin.php:252
+msgid "Archive"
+msgstr ""
+
+#: pages/grid-wud-admin.php:186
+msgid "Featured image"
+msgstr ""
+
+#: pages/grid-wud-admin.php:180
+msgid "Hide Grid Title"
+msgstr ""
+
+#: pages/grid-wud-admin.php:183
+msgid "Grid shadow"
+msgstr ""
+
+#: pages/grid-wud-admin.php:184 pages/grid-wud-admin.php:192
+#: pages/grid-wud-admin.php:289
+msgid "Active"
+msgstr ""
+
+#: pages/grid-wud-admin.php:177
+msgid "Hide Category or Tag Title"
+msgstr ""
+
+#: pages/grid-wud-admin.php:178 pages/grid-wud-admin.php:181
+msgid "Hide"
+msgstr ""
+
+#: pages/grid-wud-admin.php:172
+msgid "Grid Title"
+msgstr ""
+
+#: pages/grid-wud-admin.php:173
+msgid "Bottom"
+msgstr ""
+
+#: pages/grid-wud-admin.php:170 pages/grid-wud-admin.php:175
+#: pages/grid-wud-admin.php:211
+msgid "Font size"
+msgstr ""
+
+#: pages/grid-wud-admin.php:168 pages/grid-wud-admin.php:208
+msgid "Text"
+msgstr ""
+
+#: pages/grid-wud-admin.php:166
+msgid "Category or Tag Title"
+msgstr ""
+
+#: pages/grid-wud-admin.php:167 pages/grid-wud-admin.php:207
+msgid "Background"
+msgstr ""
+
+#: pages/grid-wud-admin.php:11
+msgid "Grid wud Options"
+msgstr ""
+
+#: pages/grid-wud-admin.php:120
+msgid "Settings saved"
+msgstr ""
+
+
+#: pages/grid-wud-admin.php:120
+msgid "Skip x posts"
+msgstr ""
+
+
+#: pages/grid-wud-admin.php:120
+msgid "Quantity post to skip"
+msgstr ""

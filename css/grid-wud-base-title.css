@@ -1,0 +1,6 @@
+/* Post title standard*/
+.grid-wud-h2 {
+	height: auto !important;
+	text-overflow: initial !important;
+    white-space: initial !important;
+}

@@ -1,0 +1,222 @@
+/*
+* === Grid WUD ===
+*/
+
+/* Admin Settings - Options */
+.grid-wud-admin-table{
+	background: #fff;
+	padding: 20px;
+	margin-top: 20px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+	border: 1px solid #dadada;
+	max-width: 720px;
+	min-width: 360px;
+	display: block;
+}
+
+.grid-wud-admin-h2{
+	margin: 0 0 20px;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 20px;
+}
+
+.grid-wud-admin-title{
+	display: block;
+}
+
+.notice, div.error, div.updated {
+    margin: 0px !important;
+}
+
+.grid-wud-wrap{
+	display: block;
+	width:44%; 
+	float:left;
+	padding: 2%;
+	background: rgb(239, 239, 239);
+}
+
+.grid-wud-wrap-2{
+	display: block;
+	width:44%; 
+	float:right;
+	padding: 2%;
+	background: rgb(239, 239, 239);
+}
+
+hr {
+    border-top: 2px solid #696868 !important;
+    border-bottom: 2px solid #fafafa !important;
+}
+
+#grid-rate-it{
+	float:right;
+	padding-right:50px;
+}
+
+#grid-wud-adm-subm{
+	float:right;
+}
+
+#grid-adm-wud{
+	background: #279048; 
+	background-color: #279048; 
+	border-color: #279048; 
+	box-shadow: 0 1px 0 #279048; 
+	text-shadow: 0 -1px 1px #279048,1px 0 1px #279048,0 1px 1px #279048,-1px 0 1px #279048;
+} 
+
+#grid-adm-wud:hover{
+	background: #1CC150; 
+	background-color: #1CC150; 
+} 
+
+@media screen and (max-width: 580px) {
+.grid-wud-wrap{
+	float: none;
+	width:88%;
+}
+.grid-wud-wrap-2{
+	float: none;
+	width:88%;
+}	
+#grid-rate-it{
+	display:none;
+}
+#grid-wud-adm-subm{
+	margin-right: 8%;
+}
+}
+
+.wp-picker-container{
+	float:right !important;
+}
+.grid-wud-right{
+	float:right !important;
+}
+
+#grid-wud-tip {
+    position: relative;
+    width: 100%;
+}
+
+#grid-wud-tip > .tooltip{
+    position: absolute;
+    display: none;
+    background-color: #4297C1;     
+    width: 200px;    
+    left: 60px;
+    top: 0px; 
+    padding: 10px;
+    color: white;
+	z-index: 100;
+}
+
+#grid-wud-tip > .tooltip:before {
+  
+}
+.grid-trigger{
+	float:right !important;
+	cursor:help;
+}
+#grid-wud-tip > .grid-trigger:hover + .tooltip {
+    display: block;
+}
+
+
+/* One line input fields */
+dt { 
+	display: inline; 
+}
+
+dd { 
+    margin: 0; /* Margin fields */
+    display: inline; 
+}
+
+/* range slider */
+
+input[type="range"] {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;	
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  width: 120px;
+  height: 20px;
+  margin: 0;
+  border: none;
+  padding: 1px 1px;
+  background: #9A9A9A;
+  box-shadow: inset 0 0 0 0 #0d0e0f, inset 0 0 0 0 #3a3d42;
+  -webkit-box-shadow: inset 0 0 0 0 #0d0e0f, inset 0 0 0 0 #3a3d42;
+  outline: none; 
+}
+
+input[type="range"]::-moz-range-track {
+  border: inherit;
+  background: transparent;
+}
+
+input[type="range"]::-ms-track {
+  border: inherit;
+  color: transparent; 
+  background: transparent;
+}
+
+input[type="range"]::-ms-fill-lower,
+input[type="range"]::-ms-fill-upper {
+  background: transparent;
+}
+
+input[type="range"]::-ms-tooltip {
+  display: none;
+}
+
+/* thumb / button */
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 18px;
+  border: none;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FFFFFF), color-stop(100%, #7B7676)); /* android <= 2.2 */
+  background-image: -webkit-linear-gradient(top , #FFFFFF 0, #7B7676 100%); /* older mobile safari and android > 2.2 */;
+  background-image: linear-gradient(to bottom, #FFFFFF 0, #7B7676 100%); /* W3C */
+}
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 18px;
+  border: none;
+  background-image: linear-gradient(to bottom, #FFFFFF 0, #7B7676 100%); /* W3C */
+}
+
+input[type="range"]::-ms-thumb {
+  width: 20px;
+  height: 18px;
+  border: 0;
+  background-image: linear-gradient(to bottom, #FFFFFF 0, #7B7676 100%); /* W3C */
+}
+
+/*  Removes tooltip in IE from the slider */
+::-ms-tooltip { display: none; }
+
+/* Select items */
+
+select {
+  width: 124px;
+  padding: 5px 35px 5px 5px;
+  font-size: 14px;
+  height: 34px;
+  background:  #ccc;
+}
+/*target Internet Explorer 9 and Internet Explorer 10:*/
+
+.grid-wp-admin select {
+    height: 28px !important;
+    line-height: 28px !important;
+}
