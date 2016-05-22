@@ -1,24 +1,24 @@
   
 .grid-wud-wrapper:hover > .grid-wud-image{ 
-    -moz-transform: scale(1.09);
-    -ms-transform: scale(1.09);
-    -webkit-transform: scale(1.09);
-    transform: scale(1.09);	
-	filter:gray alpha(opacity=50);
-	-webkit-filter:grayscale(50%);
-	filter: grayscale(50%);
+    -moz-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    transform: scale(1.02);	
+	filter:gray alpha(opacity=30);
+	-webkit-filter:grayscale(30%);
+	filter: grayscale(30%);
 	-webkit-backface-visibility:hidden;
-	transform-origin: top left;
+	transform-origin: center left;
 }
 
 .grid-wud-wrapper-box:hover > .grid-wud-image{ 
-    -moz-transform: scale(1.09);
-    -ms-transform: scale(1.09);
-    -webkit-transform: scale(1.09);
-    transform: scale(1.09);	
-	filter:gray alpha(opacity=50);
-	-webkit-filter:grayscale(50%);
-	filter: grayscale(50%);
+    -moz-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    transform: scale(1.02);	
+	filter:gray alpha(opacity=30);
+	-webkit-filter:grayscale(30%);
+	filter: grayscale(30%);
 	-webkit-backface-visibility:hidden;
-	transform-origin: top left;
+	transform-origin: center left;
 }

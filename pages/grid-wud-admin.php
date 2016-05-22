@@ -197,11 +197,11 @@
 		echo '<b class="grid-wud-admin-title">'.__("Featured image", "grid-wud").'</b>';
 		echo '<i>'.__("Set as primary to display", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_set_featured_img" type="checkbox" value="1" '. checked( $grid_wud_set_featured_img, "1", false ) .'/><br><hr>';
 			
-		echo '<b class="grid-wud-admin-title">'.__("Image on hoover", "grid-wud").'</b>';
+		echo '<b class="grid-wud-admin-title">'.__("Image on hover", "grid-wud").'</b>';
 		echo '<i>'.__("Zoom the grid image on hoover", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_img_hover" type="checkbox" value="1" '. checked( $grid_wud_img_hover, "1", false ) .'/><br><br>';
 			
 		echo '<b class="grid-wud-admin-title">'.__("Grey images", "grid-wud").'</b>';
-		echo '<i>'.__("Show the grid in grey and on hoover in colors", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_img_grey" type="checkbox" value="1" '. checked( $grid_wud_img_grey, "1", false ) .'/><br><hr>';
+		echo '<i>'.__("Show the grid in grey and on hover in colors", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_img_grey" type="checkbox" value="1" '. checked( $grid_wud_img_grey, "1", false ) .'/><br><hr>';
 		
 		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("If no image was found, use this pre-defined image.<br>You can select any image from the media library, or use the default one.", "grid-wud").'</div></div>';
 		echo '<b class="grid-wud-admin-title">'.__("Default grid image", "grid-wud").'</b><br>';
@@ -314,7 +314,7 @@
 
 		echo '<i>'.__("Maximum words", "grid-wud").' (10 -> 50) : </i><input type="number" min="10" step="1" max="50" size="8" class="grid-wud-right" name="grid_wud_excerpt_words" value="'.$grid_wud_excerpt_words.'" /><br><br><hr>';
 
-		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Fade in the picture of the grid by a mouse on hoover action.", "grid-wud").'</div></div>';
+		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Fade in the picture of the grid by a mouse on hover action.", "grid-wud").'</div></div>';
 		echo '<b class="grid-wud-admin-title">'.__("Fade in grid", "grid-wud").'</b><br>';
 		echo '<i>'.__("Active", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_fade_in" type="checkbox" value="1" '. checked( $grid_wud_fade_in, "1", false ) .'/><br>';
 

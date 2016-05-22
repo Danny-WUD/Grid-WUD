@@ -89,7 +89,4 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
 == Screenshots ==
 1. On Frontend.
-2. The shortcode in the post/page where Grid WUD is active.
-3. Use a category OR tag & gallery, featured OR post/page image in your post/page
-4. Admin menu
-5. Admin options/settings
+2. Admin menu
