@@ -15,7 +15,7 @@ get_header(); ?>
 	$cats_id=$catid;
 	$tags_id=$tagid;
 	//Quantity from URL
-	if (isset( $_GET['q'] ) && !empty( $_GET['q'] )){$wud_quantity=filter_var($_GET['q'], FILTER_SANITIZE_STRING);}
+	if (isset( $_GET['g'] ) && !empty( $_GET['g'] )){$wud_quantity=filter_var($_GET['g'], FILTER_SANITIZE_STRING);}
 	
 		    if (!empty( $catid )){$wud_cat_or_term_name = get_the_category_by_ID($cats_id );}
 		elseif (!empty( $tagid )){$wud_cat_or_term_name = get_term_by('term_id', $tags_id, 'post_tag')->name;}
@@ -68,7 +68,7 @@ get_header(); ?>
 		elseif (!empty( $tags_id )){$wud_cat_or_term_name = get_term_by('term_id', $tags_id, 'post_tag')->name;}
 		
 		//If shortcode is used for quantity, else use the variable grid_wud_set_max_grid
-		if (isset( $_GET['q'] ) && !empty( $_GET['q'] )){$wud_quantity=$_GET['q'];} else{$wud_quantity=$GLOBALS['gwfuncs']['grid_wud_set_max_grid'];}
+		if (isset( $_GET['g'] ) && !empty( $_GET['g'] )){$wud_quantity=$_GET['g'];} else{$wud_quantity=$GLOBALS['gwfuncs']['grid_wud_set_max_grid'];}
 		
 		//Check or variable is a number
 		if(is_numeric($wud_quantity) && $wud_quantity > 0 && $wud_quantity == round($wud_quantity, 0)){}else{$wud_quantity=$GLOBALS['gwfuncs']['grid_wud_set_max_grid'];}

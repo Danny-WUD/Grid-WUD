@@ -252,7 +252,7 @@ function grid_wud_comm( $atts ) {
 				//Without archive text
 				if($GLOBALS['gwfuncs']['grid_wud_show_arch_button']==''){
 				if ($grid_wud_button == 0 && $wud_post_type!=1){
-				$result .= "<div class='grid-wud-bottom'><a href='".$wud_cat_or_term_url.$koppel."q=".$readmore."'><div class='grid-wud-h3' style='font-size:".$GLOBALS['gwfuncs']['grid_wud_but_font_size']."vw; line-height:".$buttonheight."vw; background-color:".$GLOBALS['gwfuncs']['grid_wud_but_bcolor']."; color:".$GLOBALS['gwfuncs']['grid_wud_but_fcolor'].";'  role='button'> + </div></a>";	
+				$result .= "<div class='grid-wud-bottom'><a href='".$wud_cat_or_term_url.$koppel."g=".$readmore."'><div class='grid-wud-h3' style='font-size:".$GLOBALS['gwfuncs']['grid_wud_but_font_size']."vw; line-height:".$buttonheight."vw; background-color:".$GLOBALS['gwfuncs']['grid_wud_but_bcolor']."; color:".$GLOBALS['gwfuncs']['grid_wud_but_fcolor'].";'  role='button'> + </div></a>";	
 				}
 				else{
 				$result .= "<div class='grid-wud-bottom' style='margin:0; padding:0;'><div class='grid-wud-h3' style='margin:0; padding:0;'></div>";		
@@ -261,7 +261,7 @@ function grid_wud_comm( $atts ) {
 				//With archive text
 				else{
 				if ($grid_wud_button == 0 && $wud_post_type!=1){
-				$result .= "<br><div class='grid-wud-bottom'><a href='".$wud_cat_or_term_url.$koppel."q=".$readmore."'><div id='grid_wud_base' class='grid-wud-h3-txt' style='font-size:".$GLOBALS['gwfuncs']['grid_wud_but_font_size']."vw;  line-height:".$buttonheight."vw; background-color:".$GLOBALS['gwfuncs']['grid_wud_but_bcolor']."; color:".$GLOBALS['gwfuncs']['grid_wud_but_fcolor'].";' role='button'> ".$GLOBALS['gwfuncs']['grid_wud_show_arch_button']." </div></a>";			
+				$result .= "<br><div class='grid-wud-bottom'><a href='".$wud_cat_or_term_url.$koppel."g=".$readmore."'><div id='grid_wud_base' class='grid-wud-h3-txt' style='font-size:".$GLOBALS['gwfuncs']['grid_wud_but_font_size']."vw;  line-height:".$buttonheight."vw; background-color:".$GLOBALS['gwfuncs']['grid_wud_but_bcolor']."; color:".$GLOBALS['gwfuncs']['grid_wud_but_fcolor'].";' role='button'> ".$GLOBALS['gwfuncs']['grid_wud_show_arch_button']." </div></a>";			
 				}
 				else{
 				$result .= "<div class='grid-wud-bottom' style='margin:0; padding:0;'><div class='grid-wud-h3-txt' style='margin:0; padding:0;'></div>";		
@@ -273,8 +273,8 @@ function grid_wud_comm( $atts ) {
 				//Without grid text
 				if($GLOBALS['gwfuncs']['grid_wud_show_grid_button']==''){
 				if ($grid_wud_button == 0 && $wud_post_type!=1){
-					if ( isset( $cat_id) && !empty( $cat_id) ){$result .= "<br><div class='grid-wud-bottom'><a href='".esc_url( get_category_link( $cat_id ) ).$koppel."q=".$readmore."'><div id='grid_wud_base' class='grid-wud-h3' style='font-size:".$GLOBALS['gwfuncs']['grid_wud_but_font_size']."vw;  line-height:".$buttonheight."vw; background-color:".$GLOBALS['gwfuncs']['grid_wud_but_bcolor']."; color:".$GLOBALS['gwfuncs']['grid_wud_but_fcolor'].";'> + </div></a>";}			
-					if ( isset( $tag_id) && !empty( $tag_id) ){$result .= "<br><div class='grid-wud-bottom'><a href='".esc_url( get_term_link( $tag_id ) ).$koppel."q=".$readmore."'><div id='grid_wud_base' class='grid-wud-h3' style='font-size:".$GLOBALS['gwfuncs']['grid_wud_but_font_size']."vw;  line-height:".$buttonheight."vw; background-color:".$GLOBALS['gwfuncs']['grid_wud_but_bcolor']."; color:".$GLOBALS['gwfuncs']['grid_wud_but_fcolor'].";'> + </div></a>";}	
+					if ( isset( $cat_id) && !empty( $cat_id) ){$result .= "<br><div class='grid-wud-bottom'><a href='".esc_url( get_category_link( $cat_id ) ).$koppel."g=".$readmore."'><div id='grid_wud_base' class='grid-wud-h3' style='font-size:".$GLOBALS['gwfuncs']['grid_wud_but_font_size']."vw;  line-height:".$buttonheight."vw; background-color:".$GLOBALS['gwfuncs']['grid_wud_but_bcolor']."; color:".$GLOBALS['gwfuncs']['grid_wud_but_fcolor'].";'> + </div></a>";}			
+					if ( isset( $tag_id) && !empty( $tag_id) ){$result .= "<br><div class='grid-wud-bottom'><a href='".esc_url( get_term_link( $tag_id ) ).$koppel."g=".$readmore."'><div id='grid_wud_base' class='grid-wud-h3' style='font-size:".$GLOBALS['gwfuncs']['grid_wud_but_font_size']."vw;  line-height:".$buttonheight."vw; background-color:".$GLOBALS['gwfuncs']['grid_wud_but_bcolor']."; color:".$GLOBALS['gwfuncs']['grid_wud_but_fcolor'].";'> + </div></a>";}	
 				}
 				else{
 					if ( isset( $cat_id) && !empty( $cat_id) ){$result .= "<br><div class='grid-wud-bottom' style='margin:0; padding:0;'><div id='grid_wud_base' class='grid-wud-h3' style='margin:0; padding:0;'></div></a>";}			
@@ -284,8 +284,8 @@ function grid_wud_comm( $atts ) {
 				//With grid text
 				else{
 				if ($grid_wud_button == 0 && $wud_post_type!=1){
-				if ( isset( $cat_id) && !empty( $cat_id) ){$result .= "<br><div class='grid-wud-bottom'><a href='".esc_url( get_category_link( $cat_id ) ).$koppel."q=".$readmore."'><div id='grid_wud_base' class='grid-wud-h3-txt' style='font-size:".$GLOBALS['gwfuncs']['grid_wud_but_font_size']."vw;  line-height:".$buttonheight."vw; background-color:".$GLOBALS['gwfuncs']['grid_wud_but_bcolor']."; color:".$GLOBALS['gwfuncs']['grid_wud_but_fcolor'].";'> ".$GLOBALS['gwfuncs']['grid_wud_show_grid_button']." </div></a>";}			
-				if ( isset( $tag_id) && !empty( $tag_id) ){$result .= "<br><div class='grid-wud-bottom'><a href='".esc_url( get_term_link( $tag_id ) ).$koppel."q=".$readmore."'><div id='grid_wud_base' class='grid-wud-h3-txt' style='font-size:".$GLOBALS['gwfuncs']['grid_wud_but_font_size']."vw;  line-height:".$buttonheight."vw; background-color:".$GLOBALS['gwfuncs']['grid_wud_but_bcolor']."; color:".$GLOBALS['gwfuncs']['grid_wud_but_fcolor'].";'> ".$GLOBALS['gwfuncs']['grid_wud_show_grid_button']." </div></a>";}					
+				if ( isset( $cat_id) && !empty( $cat_id) ){$result .= "<br><div class='grid-wud-bottom'><a href='".esc_url( get_category_link( $cat_id ) ).$koppel."g=".$readmore."'><div id='grid_wud_base' class='grid-wud-h3-txt' style='font-size:".$GLOBALS['gwfuncs']['grid_wud_but_font_size']."vw;  line-height:".$buttonheight."vw; background-color:".$GLOBALS['gwfuncs']['grid_wud_but_bcolor']."; color:".$GLOBALS['gwfuncs']['grid_wud_but_fcolor'].";'> ".$GLOBALS['gwfuncs']['grid_wud_show_grid_button']." </div></a>";}			
+				if ( isset( $tag_id) && !empty( $tag_id) ){$result .= "<br><div class='grid-wud-bottom'><a href='".esc_url( get_term_link( $tag_id ) ).$koppel."g=".$readmore."'><div id='grid_wud_base' class='grid-wud-h3-txt' style='font-size:".$GLOBALS['gwfuncs']['grid_wud_but_font_size']."vw;  line-height:".$buttonheight."vw; background-color:".$GLOBALS['gwfuncs']['grid_wud_but_bcolor']."; color:".$GLOBALS['gwfuncs']['grid_wud_but_fcolor'].";'> ".$GLOBALS['gwfuncs']['grid_wud_show_grid_button']." </div></a>";}					
 				}
 				else{
 					if ( isset( $cat_id) && !empty( $cat_id) ){$result .= "<br><div class='grid-wud-bottom' style='margin:0; padding:0;'><div id='grid_wud_base' class='grid-wud-h3' style='margin:0; padding:0;'></div></a>";}			

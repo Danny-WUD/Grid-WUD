@@ -73,10 +73,6 @@
 		//Grey image
 		if ( isset($_POST['grid_wud_img_grey'])) {$grid_wud_img_grey = filter_var($_POST['grid_wud_img_grey'], FILTER_SANITIZE_STRING);} else{$grid_wud_img_grey =0;}
 		update_option('grid_wud_img_grey', $grid_wud_img_grey);	
-
-		//grid instead archive pages
-		if ( isset($_POST['grid_wud_no_archives'])) {$grid_wud_no_archives = filter_var($_POST['grid_wud_no_archives'], FILTER_SANITIZE_STRING);} else{$grid_wud_no_archives =0;}
-		update_option('grid_wud_no_archives', $grid_wud_no_archives);	
 		
 		//Max grid to show
 		$grid_wud_set_max_grid = filter_var($_POST['grid_wud_set_max_grid'], FILTER_SANITIZE_STRING);
@@ -165,7 +161,6 @@
 		$grid_wud_but_fcolor = $GLOBALS['gwfuncs']['grid_wud_but_fcolor'];
 		$grid_wud_but_font_size = ($GLOBALS['gwfuncs']['grid_wud_but_font_size']*10);
 		$grid_wud_excerpt_words = $GLOBALS['gwfuncs']['grid_wud_excerpt_words'];
-		$grid_wud_no_archives = $GLOBALS['gwfuncs']['grid_wud_no_archives'];
 		$grid_wud_skip_post = $GLOBALS['gwfuncs']['grid_wud_skip_post'];
 		$grid_wud_fade_in = $GLOBALS['gwfuncs']['grid_wud_fade_in'];
 		$grid_wud_cpt01 = $GLOBALS['gwfuncs']['grid_wud_cpt01'];
@@ -213,11 +208,6 @@
 		echo '<img src="'.$grid_wud_def_img.'" id="image-src" width="150px" height="150px" style="box-shadow: 4px 5px 5px #888888;"/><br>';
 		echo '<input id="image-url" type="hidden" name="grid_wud_def_img" value="'.$grid_wud_def_img.'" /><br>';
 		echo '<input id="upload-button" type="button" class="button" value="'.__("Upload Image", "grid-wud").'" />  <input id="clear-button" type="button"  class="button" value="'.__("Use the Default Image", "grid-wud").'" onclick="javascript: ClearText();" ><br><hr>';
-		
-		//Warning if they want to change this value!
-		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("If selected, <b>all</b> Wordpress category's and Tags pages will be displayed as grid!<br>Remove the selection to de-activate it.", "grid-wud").'</div></div>';
-		echo '<b class="grid-wud-admin-title" style="color: red;">'.__("Activate grid Pages", "grid-wud").'</b><br>';
-		echo '<i>'.__("Active", "grid-wud").': </i><input class="grid-trigger" name="grid_wud_no_archives" type="checkbox" value="1" '. checked( $grid_wud_no_archives, "1", false ) .'/><hr>';
 
 		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Changes the Custom Post Type Title 1 into this text. <br>Usage: short code: cp=\"1\"", "grid-wud").'</div></div>';
 		echo '<b class="grid-wud-admin-title">'.__("Custom Post Type Title", "grid-wud").' 1</b><br>';		
@@ -227,9 +217,13 @@
 		echo '<b class="grid-wud-admin-title">'.__("Custom Post Type Title", "grid-wud").' 2</b><br>';
 		echo '<i>'.__("Text", "grid-wud").' : </i><input type="text" class="grid-wud-right" name="grid_wud_cpt02" value="'.$grid_wud_cpt02.'" /><br><br><hr>';
 
-		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Fade in the picture of the grid by a mouse on hoover action.", "grid-wud").'</div></div>';
-		echo '<b class="grid-wud-admin-title">'.__("Fade in grid", "grid-wud").'</b><br>';
-		echo '<i>'.__("Active", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_fade_in" type="checkbox" value="1" '. checked( $grid_wud_fade_in, "1", false ) .'/><br>';
+		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Depending the order of grid, skip X posts/pages.<br>Sample: order by: date, direction: descending = skip X newest posts/pages. ", "grid-wud").'</div></div>';
+		echo '<b class="grid-wud-admin-title">'.__("Skip x posts", "grid-wud").'</b><br>
+		<label for="wud_box6">'.__("Quantity post to skip", "grid-wud").'</label>&nbsp;&nbsp;<br>
+		<dl><dd><input size="2" id="wud_box6" type="text" style="font-weight:bolder;" value="'.$grid_wud_skip_post.'" readonly/></dd>
+		<dt><label for="wud_sizer6"></label></dt>
+		<dd><input class="grid-wud-right" id="wud_sizer6" type="range" min="0" max="20" step="1" value="'.$grid_wud_skip_post.'" name="grid_wud_skip_post" onchange="wud_box6.value = wud_sizer6.value" oninput="wud_box6.value = wud_sizer6.value" /></dd></dl><br>';
+
 		
 		echo '</div>';
 //RIGHT ADMIN		
@@ -244,7 +238,7 @@
 		<dt><label for="wud_sizer3"></label></dt>
 		<dd><input class="grid-wud-right" id="wud_sizer3" type="range" min="10" max="30" step="1" value="'.$grid_wud_but_font_size.'" name="grid_wud_but_font_size" onchange="wud_box3.value = wud_sizer3.value" oninput="wud_box3.value = wud_sizer3.value" /></dd></dl><br>';
 				
-		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Text for the read more button on archive, category, tags pages (See: <b>Activate grid Pages</b>).<br>If empty we show a [+] sign, otherwise the text you entered here. ", "grid-wud").'</div></div>';
+		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Text for the read more button on archive, category, tags pages.<br>If empty we show a [+] sign, otherwise the text you entered here. ", "grid-wud").'</div></div>';
 		echo '<b class="grid-wud-admin-title">'.__("Archive: read more button or text", "grid-wud").'</b><br>';
 		echo '<i>'.__("Empty = button", "grid-wud").' </i><b>[+]</b>  : <input type="text" class="grid-wud-right" name="grid_wud_show_arch_button" value="'.$grid_wud_show_arch_button.'" /><br><br><br>';
 
@@ -282,7 +276,7 @@
 		<dd><input class="grid-wud-right" id="wud_sizer5" type="range" min="2" max="10" step="2" value="'.$grid_wud_set_more_grid.'" name="grid_wud_set_more_grid" onchange="wud_box5.value = wud_sizer5.value" oninput="wud_box5.value = wud_sizer5.value" /></dd></dl><hr>';
 
 			
-		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("If <b>Activate grid Pages</b> is not activated, show the read more result as archive pages (standard) or as grid.", "grid-wud").'</div></div>';
+		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("If selected: Show the read more result as archive pages (standard) or as grid.", "grid-wud").'</div></div>';
 		echo '<b class="grid-wud-admin-title">'.__("Target: read more button", "grid-wud").'</b><br>';
 		echo '<select name="grid_wud_show_arch_grid" class="grid-wud-right" >';
 		echo     '<option value="0"'; if ( $grid_wud_show_arch_grid == "0" ){echo 'selected="selected"';} echo '>'.__("Archive", "grid-wud").'</option>';
@@ -320,13 +314,9 @@
 
 		echo '<i>'.__("Maximum words", "grid-wud").' (10 -> 50) : </i><input type="number" min="10" step="1" max="50" size="8" class="grid-wud-right" name="grid_wud_excerpt_words" value="'.$grid_wud_excerpt_words.'" /><br><br><hr>';
 
-
-		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Depending the order of grid, skip X posts/pages.<br>Sample: order by: date, direction: descending = skip X newest posts/pages. ", "grid-wud").'</div></div>';
-		echo '<b class="grid-wud-admin-title">'.__("Skip x posts", "grid-wud").'</b><br>
-		<label for="wud_box6">'.__("Quantity post to skip", "grid-wud").'</label>&nbsp;&nbsp;<br>
-		<dl><dd><input size="2" id="wud_box6" type="text" style="font-weight:bolder;" value="'.$grid_wud_skip_post.'" readonly/></dd>
-		<dt><label for="wud_sizer6"></label></dt>
-		<dd><input class="grid-wud-right" id="wud_sizer6" type="range" min="0" max="20" step="1" value="'.$grid_wud_skip_post.'" name="grid_wud_skip_post" onchange="wud_box6.value = wud_sizer6.value" oninput="wud_box6.value = wud_sizer6.value" /></dd></dl><br>';
+		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Fade in the picture of the grid by a mouse on hoover action.", "grid-wud").'</div></div>';
+		echo '<b class="grid-wud-admin-title">'.__("Fade in grid", "grid-wud").'</b><br>';
+		echo '<i>'.__("Active", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_fade_in" type="checkbox" value="1" '. checked( $grid_wud_fade_in, "1", false ) .'/><br>';
 
 		
 		echo '</div><div class="clear"></div>';

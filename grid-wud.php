@@ -35,8 +35,8 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 	add_action('plugins_loaded', 'grid_wud_languages');
 	add_action( 'plugins_loaded', 'grid_wud_admin' );
 	add_action( 'plugins_loaded', 'grid_wud_base' );
-	add_action( 'init', 'grid_wud_funcs' );
 	add_action( 'template_redirect', 'grid_wud_go_to_my_url');
+	add_action( 'init', 'grid_wud_funcs' );
 	register_activation_hook( __FILE__, 'grid_wud_activate' );
 	//Admin
 	add_action('admin_enqueue_scripts', 'grid_wud_style_more');
@@ -136,7 +136,6 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 			'grid_wud_but_fcolor' => get_option('grid_wud_but_fcolor'),
 			'grid_wud_but_font_size' => get_option('grid_wud_but_font_size'),
 			'grid_wud_excerpt_words' => get_option('grid_wud_excerpt_words'),
-			'grid_wud_no_archives' => get_option('grid_wud_no_archives'),
 			'grid_wud_fade_in' => get_option('grid_wud_fade_in'),
 			'grid_wud_skip_post' => get_option('grid_wud_skip_post'),
 			'grid_wud_version' => get_option('grid_wud_version'),
@@ -148,12 +147,13 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 			);
 			return $gwfuncs;
 		}
+
  
 //Include /grid-wud-content.php instead using the Wordpress default: /tag/ or /category/
 	function grid_wud_go_to_my_url(){
 		global $catid, $tagid;
-		//Redirect only if parameter 'grid_wud_no_archives' is set to 1
-		if(($GLOBALS['gwfuncs']['grid_wud_no_archives']==1 ) || ($GLOBALS['gwfuncs']['grid_wud_show_arch_grid']==1 && isset( $_GET['q'] ) && !empty( $_GET['q'] ))){
+		//Redirect only if parameter 'grid_wud_show_arch_grid' is set to 1
+		if(($GLOBALS['gwfuncs']['grid_wud_show_arch_grid']==1 && isset( $_GET['g'] ) && !empty( $_GET['g'] ))){
 
 				if( is_category() && (is_archive() || !is_front_page() || !is_home() || !is_single() || !is_singular() )){
 					$catid = get_query_var('cat');
@@ -172,6 +172,8 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 				}	 
 		}
 	}		
+	
+		
 	
 //Standard values only inserted on activation.
 	function grid_wud_activate() {		
@@ -194,7 +196,6 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 		if (get_option('grid_wud_but_fcolor')=='') {update_option('grid_wud_but_fcolor', '#CCCCCC');}
 		if (get_option('grid_wud_but_font_size')=='') {update_option('grid_wud_but_font_size', '1.4');}
 		if (get_option('grid_wud_excerpt_words')=='') {update_option('grid_wud_excerpt_words', 25);}
-		if (get_option('grid_wud_no_archives')=='') {update_option('grid_wud_no_archives', 0);}
 		if (get_option('grid_wud_skip_post')=='') {update_option('grid_wud_skip_post', 0);}
 		if (get_option('grid_wud_fade_in')=='') {update_option('grid_wud_fade_in', 1);}
 		if (get_option('grid_wud_cpt01')=='') {update_option('grid_wud_cpt01', 'Custom Post Type 01');}
