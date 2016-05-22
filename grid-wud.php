@@ -8,7 +8,7 @@ Donate link: https://www.icrc.org/eng/donations/
 Description: Grid WUD adds responsive, customizable and dynamic grids to WordPress posts and pages.
 Author: Danny WUD
 Author URI: http://wistudat.be/
-Plugin URI: http://grid.wistudat.be/
+Plugin URI: http://wp.wistudat.be/
 Tags: grid, grids, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post grid, image grid, filter, display, list, page, pages, posts, post, query, custom post type
 Requires at least: 3.6
 Tested up to: 4.5
