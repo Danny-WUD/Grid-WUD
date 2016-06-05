@@ -8,12 +8,12 @@ Donate link: https://www.icrc.org/eng/donations/
 Description: Grid WUD adds responsive, customizable and dynamic grids to WordPress posts and pages.
 Author: Danny WUD
 Author URI: http://wistudat.be/
-Plugin URI: http://wp.wistudat.be/
+Plugin URI: http://wistudat.be/
 Tags: grid, grids, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post grid, image grid, filter, display, list, page, pages, posts, post, query, custom post type
 Requires at least: 3.6
 Tested up to: 4.5
-Stable tag: 1.0.1
-Version: 1.0.1
+Stable tag: 1.0.3
+Version: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: grid-wud
@@ -21,7 +21,7 @@ Domain Path: /languages
 */
 	defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 //==============================================================================//
-$version='1.0.1';
+$version='1.0.3';
 // Store the latest version.
 if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version', $version);}
 //==============================================================================//
@@ -44,15 +44,29 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 	add_filter( 'plugin_action_links', 'grid_wud_action_links', 10, 5 );
 
 	
+// grid-wud style, called from short code
+	function grid_wud_current_style() {
+		global $gwfuncs;
+		if($gwfuncs['grid_wud_my_css']=="grid-wud"){return $todo = 1;}
+		if($gwfuncs['grid_wud_my_css']=="grid-wud-square"){return $todo = 2;}	
+		if($gwfuncs['grid_wud_my_css']=="grid-wud-blocks"){return $todo = 3;}		
+		if($gwfuncs['grid_wud_my_css']=="grid-wud-circle"){return $todo = 4;}		
+		if($gwfuncs['grid_wud_my_css']=="grid-wud-photos"){return $todo = 5;}	
+		if($gwfuncs['grid_wud_my_css']=="grid-wud-horizon"){return $todo = 6;}	
+		if($gwfuncs['grid_wud_my_css']=="grid-wud-mixed"){return $todo = 7;}		
+		else{return $todo = 1;}
+	}
 // grid-wud style
 	function grid_wud_styles() {	
 // Register default Style	
-	 wp_register_style( 'grid_wud_style', plugins_url('css/'.$GLOBALS['gwfuncs']['grid_wud_my_css'].'.css', __FILE__ ), false, '1.0.3' );
-	 wp_enqueue_style( 'grid_wud_style' );	
+	global $gwfuncs;
+	//Use the default style
+	 wp_register_style( 'grid_wud_style', plugins_url('css/grid-wud.css', __FILE__ ), false, '1.0.3' );
+	 wp_enqueue_style( 'grid_wud_style' );		 
 	 wp_register_style( 'grid_wud_style_hover', plugins_url('css/grid-wud-base-hover.css', __FILE__ ), false, '1.0.3' );
-	 if($GLOBALS['gwfuncs']['grid_wud_img_hover']=='1'){wp_enqueue_style( 'grid_wud_style_hover' );}
+	 if($gwfuncs['grid_wud_img_hover']=='1'){wp_enqueue_style( 'grid_wud_style_hover' );}
 	 wp_register_style( 'grid_wud_style_grey', plugins_url('css/grid-wud-base-grey.css', __FILE__ ), false, '1.0.3' );
-	 if($GLOBALS['gwfuncs']['grid_wud_img_grey']=='1'){wp_enqueue_style( 'grid_wud_style_grey' );}	 
+	 if($gwfuncs['grid_wud_img_grey']=='1'){wp_enqueue_style( 'grid_wud_style_grey' );}	 
 // Javascript + extra page (read more page).
 	  wp_enqueue_script('jquery');
 	  wp_register_script('grid_wud_script', plugins_url( 'js/grid-wud.js', __FILE__ ), array('jquery'), '1.0.1', true );
@@ -115,8 +129,9 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 	function grid_wud_funcs(){
 		//Set it global
 		global $gwfuncs;
-		//Remember the settings (output=$GLOBALS['gwfuncs']['grid_wud_my_css'];)
+		//Remember the settings (output=$gwfuncs['grid_wud_my_css'];)
 		$gwfuncs = array(
+			'gwcss' => '0',
 			'grid_wud_my_css' => get_option('grid_wud_my_css'),
 			'grid_wud_cat_bcolor' => get_option('grid_wud_cat_bcolor'),
 			'grid_wud_cat_fcolor' => get_option('grid_wud_cat_fcolor'),
@@ -151,9 +166,9 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
  
 //Include /grid-wud-content.php instead using the Wordpress default: /tag/ or /category/
 	function grid_wud_go_to_my_url(){
-		global $catid, $tagid;
+		global $catid, $tagid, $gwfuncs;
 		//Redirect only if parameter 'grid_wud_show_arch_grid' is set to 1
-		if(($GLOBALS['gwfuncs']['grid_wud_show_arch_grid']==1 && isset( $_GET['g'] ) && !empty( $_GET['g'] ))){
+		if(($gwfuncs['grid_wud_show_arch_grid']==1 && isset( $_GET['g'] ) && !empty( $_GET['g'] ))){
 
 				if( is_category() && (is_archive() || !is_front_page() || !is_home() || !is_single() || !is_singular() )){
 					$catid = get_query_var('cat');

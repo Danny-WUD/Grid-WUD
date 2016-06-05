@@ -18,6 +18,7 @@
 		$cats = trim(filter_var($_POST['grid_wud_cats'], FILTER_SANITIZE_STRING));
 		$ids = unserialize(filter_var($_POST['grid_wud_ids'], FILTER_SANITIZE_STRING));
 		$wud_grid_nr = trim(filter_var($_POST['grid_wud_grid_nr'], FILTER_SANITIZE_STRING));
+		$wud_grid_shape = trim(filter_var($_POST['grid_wud_shape'], FILTER_SANITIZE_STRING));
 		echo wud_grid_wud__more_post();
 		echo '</div>';
 	}
@@ -25,7 +26,7 @@
 
 // Get the 'see more' image
 	function wud_grid_wud__more_post(){
-		global $result, $args, $grid_wud_set_max_grid, $tags, $cats, $ids, $wud_grid_nr ;
+		global $result, $args, $grid_wud_set_max_grid, $tags, $cats, $ids, $wud_grid_nr, $gwfuncs, $wud_grid_shape ;
 
 		
 		//Get the category or tag by name
@@ -33,8 +34,8 @@
 		if (!empty( $cats )){$wud_cat_or_term_name = get_the_category_by_ID($cats );}
 		elseif (!empty( $tags )){$wud_cat_or_term_name = get_term_by('term_id', $tags, 'post_tag')->name;}
 		
-		if (!empty( $cats )){$args = array( 'posts_per_page' => $grid_wud_set_max_grid , 'category' => $cats, 'post__not_in'=>$ids, 'orderby'=> $GLOBALS['gwfuncs']['grid_wud_set_order_grid'], 'order'=> $GLOBALS['gwfuncs']['grid_wud_set_dir_grid'] );}
-		if (!empty( $tags )){$args = array( 'posts_per_page' => $grid_wud_set_max_grid , 'tag_id' => $tags, 'post__not_in'=>$ids, 'orderby'=> $GLOBALS['gwfuncs']['grid_wud_set_order_grid'], 'order'=> $GLOBALS['gwfuncs']['grid_wud_set_dir_grid'] );}
+		if (!empty( $cats )){$args = array( 'posts_per_page' => $grid_wud_set_max_grid , 'category' => $cats, 'post__not_in'=>$ids, 'orderby'=> $gwfuncs['grid_wud_set_order_grid'], 'order'=> $gwfuncs['grid_wud_set_dir_grid'] );}
+		if (!empty( $tags )){$args = array( 'posts_per_page' => $grid_wud_set_max_grid , 'tag_id' => $tags, 'post__not_in'=>$ids, 'orderby'=> $gwfuncs['grid_wud_set_order_grid'], 'order'=> $gwfuncs['grid_wud_set_dir_grid'] );}
 		
 			$myposts = get_posts( $args );
 			if(isset($myposts)){	
@@ -45,7 +46,7 @@
 					//If the real WP excerpt exist (fil in with your own content)
 					if(!empty($post->post_excerpt)){$wud_excerpt = strip_shortcodes ( wp_trim_words ( $post->post_excerpt ) );}
 					//Else we make our own excerpt from the content
-					else{$wud_excerpt = strip_shortcodes ( wp_trim_words ( $post->post_content, $GLOBALS['gwfuncs']['grid_wud_excerpt_words'] ) );}
+					else{$wud_excerpt = strip_shortcodes ( wp_trim_words ( $post->post_content, $gwfuncs['grid_wud_excerpt_words'] ) );}
 						//Remove http and https URLS from the excerpt
 						$pattern = '~http(s)?://[^\s]*~i';
 						$wud_excerpt= preg_replace($pattern, '', $wud_excerpt);					
@@ -88,47 +89,54 @@
 							}
 							
 							// If no images, place empty one
-							if (empty($wud_feat_image)){$wud_feat_image= $GLOBALS['gwfuncs']['grid_wud_def_img'];}
+							if (empty($wud_feat_image)){$wud_feat_image= $gwfuncs['grid_wud_def_img'];}
 							}
 					}
 					
-					$result .= "<!-- Grid WUD Version ".$GLOBALS['gwfuncs']['grid_wud_version']."-->";
+					$result .= "<!-- Grid WUD Version ".$gwfuncs['grid_wud_version']."-->";
 					$result .= "<div class='wud-url'><a href='".$wud_link."' title='' alt=''>";				
-		//-> Wrapper-start
+		
+		if($wud_grid_shape == "4" ){
+			//-> Wrapper-start
+					$result .= "<div class='grid-4-wud-wrapper' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' >";
+			//-> Image-start & end
+					$result .= "<div class='grid-4-wud-image' style='background-image:url(".$wud_feat_image.")'></div>";
+		}
+		else{
+			//-> Wrapper-start
+					$result .= "<div class='grid-wud-wrapper' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' >"; 		
 
-					$result .= "<div class='grid-wud-wrapper' id='grid-wud-wrapper-".$wud_grid_nr."' >";		
-
-		//-> Image-start & end
+			//-> Image-start & end
 						$result .= "<div class='grid-wud-image' style='background-image:url(".$wud_feat_image.")'></div>";	
-
+		
+		
 				$h4font=1;
 				$h4height=1.1;
-				
-				//Parameter hide page/post title
-				if($GLOBALS['gwfuncs']['grid_wud_my_css']<>"grid-wud-circle"){
-
 					//Show the category on the grid
-					if($GLOBALS['gwfuncs']['grid_wud_hide_grid_cat']==0 || !$GLOBALS['gwfuncs']['grid_wud_hide_grid_cat'] || $GLOBALS['gwfuncs']['grid_wud_hide_grid_cat']==''){}
+					if($gwfuncs['grid_wud_hide_grid_cat']==0 || !$gwfuncs['grid_wud_hide_grid_cat'] || $gwfuncs['grid_wud_hide_grid_cat']==''){}
 					else{ //show is value 1
 								$result .= "<div id='grid-wud-h4-top' class='grid-wud-h4' style='font-size:".$h4font."vw; height:".$h4height."vw;'>".$wud_cat_or_term_name."</div>";
-					}
-					
 				}				
-		
+		}
 		//-> The excerpt text
+		if($wud_grid_shape == "4" ){
+			//-> The excerpt text			
+					$result .= "<div class='grid-wud-excerpt-4'><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";			
+		}
+		else{
 				// Show excerpt text
-				if($GLOBALS['gwfuncs']['grid_wud_show_excerpt']=='1'){
+				if($gwfuncs['grid_wud_show_excerpt']=='1'){
 					$result .= "<div class='grid-wud-excerpt'>".$wud_excerpt."</div>";	
 				}
 				// Show excerpt text and title
-				elseif ($GLOBALS['gwfuncs']['grid_wud_show_excerpt']==2 ){
+				elseif ($gwfuncs['grid_wud_show_excerpt']==2 ){
 					$result .= "<div class='grid-wud-excerpt'><b>".$wud_title."</b><br>".$wud_excerpt."</div>";					
 				}
 				// Show allways excerpt text and title
-				elseif ($GLOBALS['gwfuncs']['grid_wud_show_excerpt']==3 ){
+				elseif ($gwfuncs['grid_wud_show_excerpt']==3 ){
 					$result .= "<div class='grid-wud-excerpt-2'><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";						
 				}	
-				
+		}		
 		//-> Wrapper-end
 					$result .= "</div>"; 
 				$result .= "</a></div>";	

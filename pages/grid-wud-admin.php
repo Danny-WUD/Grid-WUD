@@ -247,13 +247,13 @@
 		echo '<i>'.__("Empty = button", "grid-wud").' </i><b>[+]</b> : <input type="text" class="grid-wud-right" name="grid_wud_show_grid_button" value="'.$grid_wud_show_grid_button.'" /><br><br><hr>';
 		
 		echo '<select name="grid_wud_my_css" class="grid-wud-right" >';
-		echo     '<option value="grid-wud"'; if ( $grid_wud_my_css == "grid-wud" ){echo 'selected="selected"';} echo '>Standard</option>';
-		echo     '<option value="grid-wud-square"'; if ( $grid_wud_my_css == "grid-wud-square" ){echo 'selected="selected"';} echo '>Square</option>';
-		echo     '<option value="grid-wud-blocks"'; if ( $grid_wud_my_css == "grid-wud-blocks" ){echo 'selected="selected"';} echo '>Blocks</option>';
-		echo     '<option value="grid-wud-circle"'; if ( $grid_wud_my_css == "grid-wud-circle" ){echo 'selected="selected"';} echo '>Circle</option>';
-		echo     '<option value="grid-wud-photos"'; if ( $grid_wud_my_css == "grid-wud-photos" ){echo 'selected="selected"';} echo '>Photo\'s</option>';
-		echo     '<option value="grid-wud-horizon"'; if ( $grid_wud_my_css == "grid-wud-horizon" ){echo 'selected="selected"';} echo '>Horizon</option>';
-		echo     '<option value="grid-wud-mixed"'; if ( $grid_wud_my_css == "grid-wud-mixed" ){echo 'selected="selected"';} echo '>Mixed</option>';
+		echo     '<option value="grid-wud"'; if ( $grid_wud_my_css == "grid-wud" ){echo 'selected="selected"';} echo '>1 Standard</option>';
+		echo     '<option value="grid-wud-square"'; if ( $grid_wud_my_css == "grid-wud-square" ){echo 'selected="selected"';} echo '>2 Square</option>';
+		echo     '<option value="grid-wud-blocks"'; if ( $grid_wud_my_css == "grid-wud-blocks" ){echo 'selected="selected"';} echo '>3 Blocks</option>';
+		echo     '<option value="grid-wud-circle"'; if ( $grid_wud_my_css == "grid-wud-circle" ){echo 'selected="selected"';} echo '>4 Circle</option>';
+		echo     '<option value="grid-wud-photos"'; if ( $grid_wud_my_css == "grid-wud-photos" ){echo 'selected="selected"';} echo '>5 Photo\'s</option>';
+		echo     '<option value="grid-wud-horizon"'; if ( $grid_wud_my_css == "grid-wud-horizon" ){echo 'selected="selected"';} echo '>6 Horizon</option>';
+		echo     '<option value="grid-wud-mixed"'; if ( $grid_wud_my_css == "grid-wud-mixed" ){echo 'selected="selected"';} echo '>7 Mixed</option>';
 		echo '</select>';		
 		echo '<b class="grid-wud-admin-title">'.__("Lay-out grid/grids", "grid-wud").'</b>';
 		echo '<i>'.__("Choose lay-out", "grid-wud").': </i>';		

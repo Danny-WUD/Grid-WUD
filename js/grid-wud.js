@@ -28,6 +28,7 @@ $(document).ready(function(e)
 		var pcats = document.getElementById("grid_wud_cats").value;
 		var ids = document.getElementById("grid_wud_ids").value;
 		var tnr = document.getElementById("grid_wud_grid_nr").value;
+		var snr = document.getElementById("grid_wud_shape").value;
 		var ptotal = $("#grid_wud_set_max_grid").val();
 		count++;
 		if(count==1)
@@ -39,7 +40,7 @@ $(document).ready(function(e)
 			ptotal = parseInt(ptotal) + parseInt(pmore);
 			document.getElementById("grid_wud_set_max_grid").value = ptotal;	
 		}	
-		var dataString = 'grid_wud_set_max_grid='+ ptotal +'& grid_wud_tags='+ ptags +'& grid_wud_cats='+ pcats +'& grid_wud_ids='+ ids+'& grid_wud_grid_nr='+ tnr;
+		var dataString = 'grid_wud_set_max_grid='+ ptotal +'& grid_wud_tags='+ ptags +'& grid_wud_cats='+ pcats +'& grid_wud_ids='+ ids+'& grid_wud_grid_nr='+ tnr+'& grid_wud_shape='+ snr;
 		
 		/* Load in div grid_wud_result data with structure from grid-wud-xtra*/
 		$.ajax({

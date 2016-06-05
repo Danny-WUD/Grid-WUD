@@ -4,8 +4,8 @@
 	-webkit-filter:grayscale(99%);
 	filter: grayscale(99%);
 }
-
-.grid-wud-wrapper-box > .grid-wud-image{ 
+  
+.grid-4-wud-wrapper > .grid-4-wud-image{ 	
 	filter:gray alpha(opacity=99);
 	-webkit-filter:grayscale(99%);
 	filter: grayscale(99%);

@@ -11,7 +11,7 @@
 	transform-origin: center left;
 }
 
-.grid-wud-wrapper-box:hover > .grid-wud-image{ 
+.grid-4-wud-wrapper:hover > .grid-4-wud-image{ 
     -moz-transform: scale(1.02);
     -ms-transform: scale(1.02);
     -webkit-transform: scale(1.02);
