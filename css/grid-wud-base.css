@@ -274,6 +274,22 @@
 		max-height: 25% !important;
 		z-index: 30;
 	}	
+
+/* Smaller than Tablet */
+@media screen and (max-width: 767px) {	
+.grid-4-wud-wrapper{
+	width: 100% !important;
+	height: 0;	
+	padding-bottom: 100% !important;
+	margin: 0.5%;
+}
+
+.grid-wud-excerpt-4 {
+	padding: 2% 1% 2% 1%;
+	font-size:240% !important;
+	max-height: 40% !important;	
+}
+}	
 /*_________________________	
   END DIFFERENT FROM BASE 
   _________________________*/

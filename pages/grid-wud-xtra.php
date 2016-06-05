@@ -52,6 +52,12 @@
 						$wud_excerpt= preg_replace($pattern, '', $wud_excerpt);					
 				$wud_feat_image = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),'large'); 
 				$wud_feat_image=$wud_feat_image[0];
+								
+				//START EXTRA USER INPUTS
+				if ( function_exists( 'uses_nelioefi' ) &&
+				uses_nelioefi( $post->ID ) ) {  $wud_feat_image = array( nelioefi_get_thumbnail_src( $post->ID ) );}
+				//END EXTRA USER INPUT
+				
 					if (empty($wud_feat_image)){
 						$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches); 
 						$wud_feat_img = $matches [1];

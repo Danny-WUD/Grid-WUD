@@ -167,9 +167,18 @@ function grid_wud_comm( $atts ) {
 						$wud_excerpt= preg_replace($pattern, '', $wud_excerpt);
 				}
 
+				
 				// Parameter set featured image as primary
 				if($gwfuncs['grid_wud_set_featured_img']=='1'){$wud_feat_image = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),'large');}
 				$wud_feat_image=$wud_feat_image[0];
+				
+		//START EXTRA USER INPUTS
+				if($gwfuncs['grid_wud_set_featured_img']=='1'){
+				if ( function_exists( 'uses_nelioefi' ) &&
+				uses_nelioefi( $post->ID ) ) {  $wud_feat_image = array( nelioefi_get_thumbnail_src( $post->ID ) );}
+				}
+		//END EXTRA USER INPUT
+				
 				// If no featured image, try first post image
 				if (empty($wud_feat_image)){
 					$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches); 

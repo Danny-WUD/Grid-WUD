@@ -22,7 +22,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 * Guaranteed 100% responsive grids and design!
 * Included: **Posts** , **gallery** , **custom post type** , **Vimeo or YouTube images**! 
 * Use shortcode: [gridwud slug="cat_or_tag"] where "cat_or_tag" is the slug from the category or tag you want.
-* NEW: different lay-outs possible on the same post/ pages with extra short code shape="x" where x is the number of the shape.
+* **NEW**: different lay-outs possible on the same post/ pages with extra short code shape="x" where x is the number of the shape.
+* More info [here](http://wp.wistudat.be/grid-wud-how-to-use/) in our online manual.
 
 = About GRID WUD =
 
@@ -82,7 +83,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 = 1.0.3 =
 * CSS responsive code optimized to switch lay-outs.
 * Use different grid lay-outs on 1 page/post with shortcode shape="x" where x is the lay-out number.
-
+* Custom code added upon request, read [here](https://wordpress.org/support/topic/it-works-with-external-featured-images#post-8486919).
 
 = 1.0.2 =
 * Prepare Multilanguage.
