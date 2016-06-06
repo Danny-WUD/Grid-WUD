@@ -95,18 +95,16 @@ get_header(); ?>
 					else{$wud_excerpt = strip_shortcodes ( wp_trim_words ( $post->post_content, $gwfuncs['grid_wud_excerpt_words'] ) );}
 						//Remove http and https URLS from the excerpt
 						$pattern = '~http(s)?://[^\s]*~i';
-						$wud_excerpt= preg_replace($pattern, '', $wud_excerpt);						
-				if($gwfuncs['grid_wud_set_featured_img']=='1'){$wud_feat_image = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),'large');} 
-				$wud_feat_image=$wud_feat_image[0];
-												
+						$wud_excerpt= preg_replace($pattern, '', $wud_excerpt);								
+				// Parameter set featured image as primary
+				if($gwfuncs['grid_wud_set_featured_img']=='1'){$wud_feat_image = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),'large');
 				//START EXTRA USER INPUTS
-				if($gwfuncs['grid_wud_set_featured_img']=='1'){
-				if ( function_exists( 'uses_nelioefi' ) &&
-				uses_nelioefi( $post->ID ) ) {  $wud_feat_image = array( nelioefi_get_thumbnail_src( $post->ID ) );}
+					if ( function_exists( 'uses_nelioefi' ) && 	uses_nelioefi( $post->ID ) ) 
+					{  $wud_feat_image = array( nelioefi_get_thumbnail_src( $post->ID ) );}
+				//END EXTRA USER INPUT	
+				$wud_feat_image=$wud_feat_image[0];				
 				}
-				//END EXTRA USER INPUT
-				
-								
+											
 					if (empty($wud_feat_image)){
 						$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches); 
 						$wud_feat_img = $matches [1];

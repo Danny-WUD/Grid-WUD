@@ -50,13 +50,12 @@
 						//Remove http and https URLS from the excerpt
 						$pattern = '~http(s)?://[^\s]*~i';
 						$wud_excerpt= preg_replace($pattern, '', $wud_excerpt);					
-				$wud_feat_image = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),'large'); 
-				$wud_feat_image=$wud_feat_image[0];
-								
+				$wud_feat_image = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),'large'); 						
 				//START EXTRA USER INPUTS
-				if ( function_exists( 'uses_nelioefi' ) &&
-				uses_nelioefi( $post->ID ) ) {  $wud_feat_image = array( nelioefi_get_thumbnail_src( $post->ID ) );}
+					if ( function_exists( 'uses_nelioefi' ) && 	uses_nelioefi( $post->ID ) ) 
+					{  $wud_feat_image = array( nelioefi_get_thumbnail_src( $post->ID ) );}
 				//END EXTRA USER INPUT
+				$wud_feat_image=$wud_feat_image[0];	
 				
 					if (empty($wud_feat_image)){
 						$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches); 
