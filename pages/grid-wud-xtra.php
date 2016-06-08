@@ -109,7 +109,7 @@
 		}
 		else{
 			//-> Wrapper-start
-					$result .= "<div class='grid-wud-wrapper' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' >"; 		
+					$result .= "<div class='grid-wud-wrapper' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' style='border-radius:".$gwfuncs['grid_wud_round_img']."px; z-index:1;' >"; 		
 
 			//-> Image-start & end
 						$result .= "<div class='grid-wud-image' style='background-image:url(".$wud_feat_image.")'></div>";	
@@ -131,15 +131,15 @@
 		else{
 				// Show excerpt text
 				if($gwfuncs['grid_wud_show_excerpt']=='1'){
-					$result .= "<div class='grid-wud-excerpt'>".$wud_excerpt."</div>";	
+					$result .= "<div class='grid-wud-excerpt' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;'>".$wud_excerpt."</div>";	
 				}
 				// Show excerpt text and title
 				elseif ($gwfuncs['grid_wud_show_excerpt']==2 ){
-					$result .= "<div class='grid-wud-excerpt'><b>".$wud_title."</b><br>".$wud_excerpt."</div>";					
+					$result .= "<div class='grid-wud-excerpt' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;'><b>".$wud_title."</b><br>".$wud_excerpt."</div>";					
 				}
 				// Show allways excerpt text and title
 				elseif ($gwfuncs['grid_wud_show_excerpt']==3 ){
-					$result .= "<div class='grid-wud-excerpt-2'><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";						
+					$result .= "<div class='grid-wud-excerpt-2' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;'><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";						
 				}	
 		}		
 		//-> Wrapper-end

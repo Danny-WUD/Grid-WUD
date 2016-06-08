@@ -10,8 +10,8 @@ Plugin URI: http://wistudat.be/
 Tags: grid, grids, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post grid, image grid, filter, display, list, page, pages, posts, post, query, custom post type
 Requires at least: 3.6
 Tested up to: 4.5
-Stable tag: 1.0.4
-Version: 1.0.4
+Stable tag: 1.0.5
+Version: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,11 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 == Changelog ==
+= 1.0.5 =
+* Possibility of placing rounded corners around the grids or buttons.
+* Parameter to determine size of the rounded corners.
+* Font family selection (10) for the header, excerpt and/or button. [on request](https://wordpress.org/support/topic/it-works-with-external-featured-images#post-8494039).
+
 = 1.0.4 =
 * FIX: Correction on custom code, where nothing was displayed.
 

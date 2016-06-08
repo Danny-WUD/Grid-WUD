@@ -12,8 +12,8 @@ Plugin URI: http://wistudat.be/
 Tags: grid, grids, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post grid, image grid, filter, display, list, page, pages, posts, post, query, custom post type
 Requires at least: 3.6
 Tested up to: 4.5
-Stable tag: 1.0.4
-Version: 1.0.4
+Stable tag: 1.0.5
+Version: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: grid-wud
@@ -21,7 +21,7 @@ Domain Path: /languages
 */
 	defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 //==============================================================================//
-$version='1.0.4';
+$version='1.0.5';
 // Store the latest version.
 if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version', $version);}
 //==============================================================================//
@@ -36,6 +36,7 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 	add_action( 'plugins_loaded', 'grid_wud_admin' );
 	add_action( 'plugins_loaded', 'grid_wud_base' );
 	add_action( 'template_redirect', 'grid_wud_go_to_my_url');
+	add_action( 'init', 'grid_wud_update' );
 	add_action( 'init', 'grid_wud_funcs' );
 	register_activation_hook( __FILE__, 'grid_wud_activate' );
 	//Admin
@@ -125,11 +126,21 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 //Load base grid page
 	function grid_wud_base() {require_once( GRID_WUD_DIR . '/pages/grid-wud-base.php' );}
 
+// New fields from version 1.0.5 on
+	function grid_wud_update(){
+		if (get_option('grid_wud_round_img')=='') {update_option('grid_wud_round_img', 0);}
+		if (get_option('grid_wud_round_button')=='') {update_option('grid_wud_round_button', 0);}
+		if (get_option('grid_wud_font_header')=='') {update_option('grid_wud_font_header', 'inherit');}
+		if (get_option('grid_wud_font_excerpt')=='') {update_option('grid_wud_font_excerpt', 'inherit');}
+		if (get_option('grid_wud_font_button')=='') {update_option('grid_wud_font_button', 'inherit');}
+	}
+	
 //Declare once all Grid WUD settings 	
 	function grid_wud_funcs(){
 		//Set it global
 		global $gwfuncs;
 		//Remember the settings (output=$gwfuncs['grid_wud_my_css'];)
+		//gwcss is used to switch the grid style
 		$gwfuncs = array(
 			'gwcss' => '0',
 			'grid_wud_my_css' => get_option('grid_wud_my_css'),
@@ -158,7 +169,12 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 			'grid_wud_cpt02' => get_option('grid_wud_cpt02'),
 			'grid_wud_def_img' => get_option('grid_wud_def_img'),
 			'grid_wud_img_hover' => get_option('grid_wud_img_hover'),
-			'grid_wud_img_grey' => get_option('grid_wud_img_grey')
+			'grid_wud_img_grey' => get_option('grid_wud_img_grey'),
+			'grid_wud_round_img' => get_option('grid_wud_round_img'),
+			'grid_wud_round_button' => get_option('grid_wud_round_button'),
+			'grid_wud_font_header' => get_option('grid_wud_font_header'),
+			'grid_wud_font_excerpt' => get_option('grid_wud_font_excerpt'),
+			'grid_wud_font_button' => get_option('grid_wud_font_button')
 			);
 			return $gwfuncs;
 		}
@@ -218,6 +234,11 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 		if (get_option('grid_wud_def_img')=='') {update_option('grid_wud_def_img', plugins_url('images/empty-grid.png', __FILE__ ));}
 		if (get_option('grid_wud_img_hover')=='') {update_option('grid_wud_img_hover', 1);}
 		if (get_option('grid_wud_img_grey')=='') {update_option('grid_wud_img_grey', 1);}
+		if (get_option('grid_wud_round_img')=='') {update_option('grid_wud_round_img', 0);}
+		if (get_option('grid_wud_round_button')=='') {update_option('grid_wud_round_button', 0);}
+		if (get_option('grid_wud_font_header')=='') {update_option('grid_wud_font_header', 'inherit');}
+		if (get_option('grid_wud_font_excerpt')=='') {update_option('grid_wud_font_excerpt', 'inherit');}
+		if (get_option('grid_wud_font_button')=='') {update_option('grid_wud_font_button', 'inherit');}
 	}
 	
 ?>

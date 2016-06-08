@@ -6,7 +6,8 @@
  */
 	defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 // ************** OPTIONS PAGE ********************
-	function grid_wud_options_notice() {	
+	function grid_wud_options_notice() {
+	global $gwfuncs;
 		echo '<div class="grid-wud-admin-table">';
 		echo '<h2 class="grid-wud-admin-h2">'.__("Grid WUD Options", "grid-wud").' - '.__("More than just grid", "grid-wud").'!</h2>';
 		echo '<img src="' . plugins_url( '../images/logo-grid-wud.png', __FILE__ ) . '">';
@@ -17,7 +18,7 @@
 	if ( isset($_POST['wud_opt_hidden']) && $_POST['wud_opt_hidden'] == 'Y' ) {
 			
 		// CSS choice $grid_wud_my_css = get_option('grid_wud_my_css');
-		$grid_wud_my_css = $_POST['grid_wud_my_css'];
+		$grid_wud_my_css = filter_var($_POST['grid_wud_my_css'], FILTER_SANITIZE_STRING);
 		update_option('grid_wud_my_css', $grid_wud_my_css);
 		
 		//Button back 		
@@ -127,6 +128,27 @@
 		if(empty($grid_wud_def_img)){$grid_wud_def_img=WUD_GRID_URL.'/images/empty-grid.png';}
 		update_option('grid_wud_def_img', sanitize_text_field($grid_wud_def_img));
 
+		//Round border images
+		$grid_wud_round_img = filter_var($_POST['grid_wud_round_img'], FILTER_SANITIZE_STRING);
+		if($grid_wud_round_img==''){$grid_wud_round_img='0';}
+		update_option('grid_wud_round_img', ($grid_wud_round_img));
+
+		//Round border buttons
+		$grid_wud_round_button = filter_var($_POST['grid_wud_round_button'], FILTER_SANITIZE_STRING);
+		if($grid_wud_round_button==''){$grid_wud_round_button='0';}
+		update_option('grid_wud_round_button', ($grid_wud_round_button));
+
+		// Font header
+		$grid_wud_font_header = filter_var($_POST['grid_wud_font_header'], FILTER_SANITIZE_STRING);
+		update_option('grid_wud_font_header', $grid_wud_font_header);
+
+		// Font excerpt
+		$grid_wud_font_excerpt = filter_var($_POST['grid_wud_font_excerpt'], FILTER_SANITIZE_STRING);
+		update_option('grid_wud_font_excerpt', $grid_wud_font_excerpt);
+
+		// Font button
+		$grid_wud_font_button = filter_var($_POST['grid_wud_font_button'], FILTER_SANITIZE_STRING);
+		update_option('grid_wud_font_button', $grid_wud_font_button);
 		
 		if( empty($error) ){
 		echo '<div class="updated"><p><strong>'.__("Settings saved", "grid-wud").'</strong></p></div>';
@@ -142,32 +164,37 @@
 	else {
 		
 		//If read the first time when opening this page, declare variables
-		$grid_wud_my_css = $GLOBALS['gwfuncs']['grid_wud_my_css'];
-		$grid_wud_cat_bcolor = $GLOBALS['gwfuncs']['grid_wud_cat_bcolor'];
-		$grid_wud_cat_fcolor = $GLOBALS['gwfuncs']['grid_wud_cat_fcolor'];
-		$grid_wud_h1_font_size = ($GLOBALS['gwfuncs']['grid_wud_h1_font_size']*10);
-		$grid_wud_set_featured_img = $GLOBALS['gwfuncs']['grid_wud_set_featured_img'];
-		$grid_wud_set_max_grid = $GLOBALS['gwfuncs']['grid_wud_set_max_grid'];
-		$grid_wud_set_more_grid = $GLOBALS['gwfuncs']['grid_wud_set_more_grid'];
-		$grid_wud_hide_cat_tag_header = $GLOBALS['gwfuncs']['grid_wud_hide_cat_tag_header'];
-		$grid_wud_hide_grid_cat = $GLOBALS['gwfuncs']['grid_wud_hide_grid_cat'];	
-		$grid_wud_show_excerpt = $GLOBALS['gwfuncs']['grid_wud_show_excerpt'];
-		$grid_wud_show_arch_button = $GLOBALS['gwfuncs']['grid_wud_show_arch_button'];
-		$grid_wud_show_grid_button = $GLOBALS['gwfuncs']['grid_wud_show_grid_button'];
-		$grid_wud_show_arch_grid = $GLOBALS['gwfuncs']['grid_wud_show_arch_grid'];
-		$grid_wud_set_order_grid = $GLOBALS['gwfuncs']['grid_wud_set_order_grid'];
-		$grid_wud_set_dir_grid = $GLOBALS['gwfuncs']['grid_wud_set_dir_grid'];
-		$grid_wud_but_bcolor = $GLOBALS['gwfuncs']['grid_wud_but_bcolor'];
-		$grid_wud_but_fcolor = $GLOBALS['gwfuncs']['grid_wud_but_fcolor'];
-		$grid_wud_but_font_size = ($GLOBALS['gwfuncs']['grid_wud_but_font_size']*10);
-		$grid_wud_excerpt_words = $GLOBALS['gwfuncs']['grid_wud_excerpt_words'];
-		$grid_wud_skip_post = $GLOBALS['gwfuncs']['grid_wud_skip_post'];
-		$grid_wud_fade_in = $GLOBALS['gwfuncs']['grid_wud_fade_in'];
-		$grid_wud_cpt01 = $GLOBALS['gwfuncs']['grid_wud_cpt01'];
-		$grid_wud_cpt02 = $GLOBALS['gwfuncs']['grid_wud_cpt02'];
-		$grid_wud_def_img = $GLOBALS['gwfuncs']['grid_wud_def_img'];
-		$grid_wud_img_hover = $GLOBALS['gwfuncs']['grid_wud_img_hover'];
-		$grid_wud_img_grey = $GLOBALS['gwfuncs']['grid_wud_img_grey'];
+		$grid_wud_my_css = $gwfuncs['grid_wud_my_css'];
+		$grid_wud_cat_bcolor = $gwfuncs['grid_wud_cat_bcolor'];
+		$grid_wud_cat_fcolor = $gwfuncs['grid_wud_cat_fcolor'];
+		$grid_wud_h1_font_size = ($gwfuncs['grid_wud_h1_font_size']*10);
+		$grid_wud_set_featured_img = $gwfuncs['grid_wud_set_featured_img'];
+		$grid_wud_set_max_grid = $gwfuncs['grid_wud_set_max_grid'];
+		$grid_wud_set_more_grid = $gwfuncs['grid_wud_set_more_grid'];
+		$grid_wud_hide_cat_tag_header = $gwfuncs['grid_wud_hide_cat_tag_header'];
+		$grid_wud_hide_grid_cat = $gwfuncs['grid_wud_hide_grid_cat'];	
+		$grid_wud_show_excerpt = $gwfuncs['grid_wud_show_excerpt'];
+		$grid_wud_show_arch_button = $gwfuncs['grid_wud_show_arch_button'];
+		$grid_wud_show_grid_button = $gwfuncs['grid_wud_show_grid_button'];
+		$grid_wud_show_arch_grid = $gwfuncs['grid_wud_show_arch_grid'];
+		$grid_wud_set_order_grid = $gwfuncs['grid_wud_set_order_grid'];
+		$grid_wud_set_dir_grid = $gwfuncs['grid_wud_set_dir_grid'];
+		$grid_wud_but_bcolor = $gwfuncs['grid_wud_but_bcolor'];
+		$grid_wud_but_fcolor = $gwfuncs['grid_wud_but_fcolor'];
+		$grid_wud_but_font_size = ($gwfuncs['grid_wud_but_font_size']*10);
+		$grid_wud_excerpt_words = $gwfuncs['grid_wud_excerpt_words'];
+		$grid_wud_skip_post = $gwfuncs['grid_wud_skip_post'];
+		$grid_wud_fade_in = $gwfuncs['grid_wud_fade_in'];
+		$grid_wud_cpt01 = $gwfuncs['grid_wud_cpt01'];
+		$grid_wud_cpt02 = $gwfuncs['grid_wud_cpt02'];
+		$grid_wud_def_img = $gwfuncs['grid_wud_def_img'];
+		$grid_wud_img_hover = $gwfuncs['grid_wud_img_hover'];
+		$grid_wud_img_grey = $gwfuncs['grid_wud_img_grey'];
+		$grid_wud_round_img = $gwfuncs['grid_wud_round_img'];
+		$grid_wud_round_button = $gwfuncs['grid_wud_round_button'];
+		$grid_wud_font_header = $gwfuncs['grid_wud_font_header'];
+		$grid_wud_font_excerpt = $gwfuncs['grid_wud_font_excerpt'];
+		$grid_wud_font_button = $gwfuncs['grid_wud_font_button'];
 	}
 
 //LEFT ADMIN 
@@ -188,6 +215,23 @@
 		<dt><label for="wud_sizer1"></label></dt>
 		<dd><input class="grid-wud-right" id="wud_sizer1" type="range" min="12" max="34" step="1" value="'.$grid_wud_h1_font_size.'" name="grid_wud_h1_font_size" onchange="wud_box1.value = wud_sizer1.value" oninput="wud_box1.value = wud_sizer1.value" /></dd></dl><br>';
 	
+		echo '<select name="grid_wud_font_header" class="grid-wud-right" >';
+		echo     '<option value="inherit"'; if ( $grid_wud_font_header == "inherit" ){echo 'selected="selected"';} echo '>Inherit</option>';
+		echo     '<option value="initial"'; if ( $grid_wud_font_header == "initial" ){echo 'selected="selected"';} echo '>Initial</option>';
+		echo     '<option value="Arial"'; if ( $grid_wud_font_header == "Arial" ){echo 'selected="selected"';} echo '>Arial</option>';
+		echo     '<option value="Times New Roman"'; if ( $grid_wud_font_header == "Times New Roman" ){echo 'selected="selected"';} echo '>Times New Roman</option>';
+		echo     '<option value="Georgia"'; if ( $grid_wud_font_header == "Georgia" ){echo 'selected="selected"';} echo '>Georgia</option>';
+		echo     '<option value="Serif"'; if ( $grid_wud_font_header == "Serif" ){echo 'selected="selected"';} echo '>Serif</option>';
+		echo     '<option value="Helvetica"'; if ( $grid_wud_font_header == "Helvetica" ){echo 'selected="selected"';} echo '>Helvetica</option>';
+		echo     '<option value="Lucida Sans Unicode"'; if ( $grid_wud_font_header == "Lucida Sans Unicode" ){echo 'selected="selected"';} echo '>Lucida Sans Unicode</option>';
+		echo     '<option value="Tahoma"'; if ( $grid_wud_font_header == "Tahoma" ){echo 'selected="selected"';} echo '>Tahoma</option>';
+		echo     '<option value="Verdana"'; if ( $grid_wud_font_header == "Verdana" ){echo 'selected="selected"';} echo '>Verdana</option>';
+		echo     '<option value="Courier New"'; if ( $grid_wud_font_header == "Courier New" ){echo 'selected="selected"';} echo '>Courier New</option>';
+		echo     '<option value="Lucida Console"'; if ( $grid_wud_font_header == "Lucida Console" ){echo 'selected="selected"';} echo '>Lucida Console</option>';
+		echo '</select>';		
+		echo '<i class="grid-wud-admin-title">'.__("Font Family", "grid-wud").'</i>';	
+		echo '<br><br>';
+		
 		echo '<i>'.__("Hide", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_hide_cat_tag_header" type="checkbox" value="1" '. checked( $grid_wud_hide_cat_tag_header, "1", false ) .'/><br><hr>';
 
 		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("If selected the Category/Tag is visible in the right top grid corner.", "grid-wud").'</div></div>';
@@ -201,7 +245,12 @@
 		echo '<i>'.__("Zoom the grid image on hoover", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_img_hover" type="checkbox" value="1" '. checked( $grid_wud_img_hover, "1", false ) .'/><br><br>';
 			
 		echo '<b class="grid-wud-admin-title">'.__("Grey images", "grid-wud").'</b>';
-		echo '<i>'.__("Show the grid in grey and on hover in colors", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_img_grey" type="checkbox" value="1" '. checked( $grid_wud_img_grey, "1", false ) .'/><br><hr>';
+		echo '<i>'.__("Show the grid in grey and on hover in colors", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_img_grey" type="checkbox" value="1" '. checked( $grid_wud_img_grey, "1", false ) .'/><br><br>';
+
+		echo '<dl><dt><label for="wud_box7">'.__("Round corners", "grid-wud").'</label>&nbsp;&nbsp;</dt>
+		<dd><input size="2" id="wud_box7" type="text" style="font-weight:bolder;" value="'.$grid_wud_round_img.'" readonly/></dd>
+		<dt><label for="wud_sizer7"></label></dt>
+		<dd><input class="grid-wud-right" id="wud_sizer7" type="range" min="0" max="20" step="1" value="'.$grid_wud_round_img.'" name="grid_wud_round_img" onchange="wud_box7.value = wud_sizer7.value" oninput="wud_box7.value = wud_sizer7.value" /></dd></dl><hr>';
 		
 		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("If no image was found, use this pre-defined image.<br>You can select any image from the media library, or use the default one.", "grid-wud").'</div></div>';
 		echo '<b class="grid-wud-admin-title">'.__("Default grid image", "grid-wud").'</b><br>';
@@ -237,14 +286,36 @@
 		<dd><input size="2" id="wud_box3" type="text" style="font-weight:bolder;" value="'.$grid_wud_but_font_size.'" readonly/></dd>
 		<dt><label for="wud_sizer3"></label></dt>
 		<dd><input class="grid-wud-right" id="wud_sizer3" type="range" min="10" max="30" step="1" value="'.$grid_wud_but_font_size.'" name="grid_wud_but_font_size" onchange="wud_box3.value = wud_sizer3.value" oninput="wud_box3.value = wud_sizer3.value" /></dd></dl><br>';
-				
+	
+		echo '<select name="grid_wud_font_button" class="grid-wud-right" >';
+		echo     '<option value="inherit"'; if ( $grid_wud_font_button == "inherit" ){echo 'selected="selected"';} echo '>Inherit</option>';
+		echo     '<option value="initial"'; if ( $grid_wud_font_button == "initial" ){echo 'selected="selected"';} echo '>Initial</option>';
+		echo     '<option value="Arial"'; if ( $grid_wud_font_button == "Arial" ){echo 'selected="selected"';} echo '>Arial</option>';
+		echo     '<option value="Times New Roman"'; if ( $grid_wud_font_button == "Times New Roman" ){echo 'selected="selected"';} echo '>Times New Roman</option>';
+		echo     '<option value="Georgia"'; if ( $grid_wud_font_button == "Georgia" ){echo 'selected="selected"';} echo '>Georgia</option>';
+		echo     '<option value="Serif"'; if ( $grid_wud_font_button == "Serif" ){echo 'selected="selected"';} echo '>Serif</option>';
+		echo     '<option value="Helvetica"'; if ( $grid_wud_font_button == "Helvetica" ){echo 'selected="selected"';} echo '>Helvetica</option>';
+		echo     '<option value="Lucida Sans Unicode"'; if ( $grid_wud_font_button == "Lucida Sans Unicode" ){echo 'selected="selected"';} echo '>Lucida Sans Unicode</option>';
+		echo     '<option value="Tahoma"'; if ( $grid_wud_font_button == "Tahoma" ){echo 'selected="selected"';} echo '>Tahoma</option>';
+		echo     '<option value="Verdana"'; if ( $grid_wud_font_button == "Verdana" ){echo 'selected="selected"';} echo '>Verdana</option>';
+		echo     '<option value="Courier New"'; if ( $grid_wud_font_button == "Courier New" ){echo 'selected="selected"';} echo '>Courier New</option>';
+		echo     '<option value="Lucida Console"'; if ( $grid_wud_font_button == "Lucida Console" ){echo 'selected="selected"';} echo '>Lucida Console</option>';
+		echo '</select>';		
+		echo '<i class="grid-wud-admin-title">'.__("Font Family", "grid-wud").'</i>';	
+		echo '<br><br>';
+						
 		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Text for the read more button on archive, category, tags pages.<br>If empty we show a [+] sign, otherwise the text you entered here. ", "grid-wud").'</div></div>';
 		echo '<b class="grid-wud-admin-title">'.__("Archive: read more button or text", "grid-wud").'</b><br>';
 		echo '<i>'.__("Empty = button", "grid-wud").' </i><b>[+]</b>  : <input type="text" class="grid-wud-right" name="grid_wud_show_arch_button" value="'.$grid_wud_show_arch_button.'" /><br><br><br>';
 
 		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Text for the read more button on pages containing our short code.<br>If empty we show a [+] sign, otherwise the text you entered here. ", "grid-wud").'</div></div>';
 		echo '<b class="grid-wud-admin-title">'.__("grid: read more button or text", "grid-wud").'</b><br>';
-		echo '<i>'.__("Empty = button", "grid-wud").' </i><b>[+]</b> : <input type="text" class="grid-wud-right" name="grid_wud_show_grid_button" value="'.$grid_wud_show_grid_button.'" /><br><br><hr>';
+		echo '<i>'.__("Empty = button", "grid-wud").' </i><b>[+]</b> : <input type="text" class="grid-wud-right" name="grid_wud_show_grid_button" value="'.$grid_wud_show_grid_button.'" /><br><br><br>';
+
+		echo '<dl><dt><label for="wud_box8">'.__("Round corners", "grid-wud").'</label>&nbsp;&nbsp;</dt>
+		<dd><input size="2" id="wud_box8" type="text" style="font-weight:bolder;" value="'.$grid_wud_round_button.'" readonly/></dd>
+		<dt><label for="wud_sizer8"></label></dt>
+		<dd><input class="grid-wud-right" id="wud_sizer8" type="range" min="0" max="20" step="1" value="'.$grid_wud_round_button.'" name="grid_wud_round_button" onchange="wud_box8.value = wud_sizer8.value" oninput="wud_box8.value = wud_sizer8.value" /></dd></dl><hr>';
 		
 		echo '<select name="grid_wud_my_css" class="grid-wud-right" >';
 		echo     '<option value="grid-wud"'; if ( $grid_wud_my_css == "grid-wud" ){echo 'selected="selected"';} echo '>1 Standard</option>';
@@ -318,7 +389,24 @@
 		echo '<b class="grid-wud-admin-title">'.__("Fade in grid", "grid-wud").'</b><br>';
 		echo '<i>'.__("Active", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_fade_in" type="checkbox" value="1" '. checked( $grid_wud_fade_in, "1", false ) .'/><br>';
 
-		
+	
+		echo '<select name="grid_wud_font_excerpt" class="grid-wud-right" >';
+		echo     '<option value="inherit"'; if ( $grid_wud_font_excerpt == "inherit" ){echo 'selected="selected"';} echo '>Inherit</option>';
+		echo     '<option value="initial"'; if ( $grid_wud_font_excerpt == "initial" ){echo 'selected="selected"';} echo '>Initial</option>';
+		echo     '<option value="Arial"'; if ( $grid_wud_font_excerpt == "Arial" ){echo 'selected="selected"';} echo '>Arial</option>';
+		echo     '<option value="Times New Roman"'; if ( $grid_wud_font_excerpt == "Times New Roman" ){echo 'selected="selected"';} echo '>Times New Roman</option>';
+		echo     '<option value="Georgia"'; if ( $grid_wud_font_excerpt == "Georgia" ){echo 'selected="selected"';} echo '>Georgia</option>';
+		echo     '<option value="Serif"'; if ( $grid_wud_font_excerpt == "Serif" ){echo 'selected="selected"';} echo '>Serif</option>';
+		echo     '<option value="Helvetica"'; if ( $grid_wud_font_excerpt == "Helvetica" ){echo 'selected="selected"';} echo '>Helvetica</option>';
+		echo     '<option value="Lucida Sans Unicode"'; if ( $grid_wud_font_excerpt == "Lucida Sans Unicode" ){echo 'selected="selected"';} echo '>Lucida Sans Unicode</option>';
+		echo     '<option value="Tahoma"'; if ( $grid_wud_font_excerpt == "Tahoma" ){echo 'selected="selected"';} echo '>Tahoma</option>';
+		echo     '<option value="Verdana"'; if ( $grid_wud_font_excerpt == "Verdana" ){echo 'selected="selected"';} echo '>Verdana</option>';
+		echo     '<option value="Courier New"'; if ( $grid_wud_font_excerpt == "Courier New" ){echo 'selected="selected"';} echo '>Courier New</option>';
+		echo     '<option value="Lucida Console"'; if ( $grid_wud_font_excerpt == "Lucida Console" ){echo 'selected="selected"';} echo '>Lucida Console</option>';
+		echo '</select>';		
+		echo '<i class="grid-wud-admin-title">'.__("Font Family", "grid-wud").'</i>';	
+		echo '<br><br>';
+				
 		echo '</div><div class="clear"></div>';
 		echo '<div><br>';	
 		echo '<input type="submit" name="Submit" class="button-primary" id="grid-wud-adm-subm" value="'.__("Save Changes", "grid-wud").'" />';
