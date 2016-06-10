@@ -378,6 +378,7 @@
 		echo     '<option value="1"'; if ( $grid_wud_show_excerpt == "1" ){echo 'selected="selected"';} echo '>'.__("Without title", "grid-wud").'</option>';
 		echo     '<option value="2"'; if ( $grid_wud_show_excerpt == "2" ){echo 'selected="selected"';} echo '>'.__("With title", "grid-wud").'</option>';
 		echo     '<option value="3"'; if ( $grid_wud_show_excerpt == "3" ){echo 'selected="selected"';} echo '>'.__("Show always", "grid-wud").'</option>';
+		echo     '<option value="4"'; if ( $grid_wud_show_excerpt == "4" ){echo 'selected="selected"';} echo '>'.__("Title Only", "grid-wud").'</option>';
 		echo '</select>';		
 		echo '<b class="grid-wud-admin-title">'.__("The excerpt", "grid-wud").'</b>';
 		echo '<i>'.__("Show/Hide ...", "grid-wud").': </i>';	

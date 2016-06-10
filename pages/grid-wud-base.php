@@ -157,7 +157,7 @@ function grid_wud_comm( $atts ) {
 				$post_title = str_replace("'", " ", $post->post_title);
 				
 				// WP excerpt
-				if($gwfuncs['grid_wud_show_excerpt']=='1' || $gwfuncs['grid_wud_show_excerpt']=='2' || $gwfuncs['grid_wud_show_excerpt']=='3'){
+				if($gwfuncs['grid_wud_show_excerpt']=='1' || $gwfuncs['grid_wud_show_excerpt']=='2' || $gwfuncs['grid_wud_show_excerpt']=='3' || $gwfuncs['grid_wud_show_excerpt']=='4'){
 					//If the real WP excerpt exist (fil in with your own content)
 					if(!empty($post->post_excerpt)){$wud_excerpt = strip_shortcodes ( wp_trim_words ( $post->post_excerpt ) );}
 					//Else we make our own excerpt from the content
@@ -258,6 +258,10 @@ function grid_wud_comm( $atts ) {
 				// Show excerpt text and title
 				elseif ($gwfuncs['grid_wud_show_excerpt']==3 ){
 					$result .= "<div class='grid-wud-excerpt-2' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;'><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";						
+				}
+				// Show excerpt text and title
+				elseif ($gwfuncs['grid_wud_show_excerpt']==4 ){
+					$result .= "<div class='grid-wud-excerpt-2' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;'><b>".$post->post_title."</b></div>";						
 				}				
 		}
 

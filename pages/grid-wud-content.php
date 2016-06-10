@@ -185,7 +185,11 @@ get_header(); ?>
 				// Show excerpt text and title
 				elseif ($gwfuncs['grid_wud_show_excerpt']==3 ){
 					$result .= "<div class='grid-wud-excerpt-2' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;'><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";						
-				}	
+				}
+				// Show excerpt text and title
+				elseif ($gwfuncs['grid_wud_show_excerpt']==4 ){
+					$result .= "<div class='grid-wud-excerpt-2' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;'><b>&nbsp;".$post->post_title."</b></div>";						
+				}
 		}
 				
 		//-> Wrapper-end

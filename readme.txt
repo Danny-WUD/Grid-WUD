@@ -10,8 +10,8 @@ Plugin URI: http://wistudat.be/
 Tags: grid, grids, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post grid, image grid, filter, display, list, page, pages, posts, post, query, custom post type
 Requires at least: 3.6
 Tested up to: 4.5
-Stable tag: 1.0.5
-Version: 1.0.5
+Stable tag: 1.0.6
+Version: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 == Changelog ==
+= 1.0.6 =
+* Extra option: show post title only by excerpts.
+
 = 1.0.5 =
 * Possibility of placing rounded corners around the grids or buttons.
 * Parameter to determine size of the rounded corners.
