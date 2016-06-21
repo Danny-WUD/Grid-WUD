@@ -92,6 +92,39 @@
 	max-height: 50% !important;	
 }
 
+
+.grid-wud-wrapper:hover .grid-wud-excerpt-3{
+	transition: all 1s ease;
+   -moz-transition: all 1s ease;
+   -ms-transition: all 1s ease;
+   -webkit-transition: all 1s ease;
+   -o-transition: all 1s ease;	
+	background-color: rgba(255, 255, 255, 0.2);
+	color: #000000;
+}
+
+/* Excerpt = 2 */
+.grid-wud-excerpt-3 {
+		transition: all 1s ease;
+   -moz-transition: all 1s ease;
+   -ms-transition: all 1s ease;
+   -webkit-transition: all 1s ease;
+   -o-transition: all 1s ease;
+	padding: 2% 1% 2% 1%;
+	background-color: rgba(255, 255, 255, 0.78);
+	color: #616161;
+	font-size: 16px; font-size: 0.8vw;
+	position: absolute;
+	display: block;
+	overflow: hidden;
+	white-space: pre-line;
+	text-overflow: ellipsis;
+	width:98%;
+	bottom: 0;
+	height: auto;
+	max-height: 50% !important;	
+}
+
 /* Category title */
 .grid-wud-h1 {
     font-weight: bold;
@@ -185,6 +218,11 @@
 	font-size:80% !important;
 	max-height: 40% !important;	
 }
+.grid-wud-excerpt-3 {
+	padding: 2% 1% 2% 1%;
+	font-size:80% !important;
+	max-height: 40% !important;	
+}
 }
 
 /* Smaller than Tablet */
@@ -209,6 +247,11 @@
 	max-height: 98% !important;
 }
 .grid-wud-excerpt-2 {
+	padding: 2% 1% 2% 1%;
+	font-size:240% !important;
+	max-height: 40% !important;	
+}
+.grid-wud-excerpt-3 {
 	padding: 2% 1% 2% 1%;
 	font-size:240% !important;
 	max-height: 40% !important;	

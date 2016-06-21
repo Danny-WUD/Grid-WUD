@@ -20,133 +20,109 @@
 		// CSS choice $grid_wud_my_css = get_option('grid_wud_my_css');
 		$grid_wud_my_css = filter_var($_POST['grid_wud_my_css'], FILTER_SANITIZE_STRING);
 		update_option('grid_wud_my_css', $grid_wud_my_css);
-		
-		//Button back 		
+			
 		if ( isset($_POST['grid_wud_but_bcolor']) && !$_POST['grid_wud_but_bcolor']=='') {$grid_wud_but_bcolor = filter_var($_POST['grid_wud_but_bcolor'], FILTER_SANITIZE_STRING);} else{$grid_wud_but_bcolor ="#F73535";}
 		update_option('grid_wud_but_bcolor', $grid_wud_but_bcolor);
 		
-		//Button text
 		if ( isset($_POST['grid_wud_but_fcolor']) && !$_POST['grid_wud_but_fcolor']=='') {$grid_wud_but_fcolor = filter_var($_POST['grid_wud_but_fcolor'], FILTER_SANITIZE_STRING);} else{$grid_wud_but_fcolor ="#FFFFFF";}
 		update_option('grid_wud_but_fcolor', $grid_wud_but_fcolor);	
 		
-		//Titles Font Size
 		$grid_wud_but_font_size = filter_var($_POST['grid_wud_but_font_size'], FILTER_SANITIZE_STRING);
 		if($grid_wud_but_font_size==''){$grid_wud_but_font_size='16';}
 		update_option('grid_wud_but_font_size', ($grid_wud_but_font_size/10));
 					
-		//Category back 
 		if ( isset($_POST['grid_wud_cat_bcolor']) && !$_POST['grid_wud_cat_bcolor']=='') {$grid_wud_cat_bcolor = filter_var($_POST['grid_wud_cat_bcolor'], FILTER_SANITIZE_STRING);} else{$grid_wud_cat_bcolor ="#F73535";}
 		update_option('grid_wud_cat_bcolor', $grid_wud_cat_bcolor);
 		
-		//Category text
 		if ( isset($_POST['grid_wud_cat_fcolor']) && !$_POST['grid_wud_cat_fcolor']=='') {$grid_wud_cat_fcolor = filter_var($_POST['grid_wud_cat_fcolor'], FILTER_SANITIZE_STRING);} else{$grid_wud_cat_fcolor ="#FFFFFF";}
 		update_option('grid_wud_cat_fcolor', $grid_wud_cat_fcolor);		
 
-		//Titles Font Size
 		$grid_wud_h1_font_size = filter_var($_POST['grid_wud_h1_font_size'], FILTER_SANITIZE_STRING);
 		if($grid_wud_h1_font_size==''){$grid_wud_h1_font_size='21';}
 		update_option('grid_wud_h1_font_size', ($grid_wud_h1_font_size/10));
-
-		//Hide Category or Tag Title		
+		
 		if ( isset($_POST['grid_wud_hide_cat_tag_header'])) {$grid_wud_hide_cat_tag_header = filter_var($_POST['grid_wud_hide_cat_tag_header'], FILTER_SANITIZE_STRING);} else{$grid_wud_hide_cat_tag_header =0;}
 		update_option('grid_wud_hide_cat_tag_header', $grid_wud_hide_cat_tag_header);	
 
-		//Hide Category Title
 		if ( isset($_POST['grid_wud_hide_grid_cat'])) {$grid_wud_hide_grid_cat = filter_var($_POST['grid_wud_hide_grid_cat'], FILTER_SANITIZE_STRING);} else{$grid_wud_hide_grid_cat =0;}
 		update_option('grid_wud_hide_grid_cat', $grid_wud_hide_grid_cat);
 		
-		//Order grid
 		if ( isset($_POST['grid_wud_set_order_grid'])) {$grid_wud_set_order_grid = filter_var($_POST['grid_wud_set_order_grid'], FILTER_SANITIZE_STRING);} else{$grid_wud_set_order_grid =0;}
 		update_option('grid_wud_set_order_grid', $grid_wud_set_order_grid);
-		
-		//Sort order grid
+
 		$grid_wud_set_dir_grid = filter_var($_POST['grid_wud_set_dir_grid'], FILTER_SANITIZE_STRING);
 		update_option('grid_wud_set_dir_grid', $grid_wud_set_dir_grid);	
-		
-		//Featured image as default
+
 		if ( isset($_POST['grid_wud_set_featured_img'])) {$grid_wud_set_featured_img = filter_var($_POST['grid_wud_set_featured_img'], FILTER_SANITIZE_STRING);} else{$grid_wud_set_featured_img =0;}
 		update_option('grid_wud_set_featured_img', $grid_wud_set_featured_img);	
-		
-		//Zoom image on hoover
+
 		if ( isset($_POST['grid_wud_img_hover'])) {$grid_wud_img_hover = filter_var($_POST['grid_wud_img_hover'], FILTER_SANITIZE_STRING);} else{$grid_wud_img_hover =0;}
 		update_option('grid_wud_img_hover', $grid_wud_img_hover);	
-		
-		//Grey image
+
 		if ( isset($_POST['grid_wud_img_grey'])) {$grid_wud_img_grey = filter_var($_POST['grid_wud_img_grey'], FILTER_SANITIZE_STRING);} else{$grid_wud_img_grey =0;}
 		update_option('grid_wud_img_grey', $grid_wud_img_grey);	
-		
-		//Max grid to show
+
 		$grid_wud_set_max_grid = filter_var($_POST['grid_wud_set_max_grid'], FILTER_SANITIZE_STRING);
 		update_option('grid_wud_set_max_grid', $grid_wud_set_max_grid);
-			
-		//More grid to show
+
 		$grid_wud_set_more_grid = filter_var($_POST['grid_wud_set_more_grid'], FILTER_SANITIZE_STRING);
 		update_option('grid_wud_set_more_grid', $grid_wud_set_more_grid);
-			
-		//Skip x posts
+
 		$grid_wud_skip_post = filter_var($_POST['grid_wud_skip_post'], FILTER_SANITIZE_STRING);
 		if($grid_wud_skip_post==''){$grid_wud_skip_post='0';}
 		update_option('grid_wud_skip_post', $grid_wud_skip_post);
-		
-		//Featured image as default
+
 		$grid_wud_show_excerpt = filter_var($_POST['grid_wud_show_excerpt'], FILTER_SANITIZE_STRING);
 		update_option('grid_wud_show_excerpt', $grid_wud_show_excerpt);
 
-		// Choice text or button = ARCHIVE;
+		$grid_wud_title_pos = filter_var($_POST['grid_wud_title_pos'], FILTER_SANITIZE_STRING);
+		update_option('grid_wud_title_pos', $grid_wud_title_pos);
+
+		$grid_wud_title_topmid = filter_var($_POST['grid_wud_title_topmid'], FILTER_SANITIZE_STRING);
+		update_option('grid_wud_title_topmid', $grid_wud_title_topmid);
+
 		$grid_wud_show_arch_button = filter_var($_POST['grid_wud_show_arch_button'], FILTER_SANITIZE_STRING);
 		update_option('grid_wud_show_arch_button', sanitize_text_field($grid_wud_show_arch_button));
 
-		// Choice text or button = grid;
 		$grid_wud_show_grid_button = filter_var($_POST['grid_wud_show_grid_button'], FILTER_SANITIZE_STRING);
 		update_option('grid_wud_show_grid_button', sanitize_text_field($grid_wud_show_grid_button));
-	
-		//Show read more: archives or grid
+
 		$grid_wud_show_arch_grid = filter_var($_POST['grid_wud_show_arch_grid'], FILTER_SANITIZE_STRING);
 		update_option('grid_wud_show_arch_grid', $grid_wud_show_arch_grid);
 
-		//Maximum words excerpt
 		$grid_wud_excerpt_words = filter_var($_POST['grid_wud_excerpt_words'], FILTER_SANITIZE_STRING);
 		if($grid_wud_excerpt_words==''){$grid_wud_excerpt_words=25;}
 		update_option('grid_wud_excerpt_words', sanitize_text_field($grid_wud_excerpt_words));
-		
-		//Fade in grid
+
 		if ( isset($_POST['grid_wud_fade_in'])) {$grid_wud_fade_in = filter_var($_POST['grid_wud_fade_in'], FILTER_SANITIZE_STRING);} else{$grid_wud_fade_in =0;}
 		update_option('grid_wud_fade_in', $grid_wud_fade_in);	
-		
-		//Custom Post Type 01
+
 		$grid_wud_cpt01 = filter_var($_POST['grid_wud_cpt01'], FILTER_SANITIZE_STRING);
 		if(empty($grid_wud_cpt01)){$grid_wud_cpt01="Custom Post Type 1";}
 		update_option('grid_wud_cpt01', sanitize_text_field($grid_wud_cpt01));
-		
-		//Custom Post Type 02
+
 		$grid_wud_cpt02 = filter_var($_POST['grid_wud_cpt02'], FILTER_SANITIZE_STRING);
 		if(empty($grid_wud_cpt02)){$grid_wud_cpt02="Custom Post Type 2";}
 		update_option('grid_wud_cpt02', sanitize_text_field($grid_wud_cpt02));
-		
-		//Custom Post Type 02
+
 		$grid_wud_def_img = filter_var($_POST['grid_wud_def_img'], FILTER_SANITIZE_STRING);
 		if(empty($grid_wud_def_img)){$grid_wud_def_img=WUD_GRID_URL.'/images/empty-grid.png';}
 		update_option('grid_wud_def_img', sanitize_text_field($grid_wud_def_img));
 
-		//Round border images
 		$grid_wud_round_img = filter_var($_POST['grid_wud_round_img'], FILTER_SANITIZE_STRING);
 		if($grid_wud_round_img==''){$grid_wud_round_img='0';}
 		update_option('grid_wud_round_img', ($grid_wud_round_img));
 
-		//Round border buttons
 		$grid_wud_round_button = filter_var($_POST['grid_wud_round_button'], FILTER_SANITIZE_STRING);
 		if($grid_wud_round_button==''){$grid_wud_round_button='0';}
 		update_option('grid_wud_round_button', ($grid_wud_round_button));
 
-		// Font header
 		$grid_wud_font_header = filter_var($_POST['grid_wud_font_header'], FILTER_SANITIZE_STRING);
 		update_option('grid_wud_font_header', $grid_wud_font_header);
 
-		// Font excerpt
 		$grid_wud_font_excerpt = filter_var($_POST['grid_wud_font_excerpt'], FILTER_SANITIZE_STRING);
 		update_option('grid_wud_font_excerpt', $grid_wud_font_excerpt);
 
-		// Font button
 		$grid_wud_font_button = filter_var($_POST['grid_wud_font_button'], FILTER_SANITIZE_STRING);
 		update_option('grid_wud_font_button', $grid_wud_font_button);
 		
@@ -195,6 +171,8 @@
 		$grid_wud_font_header = $gwfuncs['grid_wud_font_header'];
 		$grid_wud_font_excerpt = $gwfuncs['grid_wud_font_excerpt'];
 		$grid_wud_font_button = $gwfuncs['grid_wud_font_button'];
+		$grid_wud_title_pos = $gwfuncs['grid_wud_title_pos'];
+		$grid_wud_title_topmid = $gwfuncs['grid_wud_title_topmid'];
 	}
 
 //LEFT ADMIN 
@@ -378,12 +356,27 @@
 		echo     '<option value="1"'; if ( $grid_wud_show_excerpt == "1" ){echo 'selected="selected"';} echo '>'.__("Without title", "grid-wud").'</option>';
 		echo     '<option value="2"'; if ( $grid_wud_show_excerpt == "2" ){echo 'selected="selected"';} echo '>'.__("With title", "grid-wud").'</option>';
 		echo     '<option value="3"'; if ( $grid_wud_show_excerpt == "3" ){echo 'selected="selected"';} echo '>'.__("Show always", "grid-wud").'</option>';
-		echo     '<option value="4"'; if ( $grid_wud_show_excerpt == "4" ){echo 'selected="selected"';} echo '>'.__("Title Only", "grid-wud").'</option>';
+		echo     '<option id="textonly" value="4"'; if ( $grid_wud_show_excerpt == "4" ){echo 'selected="selected"';} echo '>'.__("Title Only", "grid-wud").'</option>';
 		echo '</select>';		
 		echo '<b class="grid-wud-admin-title">'.__("The excerpt", "grid-wud").'</b>';
 		echo '<i>'.__("Show/Hide ...", "grid-wud").': </i>';	
+		echo '<br>';
+
+		echo '<select name="grid_wud_title_pos" class="grid-wud-right" id="txtonly">';
+		echo     '<option value="0"'; if ( $grid_wud_title_pos == "0" ){echo 'selected="selected"';} echo '>'.__("Align at Left", "grid-wud").'</option>';
+		echo     '<option value="1"'; if ( $grid_wud_title_pos == "1" ){echo 'selected="selected"';} echo '>'.__("Align Center", "grid-wud").'</option>';
+		echo     '<option value="2"'; if ( $grid_wud_title_pos == "2" ){echo 'selected="selected"';} echo '>'.__("Align Right", "grid-wud").'</option>';
+		echo '</select>';						
 		echo '<br><br>';
 
+		echo '<select name="grid_wud_title_topmid" class="grid-wud-right" id="topbot">';
+		echo     '<option value="0"'; if ( $grid_wud_title_topmid == "0" ){echo 'selected="selected"';} echo '>'.__("Align at Bottom", "grid-wud").'</option>';
+		echo     '<option value="1"'; if ( $grid_wud_title_topmid == "1" ){echo 'selected="selected"';} echo '>'.__("Align in Top", "grid-wud").'</option>';
+		echo     '<option value="2"'; if ( $grid_wud_title_topmid == "2" ){echo 'selected="selected"';} echo '>'.__("Align at Middle", "grid-wud").'</option>';
+		echo     '<option value="3"'; if ( $grid_wud_title_topmid == "3" ){echo 'selected="selected"';} echo '>'.__("Over the entire image", "grid-wud").'</option>';
+		echo '</select>';						
+		echo '<br><br>';
+		
 		echo '<i>'.__("Maximum words", "grid-wud").' (10 -> 50) : </i><input type="number" min="10" step="1" max="50" size="8" class="grid-wud-right" name="grid_wud_excerpt_words" value="'.$grid_wud_excerpt_words.'" /><br><br><hr>';
 
 		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Fade in the picture of the grid by a mouse on hover action.", "grid-wud").'</div></div>';

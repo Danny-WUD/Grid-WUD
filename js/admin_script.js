@@ -34,8 +34,28 @@ Author URI: http://wistudat.be/
     mediaUploader.open();
   });
   
+  // Clear button Media
   $('#clear-button').click(function(e) {  
 	$('#image-src').attr('src', '../wp-content/plugins/grid-wud//images/empty-grid.png');
 	$('#image-url').val('');
   });
+  
+  // Title only on grid: Changed value
+  $("select").change(function(){
+	  if ($("select[name=grid_wud_show_excerpt] option:selected").val() == '4') {
+			 $("#txtonly").show();
+			 $("#topbot").show();
+	   }
+	   else{
+			 $("#txtonly").hide();
+			 $("#topbot").hide();	   
+	   }
+    }).change();
+	
+  // Title only on grid: Onload value
+  if ($("select[name=grid_wud_show_excerpt] option:selected").val() == '4') {
+         $("#txtonly").show();
+		 $("#topbot").show();
+   }
+	
 });

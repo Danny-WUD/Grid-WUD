@@ -182,13 +182,13 @@ get_header(); ?>
 				elseif ($gwfuncs['grid_wud_show_excerpt']==2 ){
 					$result .= "<div class='grid-wud-excerpt' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;'><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";				
 				}
-				// Show excerpt text and title
+				// Show excerpt text and title allways
 				elseif ($gwfuncs['grid_wud_show_excerpt']==3 ){
 					$result .= "<div class='grid-wud-excerpt-2' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;'><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";						
 				}
-				// Show excerpt text and title
+				// Show excerpt title
 				elseif ($gwfuncs['grid_wud_show_excerpt']==4 ){
-					$result .= "<div class='grid-wud-excerpt-2' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;'><b>&nbsp;".$post->post_title."</b></div>";						
+					$result .= "<div class='grid-wud-excerpt-3' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;'><b>&nbsp;".$post->post_title."</b></div>";						
 				}
 		}
 				

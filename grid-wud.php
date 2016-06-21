@@ -12,8 +12,8 @@ Plugin URI: http://wistudat.be/
 Tags: grid, grids, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post grid, image grid, filter, display, list, page, pages, posts, post, query, custom post type
 Requires at least: 3.6
 Tested up to: 4.5
-Stable tag: 1.0.6
-Version: 1.0.6
+Stable tag: 1.0.6.a
+Version: 1.0.6.a
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: grid-wud
@@ -21,7 +21,7 @@ Domain Path: /languages
 */
 	defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 //==============================================================================//
-$version='1.0.6';
+$version='1.0.6.a';
 // Store the latest version.
 if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version', $version);}
 //==============================================================================//
@@ -66,6 +66,17 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 	 wp_enqueue_style( 'grid_wud_style' );		 
 	 wp_register_style( 'grid_wud_style_hover', plugins_url('css/grid-wud-base-hover.css', __FILE__ ), false, '1.0.3' );
 	 if($gwfuncs['grid_wud_img_hover']=='1'){wp_enqueue_style( 'grid_wud_style_hover' );}
+	 wp_register_style( 'grid_wud_style_center', plugins_url('css/grid-wud-title-center.css', __FILE__ ), false, '1.0.3' );
+	 if($gwfuncs['grid_wud_title_pos']=='1'){wp_enqueue_style( 'grid_wud_style_center' );}	
+	 wp_register_style( 'grid_wud_style_right', plugins_url('css/grid-wud-title-right.css', __FILE__ ), false, '1.0.3' );
+	 if($gwfuncs['grid_wud_title_pos']=='2'){wp_enqueue_style( 'grid_wud_style_right' );}
+	 wp_register_style( 'grid_wud_style_top', plugins_url('css/grid-wud-title-top.css', __FILE__ ), false, '1.0.3' );
+	 if($gwfuncs['grid_wud_title_topmid']=='1'){wp_enqueue_style( 'grid_wud_style_top' );}
+	 wp_register_style( 'grid_wud_style_mid', plugins_url('css/grid-wud-title-mid.css', __FILE__ ), false, '1.0.3' );
+	 if($gwfuncs['grid_wud_title_topmid']=='2'){wp_enqueue_style( 'grid_wud_style_mid' );}
+	 wp_register_style( 'grid_wud_style_over', plugins_url('css/grid-wud-title-over.css', __FILE__ ), false, '1.0.3' );
+	 if($gwfuncs['grid_wud_title_topmid']=='3'){wp_enqueue_style( 'grid_wud_style_over' );}
+	 
 	 wp_register_style( 'grid_wud_style_grey', plugins_url('css/grid-wud-base-grey.css', __FILE__ ), false, '1.0.3' );
 	 if($gwfuncs['grid_wud_img_grey']=='1'){wp_enqueue_style( 'grid_wud_style_grey' );}	 
 // Javascript + extra page (read more page).
@@ -115,7 +126,7 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 		wp_enqueue_script( 'cs-wp-color-picker', plugins_url( 'js/cs-wp-color-picker.js', __FILE__ ), array( 'wp-color-picker' ), '1.0.1', true );	
 		wp_enqueue_media();
 		wp_register_script( 'media-grid-uploader-js', plugins_url( 'js/admin_script.js' , __FILE__ ), array('jquery') );
-		wp_enqueue_script( 'media-grid-uploader-js' );
+		wp_enqueue_script( 'media-grid-uploader-js' );	
      }
 	}
 
@@ -126,13 +137,15 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 //Load base grid page
 	function grid_wud_base() {require_once( GRID_WUD_DIR . '/pages/grid-wud-base.php' );}
 
-// New fields from version 1.0.5 on
+// New fields from version 1.0.5 on 
 	function grid_wud_update(){
 		if (get_option('grid_wud_round_img')=='') {update_option('grid_wud_round_img', 0);}
 		if (get_option('grid_wud_round_button')=='') {update_option('grid_wud_round_button', 0);}
 		if (get_option('grid_wud_font_header')=='') {update_option('grid_wud_font_header', 'inherit');}
 		if (get_option('grid_wud_font_excerpt')=='') {update_option('grid_wud_font_excerpt', 'inherit');}
 		if (get_option('grid_wud_font_button')=='') {update_option('grid_wud_font_button', 'inherit');}
+		if (get_option('grid_wud_title_pos')=='') {update_option('grid_wud_title_pos', 0);}
+		if (get_option('grid_wud_title_topmid')=='') {update_option('grid_wud_title_topmid', 0);}
 	}
 	
 //Declare once all Grid WUD settings 	
@@ -174,7 +187,9 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 			'grid_wud_round_button' => get_option('grid_wud_round_button'),
 			'grid_wud_font_header' => get_option('grid_wud_font_header'),
 			'grid_wud_font_excerpt' => get_option('grid_wud_font_excerpt'),
-			'grid_wud_font_button' => get_option('grid_wud_font_button')
+			'grid_wud_font_button' => get_option('grid_wud_font_button'),
+			'grid_wud_title_pos' => get_option('grid_wud_title_pos'),
+			'grid_wud_title_topmid' => get_option('grid_wud_title_topmid')
 			);
 			return $gwfuncs;
 		}
@@ -239,6 +254,7 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 		if (get_option('grid_wud_font_header')=='') {update_option('grid_wud_font_header', 'inherit');}
 		if (get_option('grid_wud_font_excerpt')=='') {update_option('grid_wud_font_excerpt', 'inherit');}
 		if (get_option('grid_wud_font_button')=='') {update_option('grid_wud_font_button', 'inherit');}
+		if (get_option('grid_wud_title_pos')=='') {update_option('grid_wud_title_pos', 0);}
 	}
 	
 ?>

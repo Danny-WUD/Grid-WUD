@@ -1,0 +1,11 @@
+/*
+ *	=== Grid WUD ===
+*/
+
+/* Excerpt = 3 */
+.grid-wud-excerpt-3 {	
+	height: 100% !important;
+    max-height: 100% !important;
+    vertical-align: middle;
+    line-height: 25;
+}
