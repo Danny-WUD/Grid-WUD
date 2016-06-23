@@ -377,14 +377,9 @@
 		echo '</select>';						
 		echo '<br><br>';
 		
-		echo '<i>'.__("Maximum words", "grid-wud").' (10 -> 50) : </i><input type="number" min="10" step="1" max="50" size="8" class="grid-wud-right" name="grid_wud_excerpt_words" value="'.$grid_wud_excerpt_words.'" /><br><br><hr>';
+		echo '<i>'.__("Maximum words", "grid-wud").' (10 -> 50) : </i><input type="number" min="10" step="1" max="50" size="8" class="grid-wud-right" name="grid_wud_excerpt_words" value="'.$grid_wud_excerpt_words.'" /><br><br>';
 
-		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Fade in the picture of the grid by a mouse on hover action.", "grid-wud").'</div></div>';
-		echo '<b class="grid-wud-admin-title">'.__("Fade in grid", "grid-wud").'</b><br>';
-		echo '<i>'.__("Active", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_fade_in" type="checkbox" value="1" '. checked( $grid_wud_fade_in, "1", false ) .'/><br>';
-
-	
-		echo '<select name="grid_wud_font_excerpt" class="grid-wud-right" >';
+				echo '<select name="grid_wud_font_excerpt" class="grid-wud-right" >';
 		echo     '<option value="inherit"'; if ( $grid_wud_font_excerpt == "inherit" ){echo 'selected="selected"';} echo '>Inherit</option>';
 		echo     '<option value="initial"'; if ( $grid_wud_font_excerpt == "initial" ){echo 'selected="selected"';} echo '>Initial</option>';
 		echo     '<option value="Arial"'; if ( $grid_wud_font_excerpt == "Arial" ){echo 'selected="selected"';} echo '>Arial</option>';
@@ -399,7 +394,11 @@
 		echo     '<option value="Lucida Console"'; if ( $grid_wud_font_excerpt == "Lucida Console" ){echo 'selected="selected"';} echo '>Lucida Console</option>';
 		echo '</select>';		
 		echo '<i class="grid-wud-admin-title">'.__("Font Family", "grid-wud").'</i>';	
-		echo '<br><br>';
+		echo '<br><hr>';
+		
+		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Fade in the picture of the grid by a mouse on hover action.", "grid-wud").'</div></div>';
+		echo '<b class="grid-wud-admin-title">'.__("Fade in grid", "grid-wud").'</b><br>';
+		echo '<i>'.__("Active", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_fade_in" type="checkbox" value="1" '. checked( $grid_wud_fade_in, "1", false ) .'/><br>';
 				
 		echo '</div><div class="clear"></div>';
 		echo '<div><br>';	

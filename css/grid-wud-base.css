@@ -58,6 +58,7 @@
 	transition-property: all !important;
 	transition-duration: .4s !important;
 	transition-timing-function: cubic-bezier(255, 255, 255, 0.78) !important;
+	z-index: 30;
 }
 
 .grid-wud-wrapper:hover .grid-wud-excerpt-2{
@@ -150,6 +151,7 @@
     white-space: nowrap;
 	position: absolute; 
 	right: 0px;
+	z-index: 25;
 }
 
 #grid-wud-h4-top{

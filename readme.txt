@@ -10,8 +10,8 @@ Plugin URI: http://wistudat.be/
 Tags: grid, grids, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post grid, image grid, filter, display, list, page, pages, posts, post, query, custom post type
 Requires at least: 3.6
 Tested up to: 4.5
-Stable tag: 1.0.6.a
-Version: 1.0.6.a
+Stable tag: 1.0.7
+Version: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,8 +80,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 == Changelog ==
-= 1.0.6.a =
-* Grid Title position: top, center, bottom.
+= 1.0.7=
+* Grid Title position: top, center, bottom, cover.
 * Grid Title align: left, center, right.
 
 = 1.0.6 =

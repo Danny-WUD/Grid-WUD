@@ -101,51 +101,71 @@
 					$result .= "<!-- Grid WUD Version ".$gwfuncs['grid_wud_version']."-->";
 					$result .= "<div class='wud-url'><a href='".$wud_link."' title='' alt=''>";				
 		
-		if($wud_grid_shape == "4" ){
-			//-> Wrapper-start
-					$result .= "<div class='grid-4-wud-wrapper' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' >";
-			//-> Image-start & end
-					$result .= "<div class='grid-4-wud-image' style='background-image:url(".$wud_feat_image.")'></div>";
-		}
-		else{
-			//-> Wrapper-start
-					$result .= "<div class='grid-wud-wrapper' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' style='border-radius:".$gwfuncs['grid_wud_round_img']."px; z-index:1;' >"; 		
 
+			//-> Wrapper-start
+			if($wud_grid_shape == "4" ){
+					$result .= "<div class='grid-wud-wrapper' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' style='border-radius: 50% !important;-webkit-border-radius: 50% !important;	-moz-border-radius: 50% !important; z-index: 10;' >"; 
+			}
+			else{
+					$result .= "<div class='grid-wud-wrapper' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' style='border-radius:".$gwfuncs['grid_wud_round_img']."px; z-index:10; }' >"; 
+			}	
+			
 			//-> Image-start & end
-						$result .= "<div class='grid-wud-image' style='background-image:url(".$wud_feat_image.")'></div>";	
-		
-		
-				$h4font=1;
-				$h4height=1.1;
-					//Show the category on the grid
+			if($wud_grid_shape == "4" ){
+					$result .= "<div class='grid-wud-image' style='background-image:url(".$wud_feat_image."); border-radius: 50% !important;-webkit-border-radius: 50% !important;	-moz-border-radius: 50% !important; z-index: 20;'></div>";
+			}
+			else{
+					$result .= "<div class='grid-wud-image' style='background-image:url(".$wud_feat_image."); z-index: 20;'></div>";
+			}			
+						
+			//Show the category on the grid
 					if($gwfuncs['grid_wud_hide_grid_cat']==0 || !$gwfuncs['grid_wud_hide_grid_cat'] || $gwfuncs['grid_wud_hide_grid_cat']==''){}
 					else{ //show is value 1
+						if ($wud_grid_shape <> "4"){
 								$result .= "<div id='grid-wud-h4-top' class='grid-wud-h4' style='font-size:".$h4font."vw; height:".$h4height."vw;'>".$wud_cat_or_term_name."</div>";
-				}				
-		}
-		//-> The excerpt text
-		if($wud_grid_shape == "4" ){
-			//-> The excerpt text			
-					$result .= "<div class='grid-wud-excerpt-4'><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";			
-		}
-		else{
+						}
+					}
+			//-> The excerpt text
+			if ($wud_grid_shape <> "4" ){
 				// Show excerpt text
 				if($gwfuncs['grid_wud_show_excerpt']=='1'){
-					$result .= "<div class='grid-wud-excerpt' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;'>".$wud_excerpt."</div>";	
+					$result .= "<div class='grid-wud-excerpt' style='font-family:".$gwfuncs['grid_wud_font_excerpt']."; !important; z-index: 30;'>".$wud_excerpt."</div>";	
 				}
 				// Show excerpt text and title
 				elseif ($gwfuncs['grid_wud_show_excerpt']==2 ){
-					$result .= "<div class='grid-wud-excerpt' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;'><b>".$wud_title."</b><br>".$wud_excerpt."</div>";					
+					$result .= "<div class='grid-wud-excerpt' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important; z-index: 30;'><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";					
 				}
-				// Show excerpt text and title grid-wud-excerpt
+				// Show excerpt text and title allways
 				elseif ($gwfuncs['grid_wud_show_excerpt']==3 ){
-					$result .= "<div class='grid-wud-excerpt-2' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;'><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";						
-				}	
+					$result .= "<div class='grid-wud-excerpt-2' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important; z-index: 30;'><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";						
+				}
 				// Show excerpt title
 				elseif ($gwfuncs['grid_wud_show_excerpt']==4 ){
-					$result .= "<div class='grid-wud-excerpt-3' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;'><b>&nbsp;".$post->post_title."</b></div>";						
-				}
-		}		
+					$result .= "<div class='grid-wud-excerpt-3' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important; z-index: 30;'><b>".$post->post_title."</b></div>";						
+				}				
+			}
+			else{
+					if($gwfuncs['grid_wud_show_excerpt']=='1'){
+						$result .= "<div class='grid-wud-excerpt' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;padding: 3% 2% 3% 4%; border-radius: 10%;-webkit-border-radius: 10%;-moz-border-radius: 10%;margin-left: 17%;font-size: 16px;font-size: 0.8vw;width: 60%;bottom: 20%;height: auto;max-height: 25% !important;'>".$wud_excerpt."</div>";	
+					}
+					// Show excerpt text and title
+					elseif ($gwfuncs['grid_wud_show_excerpt']==2 ){
+						$result .= "<div class='grid-wud-excerpt' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;padding: 3% 2% 3% 4%; border-radius: 10%;-webkit-border-radius: 10%;-moz-border-radius: 10%;margin-left: 17%;font-size: 16px;font-size: 0.8vw;width: 60%;bottom: 20%;height: auto;max-height: 25% !important;'><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";					
+					}
+					// Show excerpt text and title allways
+					elseif ($gwfuncs['grid_wud_show_excerpt']==3 ){
+						$result .= "<div class='grid-wud-excerpt-2' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;padding: 3% 2% 3% 4%; border-radius: 10%;-webkit-border-radius: 10%;-moz-border-radius: 10%;margin-left: 17%;font-size: 16px;font-size: 0.8vw;width: 60%;bottom: 20%;height: auto;max-height: 25% !important;z-index: 30;'><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";						
+					}
+					// Show excerpt title
+					elseif ($gwfuncs['grid_wud_show_excerpt']==4 ){
+						if($gwfuncs['grid_wud_title_topmid']<>4){
+						$result .= "<div class='grid-wud-excerpt-3' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important; padding-top: 20px; padding-bottom: 20px; text-align: center !important; z-index: 30;'><b>".$post->post_title."</b></div>";						
+						}
+						else{
+						$result .= "<div class='grid-wud-excerpt-3' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;padding: 3% 2% 3% 4%; border-radius: 10%;-webkit-border-radius: 10%;-moz-border-radius: 10%;margin-left: 17%;font-size: 16px;font-size: 0.8vw;width: 60%;bottom: 20%;height: auto;max-height: 25% !important;z-index: 30;'><b>".$post->post_title."</b></div>";							
+						}
+					}					
+				}			
 		//-> Wrapper-end
 					$result .= "</div>"; 
 				$result .= "</a></div>";	
