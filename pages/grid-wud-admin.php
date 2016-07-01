@@ -43,6 +43,9 @@
 		
 		if ( isset($_POST['grid_wud_hide_cat_tag_header'])) {$grid_wud_hide_cat_tag_header = filter_var($_POST['grid_wud_hide_cat_tag_header'], FILTER_SANITIZE_STRING);} else{$grid_wud_hide_cat_tag_header =0;}
 		update_option('grid_wud_hide_cat_tag_header', $grid_wud_hide_cat_tag_header);	
+		
+		if ( isset($_POST['grid_wud_cat_url'])) {$grid_wud_cat_url = filter_var($_POST['grid_wud_cat_url'], FILTER_SANITIZE_STRING);} else{$grid_wud_cat_url =0;}
+		update_option('grid_wud_cat_url', $grid_wud_cat_url);			
 
 		if ( isset($_POST['grid_wud_hide_grid_cat'])) {$grid_wud_hide_grid_cat = filter_var($_POST['grid_wud_hide_grid_cat'], FILTER_SANITIZE_STRING);} else{$grid_wud_hide_grid_cat =0;}
 		update_option('grid_wud_hide_grid_cat', $grid_wud_hide_grid_cat);
@@ -62,6 +65,15 @@
 		if ( isset($_POST['grid_wud_img_grey'])) {$grid_wud_img_grey = filter_var($_POST['grid_wud_img_grey'], FILTER_SANITIZE_STRING);} else{$grid_wud_img_grey =0;}
 		update_option('grid_wud_img_grey', $grid_wud_img_grey);	
 
+		if ( isset($_POST['grid_wud_img_split'])) {$grid_wud_img_split = filter_var($_POST['grid_wud_img_split'], FILTER_SANITIZE_STRING);} else{$grid_wud_img_split =0;}
+		update_option('grid_wud_img_split', $grid_wud_img_split);			
+		
+		if ( isset($_POST['grid_wud_shadow'])) {$grid_wud_shadow = filter_var($_POST['grid_wud_shadow'], FILTER_SANITIZE_STRING);} else{$grid_wud_shadow =0;}
+		update_option('grid_wud_shadow', $grid_wud_shadow);	
+		
+		if ( isset($_POST['grid_wud_widgets'])) {$grid_wud_widgets = filter_var($_POST['grid_wud_widgets'], FILTER_SANITIZE_STRING);} else{$grid_wud_widgets =0;}
+		update_option('grid_wud_widgets', $grid_wud_widgets);
+		
 		$grid_wud_set_max_grid = filter_var($_POST['grid_wud_set_max_grid'], FILTER_SANITIZE_STRING);
 		update_option('grid_wud_set_max_grid', $grid_wud_set_max_grid);
 
@@ -90,6 +102,9 @@
 		$grid_wud_show_arch_grid = filter_var($_POST['grid_wud_show_arch_grid'], FILTER_SANITIZE_STRING);
 		update_option('grid_wud_show_arch_grid', $grid_wud_show_arch_grid);
 
+		$grid_wud_nourl = filter_var($_POST['grid_wud_nourl'], FILTER_SANITIZE_STRING);
+		update_option('grid_wud_nourl', $grid_wud_nourl);
+
 		$grid_wud_excerpt_words = filter_var($_POST['grid_wud_excerpt_words'], FILTER_SANITIZE_STRING);
 		if($grid_wud_excerpt_words==''){$grid_wud_excerpt_words=25;}
 		update_option('grid_wud_excerpt_words', sanitize_text_field($grid_wud_excerpt_words));
@@ -105,6 +120,10 @@
 		if(empty($grid_wud_cpt02)){$grid_wud_cpt02="Custom Post Type 2";}
 		update_option('grid_wud_cpt02', sanitize_text_field($grid_wud_cpt02));
 
+		$grid_wud_news_title = filter_var($_POST['grid_wud_news_title'], FILTER_SANITIZE_STRING);
+		if(empty($grid_wud_news_title)){$grid_wud_news_title="Latest News";}
+		update_option('grid_wud_news_title', sanitize_text_field($grid_wud_news_title));
+		
 		$grid_wud_def_img = filter_var($_POST['grid_wud_def_img'], FILTER_SANITIZE_STRING);
 		if(empty($grid_wud_def_img)){$grid_wud_def_img=WUD_GRID_URL.'/images/empty-grid.png';}
 		update_option('grid_wud_def_img', sanitize_text_field($grid_wud_def_img));
@@ -148,8 +167,10 @@
 		$grid_wud_set_max_grid = $gwfuncs['grid_wud_set_max_grid'];
 		$grid_wud_set_more_grid = $gwfuncs['grid_wud_set_more_grid'];
 		$grid_wud_hide_cat_tag_header = $gwfuncs['grid_wud_hide_cat_tag_header'];
+		$grid_wud_cat_url = $gwfuncs['grid_wud_cat_url'];
 		$grid_wud_hide_grid_cat = $gwfuncs['grid_wud_hide_grid_cat'];	
 		$grid_wud_show_excerpt = $gwfuncs['grid_wud_show_excerpt'];
+		$grid_wud_widgets = $gwfuncs['grid_wud_widgets'];
 		$grid_wud_show_arch_button = $gwfuncs['grid_wud_show_arch_button'];
 		$grid_wud_show_grid_button = $gwfuncs['grid_wud_show_grid_button'];
 		$grid_wud_show_arch_grid = $gwfuncs['grid_wud_show_arch_grid'];
@@ -166,6 +187,7 @@
 		$grid_wud_def_img = $gwfuncs['grid_wud_def_img'];
 		$grid_wud_img_hover = $gwfuncs['grid_wud_img_hover'];
 		$grid_wud_img_grey = $gwfuncs['grid_wud_img_grey'];
+		$grid_wud_img_split = $gwfuncs['grid_wud_img_split'];
 		$grid_wud_round_img = $gwfuncs['grid_wud_round_img'];
 		$grid_wud_round_button = $gwfuncs['grid_wud_round_button'];
 		$grid_wud_font_header = $gwfuncs['grid_wud_font_header'];
@@ -173,6 +195,9 @@
 		$grid_wud_font_button = $gwfuncs['grid_wud_font_button'];
 		$grid_wud_title_pos = $gwfuncs['grid_wud_title_pos'];
 		$grid_wud_title_topmid = $gwfuncs['grid_wud_title_topmid'];
+		$grid_wud_news_title = $gwfuncs['grid_wud_news_title'];
+		$grid_wud_nourl = $gwfuncs['grid_wud_nourl'];
+		$grid_wud_shadow = $gwfuncs['grid_wud_shadow'];
 	}
 
 //LEFT ADMIN 
@@ -210,7 +235,9 @@
 		echo '<i class="grid-wud-admin-title">'.__("Font Family", "grid-wud").'</i>';	
 		echo '<br><br>';
 		
-		echo '<i>'.__("Hide", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_hide_cat_tag_header" type="checkbox" value="1" '. checked( $grid_wud_hide_cat_tag_header, "1", false ) .'/><br><hr>';
+		echo '<i>'.__("Hide", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_hide_cat_tag_header" type="checkbox" value="1" '. checked( $grid_wud_hide_cat_tag_header, "1", false ) .'/><br><br>';
+		
+		echo '<i>'.__("Enable URL on title", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_cat_url" type="checkbox" value="1" '. checked( $grid_wud_cat_url, "1", false ) .'/><br><hr>';
 
 		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("If selected the Category/Tag is visible in the right top grid corner.", "grid-wud").'</div></div>';
 		echo '<b class="grid-wud-admin-title">'.__("Show Category/Tag on the grid", "grid-wud").'</b><br>';
@@ -229,6 +256,12 @@
 		<dd><input size="2" id="wud_box7" type="text" style="font-weight:bolder;" value="'.$grid_wud_round_img.'" readonly/></dd>
 		<dt><label for="wud_sizer7"></label></dt>
 		<dd><input class="grid-wud-right" id="wud_sizer7" type="range" min="0" max="20" step="1" value="'.$grid_wud_round_img.'" name="grid_wud_round_img" onchange="wud_box7.value = wud_sizer7.value" oninput="wud_box7.value = wud_sizer7.value" /></dd></dl><hr>';
+
+		echo '<b class="grid-wud-admin-title">'.__("Grids or Tiles", "grid-wud").'</b>';
+		echo '<i>'.__("If selected it shows Tiles.", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_img_split" type="checkbox" value="1" '. checked( $grid_wud_img_split, "1", false ) .'/><br><br>';
+
+		echo '<b class="grid-wud-admin-title">'.__("Tiles shadow", "grid-wud").'</b>';
+		echo '<i>'.__("If tiles selected, set a shadow.", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_shadow" type="checkbox" value="1" '. checked( $grid_wud_shadow, "1", false ) .'/><br><br>';
 		
 		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("If no image was found, use this pre-defined image.<br>You can select any image from the media library, or use the default one.", "grid-wud").'</div></div>';
 		echo '<b class="grid-wud-admin-title">'.__("Default grid image", "grid-wud").'</b><br>';
@@ -242,8 +275,11 @@
 		
 		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Changes the Custom Post Type Title 2 into this text. <br>Usage: short code: cp=\"2\"", "grid-wud").'</div></div>';
 		echo '<b class="grid-wud-admin-title">'.__("Custom Post Type Title", "grid-wud").' 2</b><br>';
-		echo '<i>'.__("Text", "grid-wud").' : </i><input type="text" class="grid-wud-right" name="grid_wud_cpt02" value="'.$grid_wud_cpt02.'" /><br><br><hr>';
+		echo '<i>'.__("Text", "grid-wud").' : </i><input type="text" class="grid-wud-right" name="grid_wud_cpt02" value="'.$grid_wud_cpt02.'" /><br><br><br>';
 
+		echo '<b class="grid-wud-admin-title">'.__("Latest Posts Title", "grid-wud").'</b><br>';
+		echo '<i>'.__("Text", "grid-wud").' : </i><input type="text" class="grid-wud-right" name="grid_wud_news_title" value="'.$grid_wud_news_title.'" /><br><br><hr>';
+		
 		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Depending the order of grid, skip X posts/pages.<br>Sample: order by: date, direction: descending = skip X newest posts/pages. ", "grid-wud").'</div></div>';
 		echo '<b class="grid-wud-admin-title">'.__("Skip x posts", "grid-wud").'</b><br>
 		<label for="wud_box6">'.__("Quantity post to skip", "grid-wud").'</label>&nbsp;&nbsp;<br>
@@ -328,8 +364,8 @@
 		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("If selected: Show the read more result as archive pages (standard) or as grid.", "grid-wud").'</div></div>';
 		echo '<b class="grid-wud-admin-title">'.__("Target: read more button", "grid-wud").'</b><br>';
 		echo '<select name="grid_wud_show_arch_grid" class="grid-wud-right" >';
-		echo     '<option value="0"'; if ( $grid_wud_show_arch_grid == "0" ){echo 'selected="selected"';} echo '>'.__("Archive", "grid-wud").'</option>';
-		echo     '<option value="1"'; if ( $grid_wud_show_arch_grid == "1" ){echo 'selected="selected"';} echo '>'.__("grid", "grid-wud").'</option>';
+		echo     '<option value="0"'; if ( $grid_wud_show_arch_grid == "0" ){echo 'selected="selected"';} echo '>'.__("Grids", "grid-wud").'</option>';
+		echo     '<option value="1"'; if ( $grid_wud_show_arch_grid == "1" ){echo 'selected="selected"';} echo '>'.__("Archive", "grid-wud").'</option>';
 		echo '</select>';		
 		echo '<i>'.__("Archive or grid", "grid-wud").': </i>';	
 		echo '<br><br><br>';
@@ -351,6 +387,14 @@
 		echo '<i>'.__("Sort order grid", "grid-wud").': </i>';		
 		echo '<br><br><hr>';
 
+		echo '<b class="grid-wud-admin-title">'.__("Target: URL grids", "grid-wud").'</b><br>';
+		echo '<select name="grid_wud_nourl" class="grid-wud-right" >';
+		echo     '<option value="0"'; if ( $grid_wud_nourl == "0" ){echo 'selected="selected"';} echo '>'.__("Post/Page", "grid-wud").'</option>';
+		echo     '<option value="1"'; if ( $grid_wud_nourl == "1" ){echo 'selected="selected"';} echo '>'.__("None", "grid-wud").'</option>';
+		echo '</select>';
+		echo '<i>'.__("Post/Page or none", "grid-wud").': </i>';	
+		echo '<br><br><hr>';
+		
 		echo '<select name="grid_wud_show_excerpt" class="grid-wud-right" >';
 		echo     '<option value="0"'; if ( $grid_wud_show_excerpt == "0" ){echo 'selected="selected"';} echo '>'.__("Show not", "grid-wud").'</option>';
 		echo     '<option value="1"'; if ( $grid_wud_show_excerpt == "1" ){echo 'selected="selected"';} echo '>'.__("Without title", "grid-wud").'</option>';
@@ -398,7 +442,11 @@
 		
 		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Fade in the picture of the grid by a mouse on hover action.", "grid-wud").'</div></div>';
 		echo '<b class="grid-wud-admin-title">'.__("Fade in grid", "grid-wud").'</b><br>';
-		echo '<i>'.__("Active", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_fade_in" type="checkbox" value="1" '. checked( $grid_wud_fade_in, "1", false ) .'/><br>';
+		echo '<i>'.__("Active", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_fade_in" type="checkbox" value="1" '. checked( $grid_wud_fade_in, "1", false ) .'/><hr>';
+		
+		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Activate shortcodes in widgets (Wordpress default is off).", "grid-wud").'</div></div>';
+		echo '<b class="grid-wud-admin-title">'.__("Widgets shortcode", "grid-wud").'</b><br>';		
+		echo '<i>'.__("Active", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_widgets" type="checkbox" value="1" '. checked( $grid_wud_widgets, "1", false ) .'/><br>';
 				
 		echo '</div><div class="clear"></div>';
 		echo '<div><br>';	

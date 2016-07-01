@@ -7,11 +7,11 @@ Description: Grid WUD adds responsive, customizable and dynamic grids to WordPre
 Author: Danny WUD
 Author URI: http://wistudat.be/
 Plugin URI: http://wistudat.be/
-Tags: grid, grids, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post grid, image grid, filter, display, list, page, pages, posts, post, query, custom post type
+Tags: grid, grids, latest post, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post grid, image grid, filter, display, list, page, pages, posts, post, query, custom post type
 Requires at least: 3.6
 Tested up to: 4.5
-Stable tag: 1.0.7
-Version: 1.0.7
+Stable tag: 1.1.1
+Version: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,9 +20,11 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 = FREE version, updates, PRO support and new features! =
 * Guaranteed 100% responsive grids and design!
-* Included: **Posts** , **gallery** , **custom post type** , **Vimeo or YouTube images**! 
+* Included: **Widgets** **Latest Post** **Posts** , **gallery** , **custom post type** , **Vimeo or YouTube images**! 
 * Use shortcode: [gridwud slug="cat_or_tag"] where "cat_or_tag" is the slug from the category or tag you want.
-* **NEW**: different lay-outs possible on the same post/ pages with extra short code shape="x" where x is the number of the shape.
+* NEW: Different grid lay-outs possible on the same post/ pages.
+* NEW: Grids or Tiles option.
+* **Started merging of our plugins WP-Tiles-WUD and Grid-WUD, into Grid-WUD!**
 * More info [here](http://wp.wistudat.be/grid-wud-how-to-use/) in our online manual.
 
 = About GRID WUD =
@@ -80,7 +82,32 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 == Changelog ==
-= 1.0.7=
+= 1.1.1 =
+* Choose between the lay-out Grids or Tiles.
+* Set shadow arround tiles (on/off).
+* Read more button CSS values adjustment.
+* Started merging of our plugins WP-Tiles-WUD and Grid-WUD, into Grid-WUD!
+
+= 1.1.0 =
+* New slug to display latest post from all categories and tags. Use: [gridwud slug="wud-latest"] to display the latest posts.
+* Latest Posts Title, used if you add the shortcode: [gridwud slug="wud-latest"].
+* Extra parameter "Target read more button": Grids or Archives to display.
+* Extra parameter to change the target when clicking on a grid: 
+* CSS z-index removed, which caused menu problems.
+
+= 1.0.9 =
+* Grid WUD WIDGETS.
+* Activate "short code in widget" and simply add a short code to a text widget.
+* Extra parameter: Split grids, set a space between the grids.
+* Fix: button="1" short code back enabled.
+
+= 1.0.8 =
+* No switching pages anymore by "Read More" action!
+* Read more button slides the requested grids down.
+* Parameter to enable Title URL's: by clicking the title, you wil be redirected to the the category or tag.
+* Better responsive results.
+
+= 1.0.7 =
 * Grid Title position: top, center, bottom, cover.
 * Grid Title align: left, center, right.
 
@@ -112,5 +139,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
 	
 == Screenshots ==
-1. On Frontend.
-2. Admin menu
+1. Grids on Frontend.
+2. Tiles on Frontend.
+3. Admin menu
+4. Grid WUD WIDGETS (even with latetst post)

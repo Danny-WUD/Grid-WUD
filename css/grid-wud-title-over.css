@@ -7,5 +7,9 @@
 	height: 100% !important;
     max-height: 100% !important;
     vertical-align: middle;
-    line-height: 25;
+}
+.grid-wud-excerpt-3 b{
+	display: inline;
+    top: 50%;
+    position: relative;
 }

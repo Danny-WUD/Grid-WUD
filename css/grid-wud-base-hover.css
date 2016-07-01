@@ -8,7 +8,6 @@
 	-webkit-filter:grayscale(30%);
 	filter: grayscale(30%);
 	-webkit-backface-visibility:hidden;
-	transform-origin: center left;
 }
 
 .grid-4-wud-wrapper:hover > .grid-4-wud-image{ 
@@ -20,5 +19,4 @@
 	-webkit-filter:grayscale(30%);
 	filter: grayscale(30%);
 	-webkit-backface-visibility:hidden;
-	transform-origin: center left;
 }

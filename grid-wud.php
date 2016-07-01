@@ -9,11 +9,11 @@ Description: Grid WUD adds responsive, customizable and dynamic grids to WordPre
 Author: Danny WUD
 Author URI: http://wistudat.be/
 Plugin URI: http://wistudat.be/
-Tags: grid, grids, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post grid, image grid, filter, display, list, page, pages, posts, post, query, custom post type
+Tags: grid, grids, latest post, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post grid, image grid, filter, display, list, page, pages, posts, post, query, custom post type
 Requires at least: 3.6
 Tested up to: 4.5
-Stable tag: 1.0.7
-Version: 1.0.7
+Stable tag: 1.1.1
+Version: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: grid-wud
@@ -21,7 +21,7 @@ Domain Path: /languages
 */
 	defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 //==============================================================================//
-$version='1.0.7';
+$version='1.1.1';
 // Store the latest version.
 if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version', $version);}
 //==============================================================================//
@@ -35,7 +35,6 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 	add_action('plugins_loaded', 'grid_wud_languages');
 	add_action( 'plugins_loaded', 'grid_wud_admin' );
 	add_action( 'plugins_loaded', 'grid_wud_base' );
-	add_action( 'template_redirect', 'grid_wud_go_to_my_url');
 	add_action( 'init', 'grid_wud_update' );
 	add_action( 'init', 'grid_wud_funcs' );
 	register_activation_hook( __FILE__, 'grid_wud_activate' );
@@ -61,9 +60,24 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 	function grid_wud_styles() {	
 // Register default Style	
 	global $gwfuncs;
-	//Use the default style
-	 wp_register_style( 'grid_wud_style', plugins_url('css/grid-wud.css', __FILE__ ), false, '1.0.3' );
-	 wp_enqueue_style( 'grid_wud_style' );		 
+	//Add short code to widgets
+	if($gwfuncs['grid_wud_widgets']=='1'){
+	add_filter( 'widget_text', 'shortcode_unautop');
+	add_filter( 'widget_text', 'do_shortcode');
+	}	
+	
+	if (isset( $_GET['gt'] ) && !empty( $_GET['gt']) && $_GET['gt']==1){
+		$gwfuncs['grid_wud_img_split'] = 1;
+	}
+	//Use the grids or tiles
+	if($gwfuncs['grid_wud_img_split'] == 0){
+		wp_register_style( 'grid_wud_style', plugins_url('css/grid-wud.css', __FILE__ ), false, '1.0.3' );
+	}
+	else{
+		wp_register_style( 'grid_wud_style', plugins_url('css/tiles-wud.css', __FILE__ ), false, '1.0.3' );	
+	}
+	 wp_enqueue_style( 'grid_wud_style' );
+	 
 	 wp_register_style( 'grid_wud_style_hover', plugins_url('css/grid-wud-base-hover.css', __FILE__ ), false, '1.0.3' );
 	 if($gwfuncs['grid_wud_img_hover']=='1'){wp_enqueue_style( 'grid_wud_style_hover' );}
 	 wp_register_style( 'grid_wud_style_center', plugins_url('css/grid-wud-title-center.css', __FILE__ ), false, '1.0.3' );
@@ -146,6 +160,12 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 		if (get_option('grid_wud_font_button')=='') {update_option('grid_wud_font_button', 'inherit');}
 		if (get_option('grid_wud_title_pos')=='') {update_option('grid_wud_title_pos', 0);}
 		if (get_option('grid_wud_title_topmid')=='') {update_option('grid_wud_title_topmid', 0);}
+		if (get_option('grid_wud_cat_url')=='') {update_option('grid_wud_cat_url', 0);}
+		if (get_option('grid_wud_widgets')=='') {update_option('grid_wud_widgets', 0);}
+		if (get_option('grid_wud_img_split')=='') {update_option('grid_wud_img_split', 0);}
+		if (get_option('grid_wud_news_title')=='') {update_option('grid_wud_news_title', 'Latest News');}
+		if (get_option('grid_wud_nourl')=='') {update_option('grid_wud_nourl', 0);}
+		if (get_option('grid_wud_shadow')=='') {update_option('grid_wud_shadow', 0);}
 	}
 	
 //Declare once all Grid WUD settings 	
@@ -183,41 +203,22 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 			'grid_wud_def_img' => get_option('grid_wud_def_img'),
 			'grid_wud_img_hover' => get_option('grid_wud_img_hover'),
 			'grid_wud_img_grey' => get_option('grid_wud_img_grey'),
+			'grid_wud_img_split' => get_option('grid_wud_img_split'),
 			'grid_wud_round_img' => get_option('grid_wud_round_img'),
 			'grid_wud_round_button' => get_option('grid_wud_round_button'),
 			'grid_wud_font_header' => get_option('grid_wud_font_header'),
 			'grid_wud_font_excerpt' => get_option('grid_wud_font_excerpt'),
 			'grid_wud_font_button' => get_option('grid_wud_font_button'),
 			'grid_wud_title_pos' => get_option('grid_wud_title_pos'),
-			'grid_wud_title_topmid' => get_option('grid_wud_title_topmid')
+			'grid_wud_title_topmid' => get_option('grid_wud_title_topmid'),
+			'grid_wud_cat_url' => get_option('grid_wud_cat_url'),
+			'grid_wud_widgets' => get_option('grid_wud_widgets'),
+			'grid_wud_news_title' => get_option('grid_wud_news_title'),
+			'grid_wud_nourl' => get_option('grid_wud_nourl'),
+			'grid_wud_shadow' => get_option('grid_wud_shadow')
 			);
 			return $gwfuncs;
-		}
-
- 
-//Include /grid-wud-content.php instead using the Wordpress default: /tag/ or /category/
-	function grid_wud_go_to_my_url(){
-		global $catid, $tagid, $gwfuncs;
-		//Redirect only if parameter 'grid_wud_show_arch_grid' is set to 1
-		if(($gwfuncs['grid_wud_show_arch_grid']==1 && isset( $_GET['g'] ) && !empty( $_GET['g'] ))){
-
-				if( is_category() && (is_archive() || !is_front_page() || !is_home() || !is_single() || !is_singular() )){
-					$catid = get_query_var('cat');
-					$tagid = '';
-					include (GRID_WUD_DIR . 'pages/grid-wud-content.php');
-					exit();				
-				}
-
-				if( is_tag()  && (is_archive() || !is_front_page() || !is_home() || !is_single() || !is_singular() )){
-					$tags = single_tag_title("", false);
-					$tagid = get_term_by('slug', $tags, 'post_tag');
-					$tagid = $tagid->term_id;
-					$catid = '';
-					include (GRID_WUD_DIR . 'pages/grid-wud-content.php');
-					exit();
-				}	 
-		}
-	}		
+		}	
 	
 		
 	
@@ -249,12 +250,18 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 		if (get_option('grid_wud_def_img')=='') {update_option('grid_wud_def_img', plugins_url('images/empty-grid.png', __FILE__ ));}
 		if (get_option('grid_wud_img_hover')=='') {update_option('grid_wud_img_hover', 1);}
 		if (get_option('grid_wud_img_grey')=='') {update_option('grid_wud_img_grey', 1);}
+		if (get_option('grid_wud_img_split')=='') {update_option('grid_wud_img_split', 0);}
 		if (get_option('grid_wud_round_img')=='') {update_option('grid_wud_round_img', 0);}
 		if (get_option('grid_wud_round_button')=='') {update_option('grid_wud_round_button', 0);}
 		if (get_option('grid_wud_font_header')=='') {update_option('grid_wud_font_header', 'inherit');}
 		if (get_option('grid_wud_font_excerpt')=='') {update_option('grid_wud_font_excerpt', 'inherit');}
 		if (get_option('grid_wud_font_button')=='') {update_option('grid_wud_font_button', 'inherit');}
 		if (get_option('grid_wud_title_pos')=='') {update_option('grid_wud_title_pos', 0);}
+		if (get_option('grid_wud_cat_url')=='') {update_option('grid_wud_cat_url', 0);}
+		if (get_option('grid_wud_widgets')=='') {update_option('grid_wud_widgets', 0);}
+		if (get_option('grid_wud_news_title')=='') {update_option('grid_wud_news_title', 'Latest News');}
+		if (get_option('grid_wud_nourl')=='') {update_option('grid_wud_nourl', 0);}
+		if (get_option('grid_wud_shadow')=='') {update_option('grid_wud_shadow', 0);}
 	}
 	
 ?>

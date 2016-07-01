@@ -19,6 +19,7 @@
 		$ids = unserialize(filter_var($_POST['grid_wud_ids'], FILTER_SANITIZE_STRING));
 		$wud_grid_nr = trim(filter_var($_POST['grid_wud_grid_nr'], FILTER_SANITIZE_STRING));
 		$wud_grid_shape = trim(filter_var($_POST['grid_wud_shape'], FILTER_SANITIZE_STRING));
+		$wud_grid_latest = trim(filter_var($_POST['grid_wud_latest'], FILTER_SANITIZE_STRING));
 		echo wud_grid_wud__more_post();
 		echo '</div>';
 	}
@@ -26,7 +27,7 @@
 
 // Get the 'see more' image
 	function wud_grid_wud__more_post(){
-		global $result, $args, $grid_wud_set_max_grid, $tags, $cats, $ids, $wud_grid_nr, $gwfuncs, $wud_grid_shape ;
+		global $result, $args, $grid_wud_set_max_grid, $tags, $cats, $ids, $wud_grid_nr, $gwfuncs, $wud_grid_shape, $wud_grid_latest ;
 
 		
 		//Get the category or tag by name
@@ -36,6 +37,7 @@
 		
 		if (!empty( $cats )){$args = array( 'posts_per_page' => $grid_wud_set_max_grid , 'category' => $cats, 'post__not_in'=>$ids, 'orderby'=> $gwfuncs['grid_wud_set_order_grid'], 'order'=> $gwfuncs['grid_wud_set_dir_grid'] );}
 		if (!empty( $tags )){$args = array( 'posts_per_page' => $grid_wud_set_max_grid , 'tag_id' => $tags, 'post__not_in'=>$ids, 'orderby'=> $gwfuncs['grid_wud_set_order_grid'], 'order'=> $gwfuncs['grid_wud_set_dir_grid'] );}
+		if (empty( $tags ) && empty( $cats ) && $wud_grid_latest == 1){$args = array( 'posts_per_page' => $grid_wud_set_max_grid , 'post__not_in'=>$ids, 'orderby'=> 'date', 'order'=> 'DESC' );}
 		
 			$myposts = get_posts( $args );
 			if(isset($myposts)){	
@@ -102,20 +104,51 @@
 					$result .= "<div class='wud-url'><a href='".$wud_link."' title='' alt=''>";				
 		
 
-			//-> Wrapper-start
+			//-> Wrapper-start	
+			
+			//CIRCLE ***
 			if($wud_grid_shape == "4" ){
-					$result .= "<div class='grid-wud-wrapper' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' style='border-radius: 50% !important;-webkit-border-radius: 50% !important;	-moz-border-radius: 50% !important; z-index: 10;' >"; 
+				//GRIDS
+				if($gwfuncs['grid_wud_img_split'] == 0){
+					$result .= "<div class='grid-wud-wrapper' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' style='border-radius: 50% !important;-webkit-border-radius: 50% !important;	-moz-border-radius: 50% !important; ' >"; 			
+				}
+				//TILES
+				else{
+					// shadow
+					if($gwfuncs['grid_wud_shadow']==1){
+					$result .= "<div class='grid-wud-wrapper grid-wud-wrapper-box' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' style='border-radius: 50% !important;-webkit-border-radius: 50% !important;	-moz-border-radius: 50% !important; ' >"; 			
+					}
+					//no shadow
+					else{
+					$result .= "<div class='grid-wud-wrapper' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' style='border-radius: 50% !important;-webkit-border-radius: 50% !important;	-moz-border-radius: 50% !important; ' >"; 			
+					}					
+				}				
 			}
+			//SQUARE ***
 			else{
-					$result .= "<div class='grid-wud-wrapper' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' style='border-radius:".$gwfuncs['grid_wud_round_img']."px; z-index:10; }' >"; 
+				//GRIDS
+				if($gwfuncs['grid_wud_img_split'] == 0){
+					$result .= "<div class='grid-wud-wrapper' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' style='border-radius:".$gwfuncs['grid_wud_round_img']."px; }' >"; 			
+				}
+				//TILES
+				else{
+					// shadow
+					if($gwfuncs['grid_wud_shadow']==1){
+					$result .= "<div class='grid-wud-wrapper grid-wud-wrapper-box' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' style='border-radius:".$gwfuncs['grid_wud_round_img']."px; }' >"; 			
+					}
+					// no shadow
+					else{
+					$result .= "<div class='grid-wud-wrapper' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' style='border-radius:".$gwfuncs['grid_wud_round_img']."px; }' >"; 			
+					}					
+				}			
 			}	
 			
 			//-> Image-start & end
 			if($wud_grid_shape == "4" ){
-					$result .= "<div class='grid-wud-image' style='background-image:url(".$wud_feat_image."); border-radius: 50% !important;-webkit-border-radius: 50% !important;	-moz-border-radius: 50% !important; z-index: 20;'></div>";
+					$result .= "<div class='grid-wud-image' style='background-image:url(".$wud_feat_image."); border-radius: 50% !important;-webkit-border-radius: 50% !important;	-moz-border-radius: 50% !important; '></div>";
 			}
 			else{
-					$result .= "<div class='grid-wud-image' style='background-image:url(".$wud_feat_image."); z-index: 20;'></div>";
+					$result .= "<div class='grid-wud-image' style='background-image:url(".$wud_feat_image."); '></div>";
 			}			
 						
 			//Show the category on the grid
@@ -129,19 +162,19 @@
 			if ($wud_grid_shape <> "4" ){
 				// Show excerpt text
 				if($gwfuncs['grid_wud_show_excerpt']=='1'){
-					$result .= "<div class='grid-wud-excerpt' style='font-family:".$gwfuncs['grid_wud_font_excerpt']."; !important; z-index: 30;'>".$wud_excerpt."</div>";	
+					$result .= "<div class='grid-wud-excerpt' style='font-family:".$gwfuncs['grid_wud_font_excerpt']."; !important; '>".$wud_excerpt."</div>";	
 				}
 				// Show excerpt text and title
 				elseif ($gwfuncs['grid_wud_show_excerpt']==2 ){
-					$result .= "<div class='grid-wud-excerpt' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important; z-index: 30;'><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";					
+					$result .= "<div class='grid-wud-excerpt' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important; '><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";					
 				}
 				// Show excerpt text and title allways
 				elseif ($gwfuncs['grid_wud_show_excerpt']==3 ){
-					$result .= "<div class='grid-wud-excerpt-2' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important; z-index: 30;'><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";						
+					$result .= "<div class='grid-wud-excerpt-2' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important; '><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";						
 				}
 				// Show excerpt title
 				elseif ($gwfuncs['grid_wud_show_excerpt']==4 ){
-					$result .= "<div class='grid-wud-excerpt-3' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important; z-index: 30;'><b>".$post->post_title."</b></div>";						
+					$result .= "<div class='grid-wud-excerpt-3' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important; '><b>".$post->post_title."</b></div>";						
 				}				
 			}
 			else{
@@ -154,15 +187,15 @@
 					}
 					// Show excerpt text and title allways
 					elseif ($gwfuncs['grid_wud_show_excerpt']==3 ){
-						$result .= "<div class='grid-wud-excerpt-2' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;padding: 3% 2% 3% 4%; border-radius: 10%;-webkit-border-radius: 10%;-moz-border-radius: 10%;margin-left: 17%;font-size: 16px;font-size: 0.8vw;width: 60%;bottom: 20%;height: auto;max-height: 25% !important;z-index: 30;'><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";						
+						$result .= "<div class='grid-wud-excerpt-2' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;padding: 3% 2% 3% 4%; border-radius: 10%;-webkit-border-radius: 10%;-moz-border-radius: 10%;margin-left: 17%;font-size: 16px;font-size: 0.8vw;width: 60%;bottom: 20%;height: auto;max-height: 25% !important;'><b>".$post->post_title."</b><br>".$wud_excerpt."</div>";						
 					}
 					// Show excerpt title
 					elseif ($gwfuncs['grid_wud_show_excerpt']==4 ){
 						if($gwfuncs['grid_wud_title_topmid']<>4){
-						$result .= "<div class='grid-wud-excerpt-3' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important; padding-top: 20px; padding-bottom: 20px; text-align: center !important; z-index: 30;'><b>".$post->post_title."</b></div>";						
+						$result .= "<div class='grid-wud-excerpt-3' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important; padding-top: 20px; padding-bottom: 20px; text-align: center !important; '><b>".$post->post_title."</b></div>";						
 						}
 						else{
-						$result .= "<div class='grid-wud-excerpt-3' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;padding: 3% 2% 3% 4%; border-radius: 10%;-webkit-border-radius: 10%;-moz-border-radius: 10%;margin-left: 17%;font-size: 16px;font-size: 0.8vw;width: 60%;bottom: 20%;height: auto;max-height: 25% !important;z-index: 30;'><b>".$post->post_title."</b></div>";							
+						$result .= "<div class='grid-wud-excerpt-3' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;padding: 3% 2% 3% 4%; border-radius: 10%;-webkit-border-radius: 10%;-moz-border-radius: 10%;margin-left: 17%;font-size: 16px;font-size: 0.8vw;width: 60%;bottom: 20%;height: auto;max-height: 25% !important;'><b>".$post->post_title."</b></div>";							
 						}
 					}					
 				}			
