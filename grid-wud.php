@@ -65,10 +65,6 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 	add_filter( 'widget_text', 'shortcode_unautop');
 	add_filter( 'widget_text', 'do_shortcode');
 	}	
-	
-	if (isset( $_GET['gt'] ) && !empty( $_GET['gt']) && $_GET['gt']==1){
-		$gwfuncs['grid_wud_img_split'] = 1;
-	}
 	//Use the grids or tiles
 	if($gwfuncs['grid_wud_img_split'] == 0){
 		wp_register_style( 'grid_wud_style', plugins_url('css/grid-wud.css', __FILE__ ), false, '1.0.3' );

@@ -104,7 +104,7 @@
 					$result .= "<div class='wud-url'><a href='".$wud_link."' title='' alt=''>";				
 		
 
-			//-> Wrapper-start	
+			//-> Wrapper-start
 			
 			//CIRCLE ***
 			if($wud_grid_shape == "4" ){
