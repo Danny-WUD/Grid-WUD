@@ -8,6 +8,14 @@
     overflow: hidden;
 	font-size: 100%; 
 	font-family:inherit;
+	margin: auto;
+}
+
+.grid-wud-widget{
+	width: 100%;
+    overflow: hidden;
+	font-size: 100%; 
+	font-family:inherit;
 }
 
 /* Wrapper (Grid) */
@@ -91,7 +99,6 @@
 	overflow: hidden;
 	white-space: pre-line;
 	text-overflow: ellipsis;
-	width:98%;
 	bottom: 0;
 	height: auto;
 	max-height: 50% !important;	
@@ -124,7 +131,6 @@
 	overflow: hidden;
 	white-space: pre-line;
 	text-overflow: ellipsis;
-	width:98%;
 	bottom: 0;
 	height: auto;
 	max-height: 50% !important;	

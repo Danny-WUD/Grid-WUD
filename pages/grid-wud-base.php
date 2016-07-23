@@ -6,18 +6,18 @@
  */
 function grid_wud_comm( $atts ) {	
 	// Attributes
-	extract( shortcode_atts(array('slug' => '','grid' => '','button' => '','cp' => '','shape' => '','widget' => ''), $atts ));
+	extract( shortcode_atts(array('slug' => '','grid' => '','button' => '','cp' => '','shape' => ''), $atts ));
 	//Remember the CSS ...
     // slug: category or tag
 	// grid: quantity to display
 	// button: display/hide the button
 	// cp: custom post type
 	// shape: number of shape to show
-	// widget: display correct widget format
+	
 	$result = NULL; 
 	// Latest post not active
 	$wud_latest_post="0";
-	global $gwfuncs;
+	global $gwfuncs, $grid_wud_widget;
 
 
 		//Show the style
@@ -43,24 +43,7 @@ function grid_wud_comm( $atts ) {
 		$grid_wud_skip_post=$gwfuncs['grid_wud_skip_post'];
 		$grid_wud_button=0; 
 		$grid_wud_post_type=0;
-		$grid_wud_widget=0;
 
-
-		//Show in widget (yes/no)
-		if(isset($atts["widget"]) && $atts["widget"]!='' ){
-			if(is_numeric($atts["widget"]) && $atts["widget"] > 0 && $atts["widget"] == round($atts["widget"], 0)){
-				$grid_wud_widget = $atts["widget"];
-				if($grid_wud_widget > 1){$grid_wud_widget = 1;}
-			}
-			//Else use the global default value
-			else{
-				$grid_wud_widget = 0;
-			}
-		}
-		else{
-			$wud_quantity = $gwfuncs['grid_wud_set_max_grid'];
-		}
-		
 		//Show the button (yes/no)
 		if(isset($atts["button"]) && $atts["button"]!='' ){
 			if(is_numeric($atts["button"]) && $atts["button"] > 0 && $atts["button"] == round($atts["button"], 0)){
@@ -72,9 +55,8 @@ function grid_wud_comm( $atts ) {
 				$grid_wud_button = 0;
 			}
 		}
-		else{
-			$wud_quantity = $gwfuncs['grid_wud_set_max_grid'];
-		}		
+	
+		
 		//grid quantity given by shortcode
 		if(isset($atts["grid"]) && $atts["grid"]!='' ){
 			if(is_numeric($atts["grid"]) && $atts["grid"] > 0 && $atts["grid"] == round($atts["grid"], 0)){
@@ -156,7 +138,7 @@ function grid_wud_comm( $atts ) {
 //-> Show the grid !
 
 		//if(isset($posts) && 'page' == get_option( 'show_on_front' )){
-		if(isset($posts)){
+		if(isset($posts)){	
 		$count_cats_tags= substr(round(microtime(true) * 1000),10,3);
 		// Remember current slug (cat_or_tag)
 		$slugs = $atts["slug"]; 
@@ -185,8 +167,9 @@ function grid_wud_comm( $atts ) {
 				
 		//-> Container-start
 			$result .= "<!-- Grid WUD Version ".$gwfuncs['grid_wud_version']."-->";
-			$result .= "<div id='grid_wud_fade_home' class='no-js' ><div class='grid-wud-container' style='font-family:".$gwfuncs['grid_wud_font_header']." !important;'>"; 
-						
+			if($grid_wud_widget==1){$result .= "<div id='grid_wud_fade_home' class='no-js' ><div class='grid-wud-widget' style='font-family:".$gwfuncs['grid_wud_font_header']." !important;'>";}
+							   else{$result .= "<div id='grid_wud_fade_home' class='no-js' ><div class='grid-wud-container' style='width:".$gwfuncs['grid_wud_width']."% !important; font-family:".$gwfuncs['grid_wud_font_header']." !important;'>";}
+			
 			$lineheight=$gwfuncs['grid_wud_h1_font_size']+1;
 			//Parameter hide category/tag title + back and font color
 			if($gwfuncs['grid_wud_hide_cat_tag_header']==0 || !$gwfuncs['grid_wud_hide_cat_tag_header'] || $gwfuncs['grid_wud_hide_cat_tag_header']==''){
@@ -391,7 +374,7 @@ function grid_wud_comm( $atts ) {
 					// Show excerpt title
 					elseif ($gwfuncs['grid_wud_show_excerpt']==4 ){
 						if($gwfuncs['grid_wud_title_topmid']<>4){
-						$result .= "<div class='grid-wud-excerpt-3' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important; padding-top: 20px; padding-bottom: 20px; text-align: center !important; '><b>".$post->post_title."</b></div>";						
+						$result .= "<div class='grid-wud-excerpt' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;padding: 3% 2% 3% 4%; border-radius: 10%;-webkit-border-radius: 10%;-moz-border-radius: 10%;margin-left: 17%;font-size: 16px;font-size: 0.8vw;width: 60%;bottom: 20%;height: auto;max-height: 25% !important;'><b>".$post->post_title."</b></div>";						
 						}
 						else{
 						$result .= "<div class='grid-wud-excerpt-3' style='font-family:".$gwfuncs['grid_wud_font_excerpt']." !important;padding: 3% 2% 3% 4%; border-radius: 10%;-webkit-border-radius: 10%;-moz-border-radius: 10%;margin-left: 17%;font-size: 16px;font-size: 0.8vw;width: 60%;bottom: 20%;height: auto;max-height: 25% !important;'><b>".$post->post_title."</b></div>";							
@@ -428,6 +411,12 @@ function grid_wud_comm( $atts ) {
 				$result .= "<input type='hidden' name='grid_wud_latest' id='grid_wud_latest_".$count_cats_tags."'  value='".$wud_latest_post."'/>";
 				// post id's to deny
 				$result .= "<input type='hidden' name='grid_wud_ids' id='grid_wud_ids_".$count_cats_tags."'  value='".serialize($ids)."'/>";
+				if($gwfuncs['grid_wud_shadow'] ==1){
+					$result .= "<input type='hidden' name='grid_wud_shadow' id='grid_wud_shadow".$count_cats_tags."'  value='1'/>";
+				}
+				else{
+					$result .= "<input type='hidden' name='grid_wud_shadow' id='grid_wud_shadow".$count_cats_tags."'  value='0/>";
+				}
 				$result .= "<input type='hidden' name='count_cats_tags' id='count_cats_tags'  value='".$count_cats_tags."'/>";
 //				
 				$buttonheight=$gwfuncs['grid_wud_but_font_size']+1;

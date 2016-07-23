@@ -73,6 +73,9 @@
 		
 		if ( isset($_POST['grid_wud_widgets'])) {$grid_wud_widgets = filter_var($_POST['grid_wud_widgets'], FILTER_SANITIZE_STRING);} else{$grid_wud_widgets =0;}
 		update_option('grid_wud_widgets', $grid_wud_widgets);
+
+		if ( isset($_POST['grid_wud_act_gallery'])) {$grid_wud_act_gallery = filter_var($_POST['grid_wud_act_gallery'], FILTER_SANITIZE_STRING);} else{$grid_wud_act_gallery =0;}
+		update_option('grid_wud_act_gallery', $grid_wud_act_gallery);
 		
 		$grid_wud_set_max_grid = filter_var($_POST['grid_wud_set_max_grid'], FILTER_SANITIZE_STRING);
 		update_option('grid_wud_set_max_grid', $grid_wud_set_max_grid);
@@ -132,6 +135,10 @@
 		if($grid_wud_round_img==''){$grid_wud_round_img='0';}
 		update_option('grid_wud_round_img', ($grid_wud_round_img));
 
+		$grid_wud_width = filter_var($_POST['grid_wud_width'], FILTER_SANITIZE_STRING);
+		if($grid_wud_width==''){$grid_wud_width='0';}
+		update_option('grid_wud_width', ($grid_wud_width));
+		
 		$grid_wud_round_button = filter_var($_POST['grid_wud_round_button'], FILTER_SANITIZE_STRING);
 		if($grid_wud_round_button==''){$grid_wud_round_button='0';}
 		update_option('grid_wud_round_button', ($grid_wud_round_button));
@@ -171,6 +178,7 @@
 		$grid_wud_hide_grid_cat = $gwfuncs['grid_wud_hide_grid_cat'];	
 		$grid_wud_show_excerpt = $gwfuncs['grid_wud_show_excerpt'];
 		$grid_wud_widgets = $gwfuncs['grid_wud_widgets'];
+		$grid_wud_act_gallery = $gwfuncs['grid_wud_act_gallery'];
 		$grid_wud_show_arch_button = $gwfuncs['grid_wud_show_arch_button'];
 		$grid_wud_show_grid_button = $gwfuncs['grid_wud_show_grid_button'];
 		$grid_wud_show_arch_grid = $gwfuncs['grid_wud_show_arch_grid'];
@@ -198,6 +206,7 @@
 		$grid_wud_news_title = $gwfuncs['grid_wud_news_title'];
 		$grid_wud_nourl = $gwfuncs['grid_wud_nourl'];
 		$grid_wud_shadow = $gwfuncs['grid_wud_shadow'];
+		$grid_wud_width = $gwfuncs['grid_wud_width'];
 	}
 
 //LEFT ADMIN 
@@ -267,8 +276,13 @@
 		echo '<b class="grid-wud-admin-title">'.__("Default grid image", "grid-wud").'</b><br>';
 		echo '<img src="'.$grid_wud_def_img.'" id="image-src" width="150px" height="150px" style="box-shadow: 4px 5px 5px #888888;"/><br>';
 		echo '<input id="image-url" type="hidden" name="grid_wud_def_img" value="'.$grid_wud_def_img.'" /><br>';
-		echo '<input id="upload-button" type="button" class="button" value="'.__("Upload Image", "grid-wud").'" />  <input id="clear-button" type="button"  class="button" value="'.__("Use the Default Image", "grid-wud").'" onclick="javascript: ClearText();" ><br><hr>';
+		echo '<input id="upload-button" type="button" class="button" value="'.__("Upload Image", "grid-wud").'" />  <input id="clear-button" type="button"  class="button" value="'.__("Use the Default Image", "grid-wud").'" onclick="javascript: ClearText();" ><br><br>';
 
+		echo '<dl><dt><label for="wud_box9">'.__("Size Grids/Tiles", "grid-wud").'</label>&nbsp;&nbsp;</dt>
+		<dd><input size="2" id="wud_box9" type="text" style="font-weight:bolder;" value="'.$grid_wud_width.'" readonly/></dd>
+		<dt><label for="wud_sizer9"></label></dt>
+		<dd><input class="grid-wud-right" id="wud_sizer9" type="range" min="50" max="100" step="1" value="'.$grid_wud_width.'" name="grid_wud_width" onchange="wud_box9.value = wud_sizer9.value" oninput="wud_box9.value = wud_sizer9.value" /><b>%</b></dd></dl><hr>';
+		
 		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Changes the Custom Post Type Title 1 into this text. <br>Usage: short code: cp=\"1\"", "grid-wud").'</div></div>';
 		echo '<b class="grid-wud-admin-title">'.__("Custom Post Type Title", "grid-wud").' 1</b><br>';		
 		echo '<i>'.__("Text", "grid-wud").' : </i><input type="text" class="grid-wud-right" name="grid_wud_cpt01" value="'.$grid_wud_cpt01.'" /><br><br><br>';
@@ -440,14 +454,19 @@
 		echo '<i class="grid-wud-admin-title">'.__("Font Family", "grid-wud").'</i>';	
 		echo '<br><hr>';
 		
-		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Fade in the picture of the grid by a mouse on hover action.", "grid-wud").'</div></div>';
+		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Fade in the picture of the grid by a post/page load.", "grid-wud").'</div></div>';
 		echo '<b class="grid-wud-admin-title">'.__("Fade in grid", "grid-wud").'</b><br>';
 		echo '<i>'.__("Active", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_fade_in" type="checkbox" value="1" '. checked( $grid_wud_fade_in, "1", false ) .'/><hr>';
 		
-		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Activate shortcodes in widgets (Wordpress default is off).", "grid-wud").'</div></div>';
+		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Uncheck if you do not want to use our short codes in the widgets (Wordpress default is off).", "grid-wud").'</div></div>';
 		echo '<b class="grid-wud-admin-title">'.__("Widgets shortcode", "grid-wud").'</b><br>';		
-		echo '<i>'.__("Active", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_widgets" type="checkbox" value="1" '. checked( $grid_wud_widgets, "1", false ) .'/><br>';
-				
+		echo '<i>'.__("Active", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_widgets" type="checkbox" value="1" '. checked( $grid_wud_widgets, "1", false ) .'/><hr>';
+
+		
+		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Change the Wordpress Gallery to Grids or Tiles (Wordpress default is off).", "grid-wud").'</div></div>';
+		echo '<b class="grid-wud-admin-title">'.__("Grid WUD Gallery", "grid-wud").'</b><br>';		
+		echo '<i>'.__("Active", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_act_gallery" type="checkbox" value="1" '. checked( $grid_wud_act_gallery, "1", false ) .'/><br>';
+		
 		echo '</div><div class="clear"></div>';
 		echo '<div><br>';	
 		echo '<input type="submit" name="Submit" class="button-primary" id="grid-wud-adm-subm" value="'.__("Save Changes", "grid-wud").'" />';

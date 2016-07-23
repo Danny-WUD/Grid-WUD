@@ -12,8 +12,8 @@ Plugin URI: http://wistudat.be/
 Tags: grid, grids, latest post, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post grid, image grid, filter, display, list, page, pages, posts, post, query, custom post type
 Requires at least: 3.6
 Tested up to: 4.5
-Stable tag: 1.1.1
-Version: 1.1.1
+Stable tag: 1.1.4
+Version: 1.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: grid-wud
@@ -21,7 +21,7 @@ Domain Path: /languages
 */
 	defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 //==============================================================================//
-$version='1.1.1';
+$version='1.1.4';
 // Store the latest version.
 if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version', $version);}
 //==============================================================================//
@@ -42,7 +42,35 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 	add_action('admin_enqueue_scripts', 'grid_wud_style_more');
 	add_action('admin_menu', 'grid_wud_submenu_page');
 	add_filter( 'plugin_action_links', 'grid_wud_action_links', 10, 5 );
+	//Add short code to widgets
+	add_filter( 'widget_text', 'wud_widget_text', 1, 3 );
 
+	
+// WUD GRID GALLERY 
+	global $gwfuncs;
+	grid_wud_funcs();
+	if($gwfuncs['grid_wud_act_gallery']=='1'){
+		add_action( 'plugins_loaded', 'grid_wud_gallery' );
+		add_action( 'after_setup_theme', 'grid_wud_galleries' );
+		}
+
+//WUD GRID WIDGET STYLE		
+    function wud_widget_text( $widget_text, $instance, $widget )
+    {
+		global $gwfuncs, $grid_wud_widget;
+        $tag = 'gridwud';
+        if ( has_shortcode( $instance['text'], $tag ) )
+            $grid_wud_widget=1;
+        else
+            $grid_wud_widget=0;
+        return $widget_text;
+    }
+	
+// grid-wud-remove-original-wp-gallery, if WUD GRID GALLERY is activated
+	function grid_wud_gallery() {
+		remove_shortcode( 'gallery' );
+		add_shortcode('gallery', 'wud_grid_gallery');  
+	}
 	
 // grid-wud style, called from short code
 	function grid_wud_current_style() {
@@ -53,18 +81,31 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 		if($gwfuncs['grid_wud_my_css']=="grid-wud-circle"){return $todo = 4;}		
 		if($gwfuncs['grid_wud_my_css']=="grid-wud-photos"){return $todo = 5;}	
 		if($gwfuncs['grid_wud_my_css']=="grid-wud-horizon"){return $todo = 6;}	
-		if($gwfuncs['grid_wud_my_css']=="grid-wud-mixed"){return $todo = 7;}		
+		if($gwfuncs['grid_wud_my_css']=="grid-wud-mixed"){return $todo = 7;}
 		else{return $todo = 1;}
 	}
 // grid-wud style
 	function grid_wud_styles() {	
-// Register default Style	
-	global $gwfuncs;
-	//Add short code to widgets
-	if($gwfuncs['grid_wud_widgets']=='1'){
-	add_filter( 'widget_text', 'shortcode_unautop');
-	add_filter( 'widget_text', 'do_shortcode');
-	}	
+		global $gwfuncs, $color, $post;
+		//Add short code to widgets
+		if($gwfuncs['grid_wud_widgets']=='1'){
+			add_filter( 'widget_text', 'shortcode_unautop');
+			add_filter( 'widget_text', 'do_shortcode');
+		}	
+	
+	//ONLY USED BY THE DEMO PAGE FROM WUD
+	if($post){
+		$post_slug=$post->post_name; $color=0;
+		if ($post_slug=='wp-tiles-wud-with-sidebar' || $post_slug=='wud-gallery-sample'){
+			$gwfuncs['grid_wud_img_split'] = 1;
+			$gwfuncs['grid_wud_shadow'] = 1;
+			$color=1;
+		}
+		else{
+			$color=0;
+		}	
+	}
+	
 	//Use the grids or tiles
 	if($gwfuncs['grid_wud_img_split'] == 0){
 		wp_register_style( 'grid_wud_style', plugins_url('css/grid-wud.css', __FILE__ ), false, '1.0.3' );
@@ -74,6 +115,7 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 	}
 	 wp_enqueue_style( 'grid_wud_style' );
 	 
+	 //Optional CSS 
 	 wp_register_style( 'grid_wud_style_hover', plugins_url('css/grid-wud-base-hover.css', __FILE__ ), false, '1.0.3' );
 	 if($gwfuncs['grid_wud_img_hover']=='1'){wp_enqueue_style( 'grid_wud_style_hover' );}
 	 wp_register_style( 'grid_wud_style_center', plugins_url('css/grid-wud-title-center.css', __FILE__ ), false, '1.0.3' );
@@ -85,14 +127,15 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 	 wp_register_style( 'grid_wud_style_mid', plugins_url('css/grid-wud-title-mid.css', __FILE__ ), false, '1.0.3' );
 	 if($gwfuncs['grid_wud_title_topmid']=='2'){wp_enqueue_style( 'grid_wud_style_mid' );}
 	 wp_register_style( 'grid_wud_style_over', plugins_url('css/grid-wud-title-over.css', __FILE__ ), false, '1.0.3' );
-	 if($gwfuncs['grid_wud_title_topmid']=='3'){wp_enqueue_style( 'grid_wud_style_over' );}
-	 
+	 if($gwfuncs['grid_wud_title_topmid']=='3'){wp_enqueue_style( 'grid_wud_style_over' );}	 
 	 wp_register_style( 'grid_wud_style_grey', plugins_url('css/grid-wud-base-grey.css', __FILE__ ), false, '1.0.3' );
-	 if($gwfuncs['grid_wud_img_grey']=='1'){wp_enqueue_style( 'grid_wud_style_grey' );}	 
-// Javascript + extra page (read more page).
+	 if($gwfuncs['grid_wud_img_grey']=='1' && $color==0){wp_enqueue_style( 'grid_wud_style_grey' );}	 
+	 
+	// Javascript read more page.
 	  wp_enqueue_script('jquery');
 	  wp_register_script('grid_wud_script', plugins_url( 'js/grid-wud.js', __FILE__ ), array('jquery'), '1.0.1', true );
 	  wp_enqueue_script('grid_wud_script');
+	  
 	// Fade out/in option	  
 	if (get_option('grid_wud_fade_in')=='1'){
 	  wp_register_script('grid_wud_fade', plugins_url( 'js/grid-wud-fade.js', __FILE__ ), array('jquery'), '1.0.1', true );
@@ -101,6 +144,7 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 	//Extra grid button result
 	  wp_localize_script('grid_wud_script', 'grid_wud_php', array('grid_wud_url' => plugins_url( 'pages/grid-wud-xtra.php', __FILE__ ),));
 	}
+	
 // grid-wud languages
 	function grid_wud_languages() {
 			load_plugin_textdomain( 'grid-wud', false, dirname(plugin_basename( __FILE__ ) ) . '/languages' );
@@ -126,6 +170,7 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 			return $actions;
 	}
 
+// Color picker and media uploader for admin
 	function grid_wud_style_more($hook) {
 	if   ( $hook == "settings_page_grid-wud" ) {
 		wp_enqueue_style( 'wp-color-picker' ); 
@@ -147,6 +192,11 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 //Load base grid page
 	function grid_wud_base() {require_once( GRID_WUD_DIR . '/pages/grid-wud-base.php' );}
 
+//Load gallery grid page
+	function grid_wud_galleries() {require_once( GRID_WUD_DIR . '/pages/grid-wud-gallery.php' );}
+	
+
+
 // New fields from version 1.0.5 on 
 	function grid_wud_update(){
 		if (get_option('grid_wud_round_img')=='') {update_option('grid_wud_round_img', 0);}
@@ -157,11 +207,13 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 		if (get_option('grid_wud_title_pos')=='') {update_option('grid_wud_title_pos', 0);}
 		if (get_option('grid_wud_title_topmid')=='') {update_option('grid_wud_title_topmid', 0);}
 		if (get_option('grid_wud_cat_url')=='') {update_option('grid_wud_cat_url', 0);}
-		if (get_option('grid_wud_widgets')=='') {update_option('grid_wud_widgets', 0);}
+		if (get_option('grid_wud_widgets')=='') {update_option('grid_wud_widgets', 1);}
 		if (get_option('grid_wud_img_split')=='') {update_option('grid_wud_img_split', 0);}
 		if (get_option('grid_wud_news_title')=='') {update_option('grid_wud_news_title', 'Latest News');}
 		if (get_option('grid_wud_nourl')=='') {update_option('grid_wud_nourl', 0);}
 		if (get_option('grid_wud_shadow')=='') {update_option('grid_wud_shadow', 0);}
+		if (get_option('grid_wud_act_gallery')=='') {update_option('grid_wud_act_gallery', 0);}
+		if (get_option('grid_wud_width')=='') {update_option('grid_wud_width', 100);}
 	}
 	
 //Declare once all Grid WUD settings 	
@@ -211,7 +263,9 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 			'grid_wud_widgets' => get_option('grid_wud_widgets'),
 			'grid_wud_news_title' => get_option('grid_wud_news_title'),
 			'grid_wud_nourl' => get_option('grid_wud_nourl'),
-			'grid_wud_shadow' => get_option('grid_wud_shadow')
+			'grid_wud_shadow' => get_option('grid_wud_shadow'),
+			'grid_wud_act_gallery' => get_option('grid_wud_act_gallery'),
+			'grid_wud_width' => get_option('grid_wud_width')
 			);
 			return $gwfuncs;
 		}	
@@ -254,10 +308,12 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 		if (get_option('grid_wud_font_button')=='') {update_option('grid_wud_font_button', 'inherit');}
 		if (get_option('grid_wud_title_pos')=='') {update_option('grid_wud_title_pos', 0);}
 		if (get_option('grid_wud_cat_url')=='') {update_option('grid_wud_cat_url', 0);}
-		if (get_option('grid_wud_widgets')=='') {update_option('grid_wud_widgets', 0);}
+		if (get_option('grid_wud_widgets')=='') {update_option('grid_wud_widgets', 1);}
 		if (get_option('grid_wud_news_title')=='') {update_option('grid_wud_news_title', 'Latest News');}
 		if (get_option('grid_wud_nourl')=='') {update_option('grid_wud_nourl', 0);}
 		if (get_option('grid_wud_shadow')=='') {update_option('grid_wud_shadow', 0);}
+		if (get_option('grid_wud_act_gallery')=='') {update_option('grid_wud_act_gallery', 0);}
+		if (get_option('grid_wud_width')=='') {update_option('grid_wud_width', 100);}
 	}
 	
 ?>

@@ -7,11 +7,11 @@ Description: Grid WUD adds responsive, customizable and dynamic grids to WordPre
 Author: Danny WUD
 Author URI: http://wistudat.be/
 Plugin URI: http://wistudat.be/
-Tags: grid, grids, latest post, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post grid, image grid, filter, display, list, page, pages, posts, post, query, custom post type
+Tags: grid, grids, tile, tiles, latest post, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post tiles, post grid, post tile, image grid, filter, image tile, display, list, page, pages, posts, post, query, custom post type
 Requires at least: 3.6
 Tested up to: 4.5
-Stable tag: 1.1.1
-Version: 1.1.1
+Stable tag: 1.1.4
+Version: 1.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,12 +19,12 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 == Description ==
 
 = FREE version, updates, PRO support and new features! =
-* Guaranteed 100% responsive grids and design!
-* Included: **Widgets** **Latest Post** **Posts** , **gallery** , **custom post type** , **Vimeo or YouTube images**! 
+* Included: **Widgets** **Latest Post** **Posts** , **Gallery** , **Custom post type** , **Vimeo or YouTube images**! 
 * Use shortcode: [gridwud slug="cat_or_tag"] where "cat_or_tag" is the slug from the category or tag you want.
-* NEW: Different grid lay-outs possible on the same post/ pages.
-* NEW: Grids or Tiles option.
-* **Started merging of our plugins WP-Tiles-WUD and Grid-WUD, into Grid-WUD!**
+* Different grid lay-outs possible on the same post/ pages.
+* NEW: Change the **Wordpress Gallery** to **tiles or grids**.
+* NEW: Re-sizable tiles, grids and galleries.
+
 * More info [here](http://wp.wistudat.be/grid-wud-how-to-use/) in our online manual.
 
 = About GRID WUD =
@@ -69,6 +69,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 * [grid="2"] to display x grids /category or tag, different number then defined in the settings from Grid WUD.
 * [button="1"] to hide the read more button.
 * [skip="x"] to skip x recent posts, where x is the quantity to skip.
+* [shape="x"] change the layout to the corresponding layout.
 *
 * **Custom Post Type schortcodes**:
 * [cp="1"] or [cp="2"] to display all posts from the custom post type, where 1 or 2 is the title (can be set in the admin options/settings page).
@@ -82,6 +83,19 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 == Changelog ==
+= 1.1.4 =
+* The use of Grid WUD WIDGETS now even easier.
+* The short code: widget="x" is not needed anymore.
+* Removed gallery warning by no content.
+* Possibility to resize the grids/tiles and galleries.
+
+= 1.1.3 =
+* Correction by save post/page action.
+
+= 1.1.2 =
+* Change the Wordpress Gallery to tiles or grids!
+* CSS adjustment tiles and grids.
+
 = 1.1.1 =
 * Choose between the lay-out Grids or Tiles.
 * Set shadow arround tiles (on/off).
@@ -97,7 +111,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 = 1.0.9 =
 * Grid WUD WIDGETS.
-* Activate "short code in widget" and simply add a short code to a text widget.
+* Add a short code to a text widget.
 * Extra parameter: Split grids, set a space between the grids.
 * Fix: button="1" short code back enabled.
 

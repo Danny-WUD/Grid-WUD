@@ -28,6 +28,7 @@ Author URI: http://wistudat.be/
 		var tnr = document.getElementById("grid_wud_grid_nr_"+cct).value;
 		var snr = document.getElementById("grid_wud_shape_"+cct).value;
 		var lp = document.getElementById("grid_wud_latest_"+cct).value;
+		var sh = document.getElementById("grid_wud_shadow"+cct).value;
 		var ptotal = $("#grid_wud_set_max_grid_"+cct).val();
 		count++;
 		if(count==1)
@@ -39,7 +40,7 @@ Author URI: http://wistudat.be/
 			ptotal = parseInt(ptotal) + parseInt(pmore);
 			document.getElementById("grid_wud_set_max_grid_"+cct).value = ptotal;	
 		}	
-		var dataString = 'grid_wud_set_max_grid='+ ptotal +'& grid_wud_tags='+ ptags +'& grid_wud_cats='+ pcats +'& grid_wud_ids='+ ids+'& grid_wud_grid_nr='+ tnr+'& grid_wud_shape='+ snr+'& grid_wud_latest='+ lp;
+		var dataString = 'grid_wud_set_max_grid='+ ptotal +'& grid_wud_tags='+ ptags +'& grid_wud_cats='+ pcats +'& grid_wud_ids='+ ids+'& grid_wud_grid_nr='+ tnr+'& grid_wud_shape='+ snr+'& grid_wud_latest='+ lp+'& grid_wud_shadow='+ sh;
 		
 		/* Load in div grid_wud_result data with structure from grid-wud-xtra*/
 		$.ajax({

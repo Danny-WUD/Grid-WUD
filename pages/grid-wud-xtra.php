@@ -20,6 +20,7 @@
 		$wud_grid_nr = trim(filter_var($_POST['grid_wud_grid_nr'], FILTER_SANITIZE_STRING));
 		$wud_grid_shape = trim(filter_var($_POST['grid_wud_shape'], FILTER_SANITIZE_STRING));
 		$wud_grid_latest = trim(filter_var($_POST['grid_wud_latest'], FILTER_SANITIZE_STRING));
+		$grid_wud_shadow = trim(filter_var($_POST['grid_wud_shadow'], FILTER_SANITIZE_STRING));
 		echo wud_grid_wud__more_post();
 		echo '</div>';
 	}
@@ -27,7 +28,7 @@
 
 // Get the 'see more' image
 	function wud_grid_wud__more_post(){
-		global $result, $args, $grid_wud_set_max_grid, $tags, $cats, $ids, $wud_grid_nr, $gwfuncs, $wud_grid_shape, $wud_grid_latest ;
+		global $result, $args, $grid_wud_set_max_grid, $tags, $cats, $ids, $wud_grid_nr, $gwfuncs, $wud_grid_shape, $wud_grid_latest, $grid_wud_shadow ;
 
 		
 		//Get the category or tag by name
@@ -106,16 +107,16 @@
 
 			//-> Wrapper-start
 			
-			//CIRCLE ***
+		// ###### CIRCLE ###### ($grid_wud_shadow is DEMO variable from: grid-wud-base.php --> grid-wud.js --> HERE) ######
 			if($wud_grid_shape == "4" ){
-				//GRIDS
-				if($gwfuncs['grid_wud_img_split'] == 0){
+				//GRIDS  
+				if($gwfuncs['grid_wud_img_split'] == 0 && $grid_wud_shadow == 0){
 					$result .= "<div class='grid-wud-wrapper' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' style='border-radius: 50% !important;-webkit-border-radius: 50% !important;	-moz-border-radius: 50% !important; ' >"; 			
 				}
 				//TILES
 				else{
 					// shadow
-					if($gwfuncs['grid_wud_shadow']==1){
+					if($gwfuncs['grid_wud_shadow']==1 || $grid_wud_shadow == 1){
 					$result .= "<div class='grid-wud-wrapper grid-wud-wrapper-box' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' style='border-radius: 50% !important;-webkit-border-radius: 50% !important;	-moz-border-radius: 50% !important; ' >"; 			
 					}
 					//no shadow
@@ -124,16 +125,16 @@
 					}					
 				}				
 			}
-			//SQUARE ***
+		// ###### SQUARE ###### ($grid_wud_shadow is DEMO variable from: grid-wud-base.php --> grid-wud.js --> HERE) ######
 			else{
 				//GRIDS
-				if($gwfuncs['grid_wud_img_split'] == 0){
+				if($gwfuncs['grid_wud_img_split'] == 0 && $grid_wud_shadow == 0){
 					$result .= "<div class='grid-wud-wrapper' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' style='border-radius:".$gwfuncs['grid_wud_round_img']."px; }' >"; 			
 				}
 				//TILES
-				else{
+				else{ 
 					// shadow
-					if($gwfuncs['grid_wud_shadow']==1){
+					if($gwfuncs['grid_wud_shadow']==1 || $grid_wud_shadow == 1){
 					$result .= "<div class='grid-wud-wrapper grid-wud-wrapper-box' id='grid-".$wud_grid_shape."-wud-wrapper-".$wud_grid_nr."' style='border-radius:".$gwfuncs['grid_wud_round_img']."px; }' >"; 			
 					}
 					// no shadow
