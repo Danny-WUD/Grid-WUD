@@ -3,14 +3,12 @@
 === Grid WUD ===
  * Contributors: wistudatbe
  * Author: Danny WUD
+ * This file needs to load 'wp-load.php' again, there it's called from a Java script
  */
-//This file needs to load 'wp-load.php' again, there it's called from a Java script
-	$parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
-	require_once( filter_var($parse_uri[0] . 'wp-load.php', FILTER_SANITIZE_STRING) );
-	
+$parse_uri = explode( 'wp-content', $_SERVER['SCRIPT_FILENAME'] );
+require_once( filter_var($parse_uri[0] . 'wp-load.php', FILTER_SANITIZE_STRING) );	
 //Let's start again from here!
-	defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
-	
+defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 	if($_POST)
 	{
 		$grid_wud_set_max_grid = trim(filter_var($_POST['grid_wud_set_max_grid'], FILTER_SANITIZE_STRING));
@@ -47,26 +45,56 @@
 				$wud_link = get_post_permalink($post->ID);
 				$wud_title = $post->post_title;
 					//If the real WP excerpt exist (fil in with your own content)
-					if(!empty($post->post_excerpt)){$wud_excerpt = strip_shortcodes ( wp_trim_words ( $post->post_excerpt ) );}
+					if(!empty($post->post_excerpt)){$wud_excerpt = strip_shortcodes ( wp_trim_words ( $post->post_excerpt, $gwfuncs['grid_wud_excerpt_words'] ) );}
 					//Else we make our own excerpt from the content
 					else{$wud_excerpt = strip_shortcodes ( wp_trim_words ( $post->post_content, $gwfuncs['grid_wud_excerpt_words'] ) );}
 						//Remove http and https URLS from the excerpt
 						$pattern = '~http(s)?://[^\s]*~i';
-						$wud_excerpt= preg_replace($pattern, '', $wud_excerpt);					
-				$wud_feat_image = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),'large'); 						
-				//START EXTRA USER INPUTS
-					if ( function_exists( 'uses_nelioefi' ) && 	uses_nelioefi( $post->ID ) ) 
-					{  $wud_feat_image = array( nelioefi_get_thumbnail_src( $post->ID ) );}
-				//END EXTRA USER INPUT
-				$wud_feat_image=$wud_feat_image[0];	
+						$wud_excerpt= preg_replace($pattern, '', $wud_excerpt);	
+						
+			$wud_feat_image=NULL;
+
+				// Parameter set featured image as primary
+				if($gwfuncs['grid_wud_set_featured_img']=='1'){
+					if($gwfuncs['grid_wud_thumb_img']==1){
+						$image_thumb = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),'thumbnail');
+					}
+					elseif($gwfuncs['grid_wud_thumb_img']==2){
+						$image_thumb = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),'medium');
+					}
+					else{
+						$image_thumb = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),'large');
+					}
+					if (!empty($image_thumb)){$wud_feat_image=$image_thumb[0];}
+					//START Nelio External Featured Image
+						if ( function_exists( 'uses_nelioefi' ) && 	uses_nelioefi( $post->ID )) {  
+						$image_thumb = array( nelioefi_get_thumbnail_src( $post->ID ) );
+						$wud_feat_image=$image_thumb[0];}
+					//END Nelio External Featured Image					
+				}
 				
-					if (empty($wud_feat_image)){
-						$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches); 
-						$wud_feat_img = $matches [1];
-							// If images found in post, take the first one
-							if (!empty($wud_feat_img)){$wud_feat_image = $wud_feat_img[0];} 
-							// If no images, place empty one
-							else{
+				
+				// If no featured image, try first post image
+				if (empty($wud_feat_image)){
+					$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches); 
+					$wud_feat_img = $matches [1];
+						// If images found in post, take the first one // ???? the_post_thumbnail_url( 'thumbnail' ); ????
+						if (!empty($wud_feat_img)){
+							if($gwfuncs['grid_wud_thumb_img']==1 || $gwfuncs['grid_wud_thumb_img']==2){
+								$image_url = $wud_feat_img[0];
+								$image_id = wud_get_image_id($image_url);
+								
+								if($gwfuncs['grid_wud_thumb_img']==1)
+									{$image_thumb = wp_get_attachment_image_src($image_id, 'thumbnail');}
+								elseif($gwfuncs['grid_wud_thumb_img']==2)
+									{$image_thumb = wp_get_attachment_image_src($image_id, 'medium');}
+									
+								$wud_feat_image = $image_thumb[0];
+							}
+							else{$wud_feat_image = $wud_feat_img[0];}
+							} 
+						// If no images, place empty one
+						else{					
 							//If there are GALLERY images
 							$gallery = get_post_gallery( $post, false );
 							$gids = explode( ",", $gallery['ids'] );
@@ -74,11 +102,20 @@
 							foreach( $gids as $gid ) {
 								//if found, just pick the first one only
 								if($gid){
-								$wud_feat_image   = wp_get_attachment_url( $gid );
+									if($gwfuncs['grid_wud_thumb_img']==1){
+										$image_thumb   = wp_get_attachment_image_src( $gid, 'thumbnail' );
+									}
+									elseif($gwfuncs['grid_wud_thumb_img']==2){
+										$image_thumb   = wp_get_attachment_image_src( $gid, 'medium' );
+									}
+									else{
+										$image_thumb   = wp_get_attachment_image_src( $gid, 'large' );
+									}
+									$wud_feat_image = $image_thumb[0];
 								break;
 								}
-							}	
-							
+							}				
+				
 							//Try to get the Youtube picture
 							if (empty($wud_feat_image)){
 							$output=preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $post->post_content, $matches);
@@ -94,12 +131,13 @@
 									$xml_data=simplexml_load_file('https://vimeo.com/api/oembed.xml?url=https://vimeo.com/'.$id[5]);								
 									$wud_feat_image = $xml_data->thumbnail_url;									
 									}
-							}
+							}													
 							
-							// If no images, place empty one
-							if (empty($wud_feat_image)){$wud_feat_image= $gwfuncs['grid_wud_def_img'];}
-							}
-					}
+							//Still empty ... no picture is found
+							if (empty($wud_feat_image)){$wud_feat_image= $gwfuncs['grid_wud_def_img'];}							
+							
+						}
+				}
 					
 					$result .= "<!-- Grid WUD Version ".$gwfuncs['grid_wud_version']."-->";
 					$result .= "<div class='wud-url'><a href='".$wud_link."' title='' alt=''>";				

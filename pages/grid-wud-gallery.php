@@ -4,11 +4,8 @@
  * Contributors: wistudatbe
  * Author: Danny WUD
  */
-	defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
-
-// WUD GRID GALLERY
-	function wud_grid_gallery($attr) {
-		
+defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
+	function wud_grid_gallery($attr) {		
 		global $gwfuncs;
 		$post = get_post();
 		$result = NULL;
@@ -75,13 +72,18 @@
 		$result .= "<!-- Grid WUD Version ".$gwfuncs['grid_wud_version']."-->";
 		$result .= "<div id='grid_wud_fade_home' class='no-js' ><div class='grid-wud-container' style='width:".$gwfuncs['grid_wud_width']."% !important; font-family:".$gwfuncs['grid_wud_font_header']." !important;'>";
 			
+		$wud_feat_image=NULL;
 		
 		$i = 0;
 		$wud_grid_nr = 1; //1-> one grid, 2-> four grid, 3-> five grid (total 20 grid)
 		foreach ( $attachments as $id => $attachment ) {
 			if ($wud_grid_nr>20){$wud_grid_nr=1;}
 			if ($wud_grid_nr>50){break;}
-			$wud_feat_image   = wp_get_attachment_url( $id );
+				if($gwfuncs['grid_wud_thumb_gallery']==1){$image_thumb   = wp_get_attachment_image_src( $id, 'thumbnail' );}
+				elseif($gwfuncs['grid_wud_thumb_gallery']==2){$image_thumb   = wp_get_attachment_image_src( $id, 'medium' );}
+				else{$image_thumb   = wp_get_attachment_image_src( $id, 'large' );}
+				$wud_feat_image = $image_thumb[0];
+				$wud_feat_imagefat   = wp_get_attachment_url( $id );
 			
 		if (trim($attachment->post_excerpt) ) {
 			$wud_excerpt= wptexturize($attachment->post_excerpt);
@@ -91,9 +93,10 @@
 		}
 	//URL START	
 
-    if($gwfuncs['grid_wud_nourl']==0){	
-	  $result .= "<a href='".get_attachment_link( $id )."' title='' alt='' >";
-	}	
+    if($gwfuncs['grid_wud_url_gallery']==1 || $gwfuncs['grid_wud_lb_gallery']==1){	
+	  $result .= "<a href='".get_attachment_link( $id )."' wud-lb='".$wud_feat_imagefat."' title='' alt='' >";
+	}
+	
 				//Category font/line height on a grid grid_wud_img_split
 				$h4font=1;
 				$h4height=1.1;
@@ -184,10 +187,12 @@
 		
 		$result .= "</div><div>\n";
 	//URL END
-	if($gwfuncs['grid_wud_nourl']==0){
+	if($gwfuncs['grid_wud_url_gallery']==1 || $gwfuncs['grid_wud_lb_gallery']==1){
       $result .= "</a>";
 	}
-	
+	if($gwfuncs['grid_wud_lb_gallery']==1){
+      $result .= "<script src='http://code.jquery.com/jquery-latest.min.js'></script>";
+	}	
 	$result .= "<div class='clear'></div>"; 
 	$result .= "<div class='grid-wud-bottom'></div></div></div>";
 		return $result;

@@ -5,8 +5,7 @@
  * Author: Danny WUD
  */
 function grid_wud_comm( $atts ) {	
-	// Attributes
-	extract( shortcode_atts(array('slug' => '','grid' => '','button' => '','cp' => '','shape' => ''), $atts ));
+	extract( shortcode_atts(array('slug' => '','grid' => '','button' => '','cp' => '','shape' => '','nowidget' => ''), $atts ));
 	//Remember the CSS ...
     // slug: category or tag
 	// grid: quantity to display
@@ -15,6 +14,7 @@ function grid_wud_comm( $atts ) {
 	// shape: number of shape to show
 	
 	$result = NULL; 
+	$ids = NULL;
 	// Latest post not active
 	$wud_latest_post="0";
 	global $gwfuncs, $grid_wud_widget;
@@ -43,6 +43,7 @@ function grid_wud_comm( $atts ) {
 		$grid_wud_skip_post=$gwfuncs['grid_wud_skip_post'];
 		$grid_wud_button=0; 
 		$grid_wud_post_type=0;
+		$widgetfront=0;
 
 		//Show the button (yes/no)
 		if(isset($atts["button"]) && $atts["button"]!='' ){
@@ -63,14 +64,25 @@ function grid_wud_comm( $atts ) {
 				$wud_quantity = $atts["grid"];
 				if($wud_quantity > 50){$wud_quantity = 50;}
 			}
+		}
+			//Else use the global default value
+		else{
+				$wud_quantity = $gwfuncs['grid_wud_set_max_grid'];
+		}		
+		
+		
+		//nowidget = if widget on page (not widget zone) force page layout
+		if(isset($atts["nowidget"]) && $atts["nowidget"]!='' ){
+			if(is_numeric($atts["nowidget"]) && $atts["nowidget"] > 0 && $atts["nowidget"] == round($atts["nowidget"], 0)){
+				$widgetfront = $atts["nowidget"];
+				if($widgetfront > 1){$widgetfront = 1;}
+			}
 			//Else use the global default value
 			else{
-				$wud_quantity = $gwfuncs['grid_wud_set_max_grid'];
+				$widgetfront = 0;
 			}
-		}
-		else{
-			$wud_quantity = $gwfuncs['grid_wud_set_max_grid'];
-		}
+		}		
+		
 	  $posts = null;
 
 		//Custom Post
@@ -167,13 +179,18 @@ function grid_wud_comm( $atts ) {
 				
 		//-> Container-start
 			$result .= "<!-- Grid WUD Version ".$gwfuncs['grid_wud_version']."-->";
-			if($grid_wud_widget==1){$result .= "<div id='grid_wud_fade_home' class='no-js' ><div class='grid-wud-widget' style='font-family:".$gwfuncs['grid_wud_font_header']." !important;'>";}
-							   else{$result .= "<div id='grid_wud_fade_home' class='no-js' ><div class='grid-wud-container' style='width:".$gwfuncs['grid_wud_width']."% !important; font-family:".$gwfuncs['grid_wud_font_header']." !important;'>";}
+			
+			if($grid_wud_widget==0 ||  $widgetfront==1){
+				$result .= "<div id='grid_wud_fade_home' class='no-js' ><div class='grid-wud-container' style='width:".$gwfuncs['grid_wud_width']."% !important; font-family:".$gwfuncs['grid_wud_font_header']." !important;'>";
+				}
+				else{
+					$result .= "<div id='grid_wud_fade_home' class='no-js' ><div class='grid-wud-widget' style='font-family:".$gwfuncs['grid_wud_font_header']." !important;'>";
+				}
 			
 			$lineheight=$gwfuncs['grid_wud_h1_font_size']+1;
 			//Parameter hide category/tag title + back and font color
 			if($gwfuncs['grid_wud_hide_cat_tag_header']==0 || !$gwfuncs['grid_wud_hide_cat_tag_header'] || $gwfuncs['grid_wud_hide_cat_tag_header']==''){
-			  if ($grid_wud_widget==0){
+			  if ($grid_wud_widget==0 ||  $widgetfront==1){
 				if($gwfuncs['grid_wud_cat_url']==1 && $wud_cat_or_term_url<>"#"){
 					$result .= "<div class='grid-wud-h1' style='line-height:".$lineheight."vw; font-size:".$gwfuncs['grid_wud_h1_font_size']."vw; background-color:".$gwfuncs['grid_wud_cat_bcolor']."; color:".$gwfuncs['grid_wud_cat_fcolor'].";'><a href='".$wud_cat_or_term_url."' style='text-decoration: none;'>".$wud_cat_or_term_name."</a></div>";
 				}
@@ -203,29 +220,55 @@ function grid_wud_comm( $atts ) {
 				// WP excerpt
 				if($gwfuncs['grid_wud_show_excerpt']=='1' || $gwfuncs['grid_wud_show_excerpt']=='2' || $gwfuncs['grid_wud_show_excerpt']=='3' || $gwfuncs['grid_wud_show_excerpt']=='4'){
 					//If the real WP excerpt exist (fil in with your own content)
-					if(!empty($post->post_excerpt)){$wud_excerpt = strip_shortcodes ( wp_trim_words ( $post->post_excerpt ) );}
+					if(!empty($post->post_excerpt)){$wud_excerpt = strip_shortcodes ( wp_trim_words ( $post->post_excerpt, $gwfuncs['grid_wud_excerpt_words'] ) );}
 					//Else we make our own excerpt from the content
-					else{$wud_excerpt = strip_shortcodes ( wp_trim_words ( $post->post_content, $gwfuncs['grid_wud_excerpt_words'] ) );}
+					else{$wud_excerpt = 						   strip_shortcodes ( wp_trim_words ( $post->post_content, $gwfuncs['grid_wud_excerpt_words'] ) );}
 						//Remove http and https URLS from the excerpt
 						$pattern = '~http(s)?://[^\s]*~i';
 						$wud_excerpt= preg_replace($pattern, '', $wud_excerpt);
 				}
 
+			$wud_feat_image=NULL;
+
+							
 				// Parameter set featured image as primary
-				if($gwfuncs['grid_wud_set_featured_img']=='1'){$wud_feat_image = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),'large');
-				//START EXTRA USER INPUTS
-					if ( function_exists( 'uses_nelioefi' ) && 	uses_nelioefi( $post->ID ) ) 
-					{  $wud_feat_image = array( nelioefi_get_thumbnail_src( $post->ID ) );}
-				//END EXTRA USER INPUT	
-				$wud_feat_image=$wud_feat_image[0];
+				if($gwfuncs['grid_wud_set_featured_img']=='1'){
+					if($gwfuncs['grid_wud_thumb_img']==1){
+						$image_thumb = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),'thumbnail');
+					}
+					elseif($gwfuncs['grid_wud_thumb_img']==2){
+						$image_thumb = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),'medium');
+					}
+					else{
+						$image_thumb = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),'large');
+					}
+					if (!empty($image_thumb)){$wud_feat_image=$image_thumb[0];}
+				//START Nelio External Featured Image
+					if ( function_exists( 'uses_nelioefi' ) && 	uses_nelioefi( $post->ID )) { 							
+					$image_thumb = array( nelioefi_get_thumbnail_src( $post->ID ) );
+					$wud_feat_image=$image_thumb[0];}
+				//END Nelio External Featured Image						
 				}
 				
 				// If no featured image, try first post image
 				if (empty($wud_feat_image)){
 					$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches); 
 					$wud_feat_img = $matches [1];
-						// If images found in post, take the first one
-						if (!empty($wud_feat_img)){$wud_feat_image = $wud_feat_img[0];} 
+						// If images found in post, take the first one // ???? the_post_thumbnail_url( 'thumbnail' ); ????
+						if (!empty($wud_feat_img)){
+							if($gwfuncs['grid_wud_thumb_img']==1 || $gwfuncs['grid_wud_thumb_img']==2){
+								$image_url = $wud_feat_img[0];
+								$image_id = wud_get_image_id($image_url);
+								
+								if($gwfuncs['grid_wud_thumb_img']==1)
+									{$image_thumb = wp_get_attachment_image_src($image_id, 'thumbnail');}
+								elseif($gwfuncs['grid_wud_thumb_img']==2)
+									{$image_thumb = wp_get_attachment_image_src($image_id, 'medium');}
+									
+								$wud_feat_image = $image_thumb[0];
+							}
+							else{$wud_feat_image = $wud_feat_img[0];}
+							} 
 						// If no images, place empty one
 						else{					
 							//If there are GALLERY images
@@ -235,11 +278,20 @@ function grid_wud_comm( $atts ) {
 							foreach( $gids as $gid ) {
 								//if found, just pick the first one only
 								if($gid){
-								$wud_feat_image   = wp_get_attachment_url( $gid );
+									if($gwfuncs['grid_wud_thumb_img']==1){
+										$image_thumb   = wp_get_attachment_image_src( $gid, 'thumbnail' );
+									}
+									elseif($gwfuncs['grid_wud_thumb_img']==2){
+										$image_thumb   = wp_get_attachment_image_src( $gid, 'medium' );
+									}
+									else{
+										$image_thumb   = wp_get_attachment_image_src( $gid, 'large' );
+									}
+									$wud_feat_image = $image_thumb[0];
 								break;
 								}
-							}
-							
+							}						
+				
 							//Try to get the Youtube picture
 							if (empty($wud_feat_image)){
 							$output=preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $post->post_content, $matches);
@@ -256,7 +308,7 @@ function grid_wud_comm( $atts ) {
 									$wud_feat_image = $xml_data->thumbnail_url;									
 									}
 							}												
-						
+							
 							//Still empty ... no picture is found
 							if (empty($wud_feat_image)){$wud_feat_image= $gwfuncs['grid_wud_def_img'];}							
 							
@@ -276,7 +328,7 @@ function grid_wud_comm( $atts ) {
 			
 			//CIRCLE ***
 			if($gwfuncs['gwcss'] == "4" ){
-				if ($grid_wud_widget==0){
+				if ($grid_wud_widget==0 ||  $widgetfront==1){
 					//GRIDS
 					if($gwfuncs['grid_wud_img_split'] == 0){
 						$result .= "<div class='grid-wud-wrapper' id='grid-".$gwfuncs['gwcss']."-wud-wrapper-".$wud_grid_nr."' style='border-radius: 50% !important;-webkit-border-radius: 50% !important;	-moz-border-radius: 50% !important; ' >"; 
@@ -301,7 +353,7 @@ function grid_wud_comm( $atts ) {
 			
 			//SQUARE ***
 			else{
-				if ($grid_wud_widget==0){
+				if ($grid_wud_widget==0 ||  $widgetfront==1){
 					//GRIDS
 					if($gwfuncs['grid_wud_img_split'] == 0){
 						$result .= "<div class='grid-wud-wrapper' id='grid-".$gwfuncs['gwcss']."-wud-wrapper-".$wud_grid_nr."' style='border-radius:".$gwfuncs['grid_wud_round_img']."px; }' >"; 				
@@ -398,7 +450,7 @@ function grid_wud_comm( $atts ) {
 			$result .= "</div>";
 			//New since 1.08 read more button
 
-			if($grid_wud_widget==0 && $grid_wud_button == 0){
+			if( ($grid_wud_widget==0 && $grid_wud_button == 0)  ||  $widgetfront==1){
 				$result .= "<form method='post' id='grid_wud_form'>";
 				// # extra post by button
 				$result .= "<input type='hidden' name='grid_wud_set_more_grid' id='grid_wud_set_more_grid_".$count_cats_tags."' value='".$gwfuncs['grid_wud_set_more_grid']."'/>";
@@ -453,5 +505,4 @@ function grid_wud_comm( $atts ) {
 	return $result;
 }
 
-
- ?>
+?>

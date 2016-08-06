@@ -5,23 +5,23 @@ Contributors: wistudat.be
 Plugin Name: Grid WUD
 Donate Reason: Stand together to help those in need!
 Donate link: https://www.icrc.org/eng/donations/
-Description: Grid WUD adds responsive, customizable and dynamic grids to WordPress posts and pages.
+Description: Grid WUD adds responsive, customizable and dynamic grids, tiles, galleries & widgets to WordPress posts and pages.
 Author: Danny WUD
 Author URI: http://wistudat.be/
 Plugin URI: http://wistudat.be/
 Tags: grid, grids, latest post, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post grid, image grid, filter, display, list, page, pages, posts, post, query, custom post type
 Requires at least: 3.6
 Tested up to: 4.5
-Stable tag: 1.1.4
-Version: 1.1.4
+Stable tag: 1.2.1
+Version: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: grid-wud
 Domain Path: /languages
 */
-	defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
+defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 //==============================================================================//
-$version='1.1.4';
+$version='1.2.1';
 // Store the latest version.
 if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version', $version);}
 //==============================================================================//
@@ -43,7 +43,7 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 	add_action('admin_menu', 'grid_wud_submenu_page');
 	add_filter( 'plugin_action_links', 'grid_wud_action_links', 10, 5 );
 	//Add short code to widgets
-	add_filter( 'widget_text', 'wud_widget_text', 1, 3 );
+	add_filter( 'widget_text', 'wud_widget_text', 1, 2 );
 
 	
 // WUD GRID GALLERY 
@@ -55,7 +55,7 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 		}
 
 //WUD GRID WIDGET STYLE		
-    function wud_widget_text( $widget_text, $instance, $widget )
+    function wud_widget_text( $widget_text, $instance )
     {
 		global $gwfuncs, $grid_wud_widget;
         $tag = 'gridwud';
@@ -107,12 +107,15 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 	}
 	
 	//Use the grids or tiles
+	wp_register_style( 'grid_wud_basic', plugins_url('css/grid-wud-base.css', __FILE__ ), false, '1.0.3' );
+	
 	if($gwfuncs['grid_wud_img_split'] == 0){
 		wp_register_style( 'grid_wud_style', plugins_url('css/grid-wud.css', __FILE__ ), false, '1.0.3' );
 	}
 	else{
 		wp_register_style( 'grid_wud_style', plugins_url('css/tiles-wud.css', __FILE__ ), false, '1.0.3' );	
 	}
+	 wp_enqueue_style( 'grid_wud_basic' );
 	 wp_enqueue_style( 'grid_wud_style' );
 	 
 	 //Optional CSS 
@@ -140,7 +143,14 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 	if (get_option('grid_wud_fade_in')=='1'){
 	  wp_register_script('grid_wud_fade', plugins_url( 'js/grid-wud-fade.js', __FILE__ ), array('jquery'), '1.0.1', true );
 	  wp_enqueue_script('grid_wud_fade');
-	} 	 
+	} 
+		  
+	// WUD Light Box option	  
+	if (get_option('grid_wud_lb_gallery')=='1'){
+	  wp_register_script('grid_wud_light_box', plugins_url( 'js/grid-wud-lightbox.js', __FILE__ ), array('jquery'), '1.0.1', true );
+	  wp_enqueue_script('grid_wud_light_box');
+	} 
+	
 	//Extra grid button result
 	  wp_localize_script('grid_wud_script', 'grid_wud_php', array('grid_wud_url' => plugins_url( 'pages/grid-wud-xtra.php', __FILE__ ),));
 	}
@@ -185,6 +195,12 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
      }
 	}
 
+// Search the image in the database
+function wud_get_image_id($image_url) {
+	global $wpdb;
+	$wud_attach = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $image_url )); 
+        return $wud_attach[0]; 
+}
 	  	
 //Load extra grid page  
 	function grid_wud_admin() {require_once( GRID_WUD_DIR . '/pages/grid-wud-admin.php' );}
@@ -213,6 +229,10 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 		if (get_option('grid_wud_nourl')=='') {update_option('grid_wud_nourl', 0);}
 		if (get_option('grid_wud_shadow')=='') {update_option('grid_wud_shadow', 0);}
 		if (get_option('grid_wud_act_gallery')=='') {update_option('grid_wud_act_gallery', 0);}
+		if (get_option('grid_wud_url_gallery')=='') {update_option('grid_wud_url_gallery', 1);}
+		if (get_option('grid_wud_lb_gallery')=='') {update_option('grid_wud_lb_gallery', 0);}
+		if (get_option('grid_wud_thumb_gallery')=='') {update_option('grid_wud_thumb_gallery', 0);}
+		if (get_option('grid_wud_thumb_img')=='') {update_option('grid_wud_thumb_img', 0);}
 		if (get_option('grid_wud_width')=='') {update_option('grid_wud_width', 100);}
 	}
 	
@@ -265,6 +285,10 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 			'grid_wud_nourl' => get_option('grid_wud_nourl'),
 			'grid_wud_shadow' => get_option('grid_wud_shadow'),
 			'grid_wud_act_gallery' => get_option('grid_wud_act_gallery'),
+			'grid_wud_url_gallery' => get_option('grid_wud_url_gallery'),
+			'grid_wud_lb_gallery' => get_option('grid_wud_lb_gallery'),
+			'grid_wud_thumb_gallery' => get_option('grid_wud_thumb_gallery'),
+			'grid_wud_thumb_img' => get_option('grid_wud_thumb_img'),
 			'grid_wud_width' => get_option('grid_wud_width')
 			);
 			return $gwfuncs;
@@ -313,6 +337,10 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 		if (get_option('grid_wud_nourl')=='') {update_option('grid_wud_nourl', 0);}
 		if (get_option('grid_wud_shadow')=='') {update_option('grid_wud_shadow', 0);}
 		if (get_option('grid_wud_act_gallery')=='') {update_option('grid_wud_act_gallery', 0);}
+		if (get_option('grid_wud_url_gallery')=='') {update_option('grid_wud_url_gallery', 1);}
+		if (get_option('grid_wud_lb_gallery')=='') {update_option('grid_wud_lb_gallery', 0);}
+		if (get_option('grid_wud_thumb_gallery')=='') {update_option('grid_wud_thumb_gallery', 0);}
+		if (get_option('grid_wud_thumb_img')=='') {update_option('grid_wud_thumb_img', 0);}
 		if (get_option('grid_wud_width')=='') {update_option('grid_wud_width', 100);}
 	}
 	

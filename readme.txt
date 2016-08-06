@@ -3,29 +3,31 @@ Contributors: wistudat.be
 Plugin Name: Grid WUD
 Donate Reason: Stand together to help those in need!
 Donate link: https://www.icrc.org/eng/donations/
-Description: Grid WUD adds responsive, customizable and dynamic grids to WordPress posts and pages.
+Description: Grid WUD adds responsive, customizable and dynamic grids, tiles, galleries & widgets to WordPress posts and pages.
 Author: Danny WUD
 Author URI: http://wistudat.be/
 Plugin URI: http://wistudat.be/
 Tags: grid, grids, tile, tiles, latest post, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post tiles, post grid, post tile, image grid, filter, image tile, display, list, page, pages, posts, post, query, custom post type
 Requires at least: 3.6
 Tested up to: 4.5
-Stable tag: 1.1.4
-Version: 1.1.4
+Stable tag: 1.2.1
+Version: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 == Description ==
 
-= FREE version, updates, PRO support and new features! =
-* Included: **Widgets** **Latest Post** **Posts** , **Gallery** , **Custom post type** , **Vimeo or YouTube images**! 
-* Use shortcode: [gridwud slug="cat_or_tag"] where "cat_or_tag" is the slug from the category or tag you want.
-* Different grid lay-outs possible on the same post/ pages.
-* NEW: Change the **Wordpress Gallery** to **tiles or grids**.
-* NEW: Re-sizable tiles, grids and galleries.
+= Welcome @ Grid WUD: Grids, Tiles, Galleries, Widgets & more! =
 
-* More info [here](http://wp.wistudat.be/grid-wud-how-to-use/) in our online manual.
+* **FREE version, updates, PRO support and new features!**
+* Included: Widgets, Latest Post, Posts, Gallery, Custom post type, Vimeo or YouTube! 
+* Different grid lay-outs possible on the same post/ pages.
+* NEW: Change the Wordpress Gallery to **Grid WUD Gallery** with Light Box.
+* NEW: Re-sizable tiles, grids and galleries.
+* NEW: Load as grid/tile/gallery background: Full, Medium or Thumbnail images.
+
+* More info [here](http://wp.wistudat.be/) in our online manual.
 
 = About GRID WUD =
 
@@ -70,6 +72,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 * [button="1"] to hide the read more button.
 * [skip="x"] to skip x recent posts, where x is the quantity to skip.
 * [shape="x"] change the layout to the corresponding layout.
+* [nowidget="1"] force a post/page lay-out in a widget.
 *
 * **Custom Post Type schortcodes**:
 * [cp="1"] or [cp="2"] to display all posts from the custom post type, where 1 or 2 is the title (can be set in the admin options/settings page).
@@ -83,6 +86,43 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 == Changelog ==
+= 1.2.1 =
+* Critical update solving quantity maximum grids/tiles.
+
+= 1.2.0 =
+* Correction for "Nelio External Featured Image"
+* Better image choice for video posts.
+* Optimized CSS format for tablet, mobile devices .
+* Grid WUD Gallery on mobile devices, now with close Light Box with swipe.
+* Limit quantity words for excerpts: parameter.
+
+= 1.1.9 =
+* Resolved: Array error by thumbnails.
+* Build grids/tiles with images from "Nelio External Featured Image".
+* Update widget short code: removed unused argument.
+
+= 1.1.8 =
+* Show thumbnails, medium or full size images in the grid/tile/gallery
+* Selector size images by grid/tile or gallery
+* Full width grid/tile title when it's on top.
+
+= 1.1.7 =
+* Thumbnails instead full images possible by grids/tiles and/or galleries.
+* Escape or enter key or mouse click, will close the lightbox preview by the gallery.
+* Removed trailing spaces from all the source code pages, to avoid warnings.
+
+= 1.1.6 =
+* Removed trailing spaces from gallery PHP page.
+* Use shortcode nowidget="1" to force post/page lay-out in a widget.
+* Parameter to choose between thumbnails and full images in the gallery (pop-up image is always full size)
+* Position: close preview gallery button adjusted.
+
+= 1.1.5 =
+* Grid WUD Gallery with Light Box popup images.
+* Grid WUD Gallery: on/off.
+* Light Box: on/off.
+* Gallery image URL: on/off.
+
 = 1.1.4 =
 * The use of Grid WUD WIDGETS now even easier.
 * The short code: widget="x" is not needed anymore.
