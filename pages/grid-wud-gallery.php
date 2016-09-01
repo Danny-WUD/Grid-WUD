@@ -11,6 +11,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 		$result = NULL;
 		//No post data? Return!
 		if (!$post){return;}
+		if( !has_shortcode( $post->post_content, 'gallery' ) ) {return;}
 		
 		$gwfuncs['gwcss'] = grid_wud_current_style();
 		
@@ -75,6 +76,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 		$wud_feat_image=NULL;
 		
 		$i = 0;
+		
 		$wud_grid_nr = 1; //1-> one grid, 2-> four grid, 3-> five grid (total 20 grid)
 		foreach ( $attachments as $id => $attachment ) {
 			if ($wud_grid_nr>20){$wud_grid_nr=1;}

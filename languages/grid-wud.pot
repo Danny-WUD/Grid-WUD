@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Grid WUD\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/grid-wud\n"
-"POT-Creation-Date: 2016-05-24 17:43:46+00:00\n"
+"POT-Creation-Date: 2016-08-25 17:43:46+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,323 +12,434 @@ msgstr ""
 "Last-Translator: DANNY WUD <info@wistudat.be>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: grid-wud.php:85
+#: pages/grid-wud-admin.php:11
+msgid "Grids, Tiles, Widgets & Galleries"
+msgstr "Rasters, Tegels, Widgets & galerijen"
+
+#: pages/grid-wud-admin.php:315
+msgid "If Custom Post Type (short code: cp=\"1\") is used it change the title 1 into this text.<br><br>If Pods (short code: pods=\"1\") is used it change the title 1 into this text, if no category or tag title is found."
+msgstr "Indien de Custom Post Type (short code: cp=\"1\") wordt gebruikt veranderd titel 1 in deze tekst.<br><br>Indien Pods (short code: pods=\"1\") wordt gebruikt veranderd titel 1 in deze tekst, indien geen categorie of label is gevonden."
+
+#: pages/grid-wud-admin.php:316 pages/grid-wud-admin.php:320
+msgid "Custom Title"
+msgstr "Aangepaste Titel"
+
+#: pages/grid-wud-admin.php:319
+msgid "If Custom Post Type (short code: cp=\"2\") is used it change the title 2 into this text.<br><br>If Pods (short code: pods=\"2\") is used it change the title 2 into this text, if no category or tag title is found."
+msgstr "Indien de Custom Post Type (short code: cp=\"2\") wordt gebruikt veranderd titel 2 in deze tekst.<br><br>Indien Pods (short code: pods=\"2\") wordt gebruikt veranderd titel 2 in deze tekst, indien geen categorie of label is gevonden."
+
+#: pages/grid-wud-admin.php:323
+msgid "If Latest Post slug (short code: slug=\"wud-latest\") is used it change the latest post title into this text."
+msgstr "Indien de Laatste berichten slug (short code: slug=\"wud-latest\") is gebruikt, verander de titel naar deze tekst."
+
+#: pages/grid-wud-admin.php:486
+msgid "Check if the shortcode text is displayed instead the grids/tiles into the widget."
+msgstr "Zet aan indien de snel code tekst wordt weergegeven in plaats van de rasters/tegels in de widget."
+
+#. Tags of the plugin/theme
+msgid "grid, grids, tile, tiles, gallery, galleries, widget, widgets, pods, latest post, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post tiles, post grid, post tile, image grid, filter, image tile, display, list, page, pages, posts, post, query, custom post type"
+msgstr "grid, grids, tile, tiles, gallery, galleries, widget, widgets, pods, latest post, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post tiles, post grid, post tile, image grid, filter, image tile, display, list, page, pages, posts, post, query, custom post type"
+
+#. Description of the plugin/theme
+msgid "Grid WUD adds responsive, customizable and dynamic grids, tiles, galleries & widgets to WordPress posts and pages."
+msgstr "Grid WUD kan responsieve, aanpasbare en dynamische rasters, tegels, galerijen & widgets op uw Wordpress berichten en pagina's plaatsen."
+
+#: pages/grid-wud-admin.php:312
+msgid "Use a Thumbnail, Medium or Full image in the grid/tile"
+msgstr "Gebruik een miniatuur, medium of volledig afbeeldingsformaat in de raster/tegel"
+
+#: pages/grid-wud-admin.php:505
+msgid "Use a Thumbnail, Medium or Full image in the gallery"
+msgstr "Gebruik een miniatuur, medium of volledig afbeeldingsformaat in de galerij"
+
+#: pages/grid-wud-admin.php:305
+msgid "If selected, the grid/tile will use the thumbnail image size instead the full image size."
+msgstr "Indien geselecteerd zal de raster/tegel een miniatuurweergave weergeven in plaats van de originele afbeelding grootte."
+
+#: pages/grid-wud-admin.php:498
+msgid "If selected, the gallery will use the thumbnail image size instead the full image size."
+msgstr "Indien geselecteerd zal de galerij een miniatuurweergave weergeven in plaats van de originele afbeelding grootte."
+
+#: pages/grid-wud-admin.php:494
+msgid "Enable URL's"
+msgstr "Activeer URL's"
+
+#: pages/grid-wud-admin.php:496
+msgid "Enable Light Box"
+msgstr "Activeer de Light Box"
+
+#: pages/grid-wud-admin.php:296
+msgid "Size Grids/Tiles"
+msgstr "Grootte Rasters/Tegels"
+
+#: pages/grid-wud-admin.php:301
+msgid "Fade in the picture of the grid by a post/page load."
+msgstr "Fade in de afbeelding van de raster, wanneer de pagina/het bericht wordt geladen."
+
+#: pages/grid-wud-admin.php:491
+msgid "Change the Wordpress Gallery to Grids or Tiles (Wordpress default is off)."
+msgstr "Verander de Worpress Galerij naar Rasters of Tegels (Wordpress standaard is uit)."
+
+#: pages/grid-wud-admin.php:492
+msgid "Grid WUD Gallery"
+msgstr "Grid WUD Galerij"
+
+#: pages/grid-wud-admin.php:284
+msgid "Grids or Tiles"
+msgstr "Rasters of Tegels"
+
+#: pages/grid-wud-admin.php:285
+msgid "If selected it shows Tiles."
+msgstr "Indien geselecteerd toont het Tegels."
+
+#: pages/grid-wud-admin.php:287
+msgid "Tiles shadow"
+msgstr "Tegel schaduw."
+
+#: pages/grid-wud-admin.php:288
+msgid "If tiles selected, set a shadow."
+msgstr "Plaatst een schaduw, indien tegels zijn geselcteerd"
+
+#: pages/grid-wud-admin.php:324
+msgid "Latest Posts Title"
+msgstr "Laatste Berichten Titel"
+
+#: pages/grid-wud-admin.php:410
+msgid "Grids"
+msgstr "Rasters"
+
+#: pages/grid-wud-admin.php:433
+msgid "Target: URL grids"
+msgstr "Doel: URL rasters"
+
+#: pages/grid-wud-admin.php:435
+msgid "Post/Page"
+msgstr "Berichten/Pagina"
+
+#: pages/grid-wud-admin.php:436
+msgid "None"
+msgstr "Geen"
+
+#: pages/grid-wud-admin.php:438
+msgid "Post/Page or none"
+msgstr "Berichten/Pagina of geen"
+
+#: pages/grid-wud-admin.php:487
+msgid "Widgets shortcode"
+msgstr "Widgets snel code"
+
+#: pages/grid-wud-admin.php:264
+msgid "Enable URL on title"
+msgstr "Schakel URL op titel in"
+
+#: pages/grid-wud-admin.php:453
+msgid "Align at Left"
+msgstr "Links uitlijnen."
+
+#: pages/grid-wud-admin.php:454
+msgid "Align Center"
+msgstr "Centreren."
+
+#: pages/grid-wud-admin.php:455
+msgid "Align Right"
+msgstr "Rechts uitlijnen."
+
+#: pages/grid-wud-admin.php:460
+msgid "Align at Bottom"
+msgstr "Naar onder  uitlijnen."
+
+#: pages/grid-wud-admin.php:461
+msgid "Align in Top"
+msgstr "Naar boven  uitlijnen."
+
+#: pages/grid-wud-admin.php:462
+msgid "Align at Middle"
+msgstr "Naar het midden  uitlijnen."
+
+#: pages/grid-wud-admin.php:463
+msgid "Over the entire image"
+msgstr "Over heel de afbeelding."
+
+#: pages/grid-wud-admin.php:446
+msgid "Title Only"
+msgstr "Enkel de titel"
+
+#: pages/grid-wud-admin.php:259 pages/grid-wud-admin.php:361
+#: pages/grid-wud-admin.php:483
+msgid "Font Family"
+msgstr "Lettertypefamilie"
+
+#: pages/grid-wud-admin.php:279 pages/grid-wud-admin.php:372
+msgid "Round corners"
+msgstr "Afgeronde hoeken"
+
+#: grid-wud.php:175
 msgid "Settings"
-msgstr ""
+msgstr "Configuratie"
 
 #: pages/grid-wud-admin.php:11
 msgid "Grid WUD Options"
-msgstr ""
+msgstr "Grid WUD Opties"
 
-#: pages/grid-wud-admin.php:11
-msgid "More than just grid"
-msgstr ""
-
-#: pages/grid-wud-admin.php:132
+#: pages/grid-wud-admin.php:167
 msgid "Settings saved"
-msgstr ""
+msgstr "Je instellingen zijn opgeslagen"
 
-#: pages/grid-wud-admin.php:182
+#: pages/grid-wud-admin.php:236
 msgid "Category or Tag Title"
-msgstr ""
+msgstr "Categorie of tag titel"
 
-#: pages/grid-wud-admin.php:183 pages/grid-wud-admin.php:233
+#: pages/grid-wud-admin.php:237 pages/grid-wud-admin.php:339
 msgid "Background"
-msgstr ""
+msgstr "Achtergrond"
 
-#: pages/grid-wud-admin.php:184 pages/grid-wud-admin.php:214
-#: pages/grid-wud-admin.php:218 pages/grid-wud-admin.php:234
+#: pages/grid-wud-admin.php:238 pages/grid-wud-admin.php:317
+#: pages/grid-wud-admin.php:321 pages/grid-wud-admin.php:325
+#: pages/grid-wud-admin.php:340
 msgid "Text"
-msgstr ""
+msgstr "Tekst"
 
-#: pages/grid-wud-admin.php:186 pages/grid-wud-admin.php:236
+#: pages/grid-wud-admin.php:240 pages/grid-wud-admin.php:342
 msgid "Font size"
-msgstr ""
+msgstr "Font grootte"
 
-#: pages/grid-wud-admin.php:191
+#: pages/grid-wud-admin.php:262
 msgid "Hide"
-msgstr ""
+msgstr "Verberg"
 
-#: pages/grid-wud-admin.php:193
+#: pages/grid-wud-admin.php:266
 msgid "If selected the Category/Tag is visible in the right top grid corner."
-msgstr ""
+msgstr "Indien geselecteerd is de Categorie/Tag zichtbaar bovenaan rechts in het raster."
 
-#: pages/grid-wud-admin.php:194
+#: pages/grid-wud-admin.php:267
 msgid "Show Category/Tag on the grid"
-msgstr ""
+msgstr "Toon de categorie/tag op de raster"
 
-#: pages/grid-wud-admin.php:195
+#: pages/grid-wud-admin.php:268
 msgid "Show"
-msgstr ""
+msgstr "Toon"
 
-#: pages/grid-wud-admin.php:197
+#: pages/grid-wud-admin.php:270
 msgid "Featured image"
-msgstr ""
-
-#: pages/grid-wud-admin.php:198
-msgid "Set as primary to display"
-msgstr ""
-
-#: pages/grid-wud-admin.php:200
-msgid "Image on hover"
-msgstr ""
-
-#: pages/grid-wud-admin.php:201
-msgid "Zoom the grid image on hoover"
-msgstr ""
-
-#: pages/grid-wud-admin.php:203
-msgid "Grey images"
-msgstr ""
-
-#: pages/grid-wud-admin.php:204
-msgid "Show the grid in grey and on hover in colors"
-msgstr ""
-
-#: pages/grid-wud-admin.php:206
-msgid ""
-"If no image was found, use this pre-defined image.<br>You can select any "
-"image from the media library, or use the default one."
-msgstr ""
-
-#: pages/grid-wud-admin.php:207
-msgid "Default grid image"
-msgstr ""
-
-#: pages/grid-wud-admin.php:210
-msgid "Upload Image"
-msgstr ""
-
-#: pages/grid-wud-admin.php:210
-msgid "Use the Default Image"
-msgstr ""
-
-#: pages/grid-wud-admin.php:212
-msgid ""
-"Changes the Custom Post Type Title 1 into this text. <br>Usage: short code: "
-"cp=\"1\""
-msgstr ""
-
-#: pages/grid-wud-admin.php:213 pages/grid-wud-admin.php:217
-msgid "Custom Post Type Title"
-msgstr ""
-
-#: pages/grid-wud-admin.php:216
-msgid ""
-"Changes the Custom Post Type Title 2 into this text. <br>Usage: short code: "
-"cp=\"2\""
-msgstr ""
-
-#: pages/grid-wud-admin.php:220
-msgid ""
-"Depending the order of grid, skip X posts/pages.<br>Sample: order by: date, "
-"direction: descending = skip X newest posts/pages. "
-msgstr ""
-
-#: pages/grid-wud-admin.php:221
-msgid "Skip x posts"
-msgstr ""
-
-#: pages/grid-wud-admin.php:222
-msgid "Quantity post to skip"
-msgstr ""
-
-#: pages/grid-wud-admin.php:232
-msgid "Buttons"
-msgstr ""
-
-#: pages/grid-wud-admin.php:241
-msgid ""
-"Text for the read more button on archive, category, tags pages.<br>If empty "
-"we show a [+] sign, otherwise the text you entered here. "
-msgstr ""
-
-#: pages/grid-wud-admin.php:242
-msgid "Archive: read more button or text"
-msgstr ""
-
-#: pages/grid-wud-admin.php:243 pages/grid-wud-admin.php:247
-msgid "Empty = button"
-msgstr ""
-
-#: pages/grid-wud-admin.php:245
-msgid ""
-"Text for the read more button on pages containing our short code.<br>If "
-"empty we show a [+] sign, otherwise the text you entered here. "
-msgstr ""
-
-#: pages/grid-wud-admin.php:246
-msgid "grid: read more button or text"
-msgstr ""
-
-#: pages/grid-wud-admin.php:258
-msgid "Lay-out grid/grids"
-msgstr ""
-
-#: pages/grid-wud-admin.php:259
-msgid "Choose lay-out"
-msgstr ""
-
-#: pages/grid-wud-admin.php:263
-msgid "Enter the number of grid to be displayed , for each entered short code."
-msgstr ""
-
-#: pages/grid-wud-admin.php:264
-msgid "Number of grid to show"
-msgstr ""
-
-#: pages/grid-wud-admin.php:265
-msgid "Maximum"
-msgstr ""
+msgstr "Uitgelichte afbeelding"
 
 #: pages/grid-wud-admin.php:271
-msgid ""
-"Enter the number of extra grid to be displayed , after clicking on the read "
-"more button."
-msgstr ""
-
-#: pages/grid-wud-admin.php:272
-msgid "Show more grid button"
-msgstr ""
+msgid "Set as primary to display"
+msgstr "Toon als eerste"
 
 #: pages/grid-wud-admin.php:273
-msgid "Number of extra grid to show"
-msgstr ""
+msgid "Image on hover"
+msgstr "Afbeelding bij een muis over actie."
 
-#: pages/grid-wud-admin.php:279
-msgid ""
-"If selected: Show the read more result as archive pages (standard) or as "
-"grid."
-msgstr ""
+#: pages/grid-wud-admin.php:274
+msgid "Zoom the grid image on hover"
+msgstr "Zoom de raster afbeelding bij muis over actie."
 
-#: pages/grid-wud-admin.php:280
-msgid "Target: read more button"
-msgstr ""
+#: pages/grid-wud-admin.php:276
+msgid "Grey images"
+msgstr "Grijs getinte afbeeldingen"
 
-#: pages/grid-wud-admin.php:282
-msgid "Archive"
-msgstr ""
-
-#: pages/grid-wud-admin.php:283
-msgid "grid"
-msgstr ""
-
-#: pages/grid-wud-admin.php:285
-msgid "Archive or grid"
-msgstr ""
-
-#: pages/grid-wud-admin.php:289
-msgid "Date"
-msgstr ""
+#: pages/grid-wud-admin.php:277
+msgid "Show the grid in grey and on hover in colors"
+msgstr "Toon de afbeeldingen in het grijs en in kleur bij muis over actie"
 
 #: pages/grid-wud-admin.php:290
-msgid "Name"
-msgstr ""
+msgid "If no image was found, use this pre-defined image.<br>You can select any image from the media library, or use the default one."
+msgstr "Indien geen afbeelding werd gevonden, gebruikt het deze pre-gedefinieerde afbeelding.<br>U kan eender welke afbeelding gebruiken uit de mediatheek, of gebruik de standaard afbeelding."
 
 #: pages/grid-wud-admin.php:291
-msgid "Post ID"
-msgstr ""
-
-#: pages/grid-wud-admin.php:293
-msgid "Order by"
-msgstr ""
+msgid "Default grid image"
+msgstr "Standaard Grid Afbeelding"
 
 #: pages/grid-wud-admin.php:294
+msgid "Upload Image"
+msgstr "Upload de afbeelding"
+
+#: pages/grid-wud-admin.php:294
+msgid "Use the Default Image"
+msgstr "Gebruik de standaard afbeelding"
+
+#: pages/grid-wud-admin.php:327
+msgid "Depending the order of grid, skip X posts/pages.<br>Sample: order by: date, direction: descending = skip X newest posts/pages. "
+msgstr "Afhankelijk van de volgorde van de rasters, sla X berichten / pagina's over. <br> Voorbeeld: . Op: datum , richting: dalend = sla de laatste X aantal berichten / pagina's over."
+
+#: pages/grid-wud-admin.php:328
+msgid "Skip x posts"
+msgstr "Sla x aantal over"
+
+#: pages/grid-wud-admin.php:329
+msgid "Quantity post to skip"
+msgstr "Aantal over te slaan berichten"
+
+#: pages/grid-wud-admin.php:338
+msgid "Buttons"
+msgstr "Knoppen"
+
+#: pages/grid-wud-admin.php:364
+msgid "Text for the read more button on archive, category, tags pages.<br>If empty we show a [+] sign, otherwise the text you entered here. "
+msgstr "Tekst voor de: lees meer knop op archief, categorie, tags pagina's,.<br>Indien leeg tonen we een [+] teken, anders de tekst hier ingegeven."
+
+#: pages/grid-wud-admin.php:365
+msgid "Archive: read more button or text"
+msgstr "Archief: lees meer, knop of tekst"
+
+#: pages/grid-wud-admin.php:366 pages/grid-wud-admin.php:370
+msgid "Empty = button"
+msgstr "Leeg = knop"
+
+#: pages/grid-wud-admin.php:368
+msgid "Text for the read more button on pages containing our short code.<br>If empty we show a [+] sign, otherwise the text you entered here. "
+msgstr "Tekst voor de: lees meer knop op pagina's met onze snel code.<br>Indien leeg tonen we een [+] teken, anders de tekst hier ingegeven."
+
+#: pages/grid-wud-admin.php:369
+msgid "grid: read more button or text"
+msgstr "raster: lees meer knop of tekst"
+
+#: pages/grid-wud-admin.php:386
+msgid "Lay-out grid/grids"
+msgstr "Lay-out rasters"
+
+#: pages/grid-wud-admin.php:387
+msgid "Choose lay-out"
+msgstr "Kies lay-out"
+
+#: pages/grid-wud-admin.php:391
+msgid "Enter the number of grid to be displayed , for each entered short code."
+msgstr "Geef hier het aantal rasters in welke getoond dienen te worden bij elke snel code."
+
+#: pages/grid-wud-admin.php:392
+msgid "Number of grid to show"
+msgstr "Aantal te tonen rasters"
+
+#: pages/grid-wud-admin.php:393
+msgid "Maximum"
+msgstr "Maximum"
+
+#: pages/grid-wud-admin.php:399
+msgid "Enter the number of extra grid to be displayed , after clicking on the read more button."
+msgstr "Geef hier het aantal extra rasters in welke getoond dienen te worden nadat je op de lees meer knop hebt geklikt."
+
+#: pages/grid-wud-admin.php:400
+msgid "Show more grid button"
+msgstr "Toon meer, rasters knop"
+
+#: pages/grid-wud-admin.php:401
+msgid "Number of extra grid to show"
+msgstr "Aantal extra te tonen rasters"
+
+#: pages/grid-wud-admin.php:407
+msgid "If selected: Show the read more result as archive pages (standard) or as grid."
+msgstr "Indien geselecteerd: toon de lees meer resultaten als archief pagina's(standaard), anders als rasters."
+
+#: pages/grid-wud-admin.php:408
+msgid "Target: read more button"
+msgstr "Doel: lees meer knop"
+
+#: pages/grid-wud-admin.php:411
+msgid "Archive"
+msgstr "Archief"
+
+#: pages/grid-wud-admin.php:413
+msgid "Archive or grid"
+msgstr "Archief of rasters"
+
+#: pages/grid-wud-admin.php:417
+msgid "Date"
+msgstr "Datum"
+
+#: pages/grid-wud-admin.php:418
+msgid "Name"
+msgstr "Naam"
+
+#: pages/grid-wud-admin.php:419
+msgid "Post ID"
+msgstr "Bericht ID"
+
+#: pages/grid-wud-admin.php:421
+msgid "Order by"
+msgstr "Volgorde"
+
+#: pages/grid-wud-admin.php:422
 msgid "Order grid by"
-msgstr ""
+msgstr "Sorteer rasters volgens"
 
-#: pages/grid-wud-admin.php:298
+#: pages/grid-wud-admin.php:426
 msgid "Ascending"
-msgstr ""
+msgstr "Oplopend"
 
-#: pages/grid-wud-admin.php:299
+#: pages/grid-wud-admin.php:427
 msgid "Descending"
-msgstr ""
+msgstr "Dalend"
 
-#: pages/grid-wud-admin.php:301
+#: pages/grid-wud-admin.php:429
 msgid "Order direction"
-msgstr ""
+msgstr "Sorteer volgorde"
+
+#: pages/grid-wud-admin.php:430
+msgid "Sort order grid"
+msgstr "Sorteervolgorde rasters"
+
+#: pages/grid-wud-admin.php:442
+msgid "Show not"
+msgstr "Niet tonen"
+
+#: pages/grid-wud-admin.php:443
+msgid "Without title"
+msgstr "Zonder titel"
+
+#: pages/grid-wud-admin.php:444
+msgid "With title"
+msgstr "Met titel"
+
+#: pages/grid-wud-admin.php:445
+msgid "Show always"
+msgstr "Altijd tonen"
+
+#: pages/grid-wud-admin.php:448
+msgid "The excerpt"
+msgstr "Samenvatting"
+
+#: pages/grid-wud-admin.php:449
+msgid "Show/Hide ..."
+msgstr "Toon/ verberg"
+
+#: pages/grid-wud-admin.php:467
+msgid "Maximum words"
+msgstr "Max. aantal woorden"
 
 #: pages/grid-wud-admin.php:302
-msgid "Sort order grid"
-msgstr ""
-
-#: pages/grid-wud-admin.php:306
-msgid "Show not"
-msgstr ""
-
-#: pages/grid-wud-admin.php:307
-msgid "Without title"
-msgstr ""
-
-#: pages/grid-wud-admin.php:308
-msgid "With title"
-msgstr ""
-
-#: pages/grid-wud-admin.php:309
-msgid "Show always"
-msgstr ""
-
-#: pages/grid-wud-admin.php:311
-msgid "The excerpt"
-msgstr ""
-
-#: pages/grid-wud-admin.php:312
-msgid "Show/Hide ..."
-msgstr ""
-
-#: pages/grid-wud-admin.php:315
-msgid "Maximum words"
-msgstr ""
-
-#: pages/grid-wud-admin.php:317
-msgid "Fade in the picture of the grid by a mouse on hover action."
-msgstr ""
-
-#: pages/grid-wud-admin.php:318
 msgid "Fade in grid"
-msgstr ""
+msgstr "Fade in raster"
 
-#: pages/grid-wud-admin.php:319
+#: pages/grid-wud-admin.php:303 pages/grid-wud-admin.php:488
+#: pages/grid-wud-admin.php:493 pages/grid-wud-admin.php:495
+#: pages/grid-wud-admin.php:497
 msgid "Active"
-msgstr ""
+msgstr "Activeer"
 
-#: pages/grid-wud-admin.php:324
+#: pages/grid-wud-admin.php:510
 msgid "Save Changes"
-msgstr ""
+msgstr "Wijzigingen   opslaan"
 
-#: pages/grid-wud-admin.php:327
+#: pages/grid-wud-admin.php:513
 msgid "Visit our website"
-msgstr ""
+msgstr "Bezoek onze website"
 
-#: pages/grid-wud-admin.php:327
+#: pages/grid-wud-admin.php:513
 msgid "Get FREE Support"
-msgstr ""
+msgstr "GRATIS Support"
 
 #. Plugin Name of the plugin/theme
 msgid "Grid WUD"
-msgstr ""
+msgstr "Grid WUD"
 
-#. #-#-#-#-#  plugin.pot (Grid WUD 1.0.1)  #-#-#-#-#
+#. #-#-#-#-#  tmp-grid-wud.pot (Grid WUD 1.2.4)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  plugin.pot (Grid WUD 1.0.1)  #-#-#-#-#
+#. #-#-#-#-#  tmp-grid-wud.pot (Grid WUD 1.2.4)  #-#-#-#-#
 #. Author URI of the plugin/theme
-msgid "http://wistudat.be/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid ""
-"Grid WUD adds responsive, customizable and dynamic grids to WordPress posts "
-"and pages."
-msgstr ""
+msgid "http://wp.wistudat.be/"
+msgstr "http://wp.wistudat.be/"
 
 #. Author of the plugin/theme
 msgid "Danny WUD"
-msgstr ""
-
-#. Tags of the plugin/theme
-msgid ""
-"grid, grids, youtube, vimeo, video, gallery, responsive, slug, shortcode, "
-"slugs, post grids, post grid, image grid, filter, display, list, page, "
-"pages, posts, post, query, custom post type"
-msgstr ""
+msgstr "Danny WUD"

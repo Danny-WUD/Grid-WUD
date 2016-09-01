@@ -7,13 +7,13 @@ Donate Reason: Stand together to help those in need!
 Donate link: https://www.icrc.org/eng/donations/
 Description: Grid WUD adds responsive, customizable and dynamic grids, tiles, galleries & widgets to WordPress posts and pages.
 Author: Danny WUD
-Author URI: http://wistudat.be/
-Plugin URI: http://wistudat.be/
-Tags: grid, grids, latest post, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post grid, image grid, filter, display, list, page, pages, posts, post, query, custom post type
+Author URI: http://wp.wistudat.be/
+Plugin URI: http://wp.wistudat.be/
+Tags: grid, grids, tile, tiles, gallery, galleries, widget, widgets, pods, latest post, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post tiles, post grid, post tile, image grid, filter, image tile, display, list, page, pages, posts, post, query, custom post type
 Requires at least: 3.6
-Tested up to: 4.5
-Stable tag: 1.2.1
-Version: 1.2.1
+Tested up to: 4.6
+Stable tag: 1.2.5
+Version: 1.2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: grid-wud
@@ -21,7 +21,7 @@ Domain Path: /languages
 */
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 //==============================================================================//
-$version='1.2.1';
+$version='1.2.5';
 // Store the latest version.
 if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version', $version);}
 //==============================================================================//
@@ -43,11 +43,10 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 	add_action('admin_menu', 'grid_wud_submenu_page');
 	add_filter( 'plugin_action_links', 'grid_wud_action_links', 10, 5 );
 	//Add short code to widgets
-	add_filter( 'widget_text', 'wud_widget_text', 1, 2 );
+	add_filter( 'widget_text', 'wud_widget_text', 1, 2);
 
-	
-// WUD GRID GALLERY 
 	global $gwfuncs;
+// WUD GRID GALLERY 
 	grid_wud_funcs();
 	if($gwfuncs['grid_wud_act_gallery']=='1'){
 		add_action( 'plugins_loaded', 'grid_wud_gallery' );
@@ -59,7 +58,7 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
     {
 		global $gwfuncs, $grid_wud_widget;
         $tag = 'gridwud';
-        if ( has_shortcode( $instance['text'], $tag ) )
+        if ( isset($instance['text']) && (has_shortcode( $instance['text'], $tag )) )
             $grid_wud_widget=1;
         else
             $grid_wud_widget=0;
@@ -96,7 +95,7 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 	//ONLY USED BY THE DEMO PAGE FROM WUD
 	if($post){
 		$post_slug=$post->post_name; $color=0;
-		if ($post_slug=='wp-tiles-wud-with-sidebar' || $post_slug=='wud-gallery-sample'){
+		if ($post_slug=='wp-tiles-wud-with-sidebar' || $post_slug=='wud-gallery-sample' || $post_slug=='tiles-wud'){
 			$gwfuncs['grid_wud_img_split'] = 1;
 			$gwfuncs['grid_wud_shadow'] = 1;
 			$color=1;
@@ -199,7 +198,18 @@ if (get_option('grid_wud_version')!=$version) {update_option('grid_wud_version',
 function wud_get_image_id($image_url) {
 	global $wpdb;
 	$wud_attach = $wpdb->get_col($wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $image_url )); 
-        return $wud_attach[0]; 
+	if(!empty($wud_attach[0])){ return $wud_attach[0]; }
+	else{ return 0; }
+}
+
+// Comma separated values to array
+function ctoarray($string, $separator = ',')
+{
+  $vals = explode($separator, $string);
+  foreach($vals as $key => $val) {
+    $vals[$key] = trim($val);
+  }
+  return array_diff($vals, array(""));
 }
 	  	
 //Load extra grid page  

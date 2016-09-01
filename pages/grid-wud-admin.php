@@ -8,7 +8,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 	function grid_wud_options_notice() {
 	global $gwfuncs;
 		echo '<div class="grid-wud-admin-table">';
-		echo '<h2 class="grid-wud-admin-h2">'.__("Grid WUD Options", "grid-wud").' - '.__("Grids, Tiles & Galleries", "grid-wud").'!</h2>';
+		echo '<h2 class="grid-wud-admin-h2">'.__("Grid WUD Options", "grid-wud").' - '.__("Grids, Tiles, Widgets & Galleries", "grid-wud").'! (Version: '.$gwfuncs['grid_wud_version'].')</h2>';
 		echo '<img src="' . plugins_url( '../images/logo-grid-wud.png', __FILE__ ) . '">';
 		echo '<a id="grid-rate-it" href="https://wordpress.org/support/plugin/grid-wud" target="_blank" title="100% FREE PRO SUPPORT" ><img src="' . plugins_url( '../images/wud-support.png', __FILE__ ) . '"></a>';
 		echo '<p></p>';
@@ -256,8 +256,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 		echo     '<option value="Courier New"'; if ( $grid_wud_font_header == "Courier New" ){echo 'selected="selected"';} echo '>Courier New</option>';
 		echo     '<option value="Lucida Console"'; if ( $grid_wud_font_header == "Lucida Console" ){echo 'selected="selected"';} echo '>Lucida Console</option>';
 		echo '</select>';		
-		echo '<i class="grid-wud-admin-title">'.__("Font Family", "grid-wud").'</i>';	
-		echo '<br><br>';
+		echo '<i class="grid-wud-admin-title">'.__("Font Family", "grid-wud").'</i><br><br>';
 		
 		echo '<i>'.__("Hide", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_hide_cat_tag_header" type="checkbox" value="1" '. checked( $grid_wud_hide_cat_tag_header, "1", false ) .'/><br><br>';
 		
@@ -271,7 +270,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 		echo '<i>'.__("Set as primary to display", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_set_featured_img" type="checkbox" value="1" '. checked( $grid_wud_set_featured_img, "1", false ) .'/><br><hr>';
 			
 		echo '<b class="grid-wud-admin-title">'.__("Image on hover", "grid-wud").'</b>';
-		echo '<i>'.__("Zoom the grid image on hoover", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_img_hover" type="checkbox" value="1" '. checked( $grid_wud_img_hover, "1", false ) .'/><br><br>';
+		echo '<i>'.__("Zoom the grid image on hover", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_img_hover" type="checkbox" value="1" '. checked( $grid_wud_img_hover, "1", false ) .'/><br><br>';
 			
 		echo '<b class="grid-wud-admin-title">'.__("Grey images", "grid-wud").'</b>';
 		echo '<i>'.__("Show the grid in grey and on hover in colors", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_img_grey" type="checkbox" value="1" '. checked( $grid_wud_img_grey, "1", false ) .'/><br><br>';
@@ -302,7 +301,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 		echo '<b class="grid-wud-admin-title">'.__("Fade in grid", "grid-wud").'</b><br>';
 		echo '<i>'.__("Active", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_fade_in" type="checkbox" value="1" '. checked( $grid_wud_fade_in, "1", false ) .'/><br><br>';
 
-		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("If selected, the grid/tile will use the thumbnail image size instead the full image size.", "grid-wud").'</div></div>';
+		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("If selected, the grid/tile will use the selected image size.", "grid-wud").'</div></div>';
 
 		echo '<select name="grid_wud_thumb_img" class="grid-wud-right" >';
 		echo     '<option value="1"'; if ( $grid_wud_thumb_img == "1" ){echo 'selected="selected"';} echo '>Thumbnail</option>';
@@ -312,14 +311,15 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 		echo '<i class="grid-wud-admin-title">'.__("Use a Thumbnail, Medium or Full image in the grid/tile", "grid-wud").'</i>';
 		echo '<br><hr>';
 		
-		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Changes the Custom Post Type Title 1 into this text. <br>Usage: short code: cp=\"1\"", "grid-wud").'</div></div>';
-		echo '<b class="grid-wud-admin-title">'.__("Custom Post Type Title", "grid-wud").' 1</b><br>';		
+		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("If Custom Post Type (short code: cp=\"1\") is used it change the title 1 into this text.<br><br>If Pods (short code: pods=\"1\") is used it change the title 1 into this text, if no category or tag title is found.<br><br>The short code [title=\"xx\"] overwrites this title.", "grid-wud").'</div></div>';
+		echo '<b class="grid-wud-admin-title">'.__("Custom Title", "grid-wud").' 1</b><br>';		
 		echo '<i>'.__("Text", "grid-wud").' : </i><input type="text" class="grid-wud-right" name="grid_wud_cpt01" value="'.$grid_wud_cpt01.'" /><br><br><br>';
 		
-		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Changes the Custom Post Type Title 2 into this text. <br>Usage: short code: cp=\"2\"", "grid-wud").'</div></div>';
-		echo '<b class="grid-wud-admin-title">'.__("Custom Post Type Title", "grid-wud").' 2</b><br>';
+		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("If Custom Post Type (short code: cp=\"2\") is used it change the title 2 into this text.<br><br>If Pods (short code: pods=\"2\") is used it change the title 2 into this text, if no category or tag title is found.<br><br>The short code [title=\"xx\"] overwrites this title.", "grid-wud").'</div></div>';
+		echo '<b class="grid-wud-admin-title">'.__("Custom Title", "grid-wud").' 2</b><br>';
 		echo '<i>'.__("Text", "grid-wud").' : </i><input type="text" class="grid-wud-right" name="grid_wud_cpt02" value="'.$grid_wud_cpt02.'" /><br><br><br>';
 
+		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("If Latest Post slug (short code: slug=\"wud-latest\") is used it change the latest post title into this text.<br><br>The short code [title=\"xx\"] overwrites this title.", "grid-wud").'</div></div>';
 		echo '<b class="grid-wud-admin-title">'.__("Latest Posts Title", "grid-wud").'</b><br>';
 		echo '<i>'.__("Text", "grid-wud").' : </i><input type="text" class="grid-wud-right" name="grid_wud_news_title" value="'.$grid_wud_news_title.'" /><br><br><hr>';
 		
@@ -431,7 +431,8 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 		echo '<b class="grid-wud-admin-title">'.__("Target: URL grids", "grid-wud").'</b><br>';
 		echo '<select name="grid_wud_nourl" class="grid-wud-right" >';
-		echo     '<option value="0"'; if ( $grid_wud_nourl == "0" ){echo 'selected="selected"';} echo '>'.__("Post/Page", "grid-wud").'</option>';
+		echo     '<option value="0"'; if ( $grid_wud_nourl == "0" ){echo 'selected="selected"';} echo '>'.__("URL by ID", "grid-wud").'</option>';
+		echo     '<option value="2"'; if ( $grid_wud_nourl == "2" ){echo 'selected="selected"';} echo '>'.__("URL by Name", "grid-wud").'</option>';
 		echo     '<option value="1"'; if ( $grid_wud_nourl == "1" ){echo 'selected="selected"';} echo '>'.__("None", "grid-wud").'</option>';
 		echo '</select>';
 		echo '<i>'.__("Post/Page or none", "grid-wud").': </i>';	
@@ -482,7 +483,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 		echo '<i class="grid-wud-admin-title">'.__("Font Family", "grid-wud").'</i>';	
 		echo '<br><hr>';
 		
-		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Uncheck if you do not want to use our short codes in the widgets (Wordpress default is off).", "grid-wud").'</div></div>';
+		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("Check if the shortcode text is displayed instead the grids/tiles into the widget.", "grid-wud").'</div></div>';
 		echo '<b class="grid-wud-admin-title">'.__("Widgets shortcode", "grid-wud").'</b><br>';		
 		echo '<i>'.__("Active", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_widgets" type="checkbox" value="1" '. checked( $grid_wud_widgets, "1", false ) .'/><hr>';
 
@@ -494,7 +495,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 		echo '<i>'.__("Active", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_url_gallery" type="checkbox" value="1" '. checked( $grid_wud_url_gallery, "1", false ) .'/><br><br>';
 		echo '<b class="grid-wud-admin-title">'.__("Enable Light Box", "grid-wud").'</b><br>';		
 		echo '<i>'.__("Active", "grid-wud").': </i><input class="grid-wud-right" name="grid_wud_lb_gallery" type="checkbox" value="1" '. checked( $grid_wud_lb_gallery, "1", false ) .'/><br><br>';
-		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("If selected, the gallery will use the thumbnail image size instead the full image size.", "grid-wud").'</div></div>';
+		echo'<div id="grid-wud-tip"><b class="grid-trigger" style="float:right; background:#3A6779; color: white;">&nbsp;?&nbsp;</b><div class="tooltip">'.__("If selected, the gallery will use the selected image size.", "grid-wud").'</div></div>';
 
 		echo '<select name="grid_wud_thumb_gallery" class="grid-wud-right" >';
 		echo     '<option value="1"'; if ( $grid_wud_thumb_gallery == "1" ){echo 'selected="selected"';} echo '>Thumbnail</option>';

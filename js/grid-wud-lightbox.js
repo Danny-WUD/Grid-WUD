@@ -31,9 +31,11 @@ Author URI: http://wistudat.be/
 	};
 
 	$.fn.wudLB.defaults = {target: "wud-lb",WudWrapClass: "CssLb"};
+	
+$("a").wudLB();
 
 })(jQuery);
 
-$(function(){$("a").wudLB();});
+
 
 //]]>

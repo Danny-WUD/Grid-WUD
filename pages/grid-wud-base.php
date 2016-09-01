@@ -5,21 +5,60 @@
  * Author: Danny WUD
  */
 function grid_wud_comm( $atts ) {	
-	extract( shortcode_atts(array('slug' => '','grid' => '','button' => '','cp' => '','shape' => '','nowidget' => ''), $atts ));
-	//Remember the CSS ...
+	extract( shortcode_atts(array('slug' => '','grid' => '','button' => '','cp' => '','pods' => '','shape' => '','nowidget' => '','title' => ''), $atts ));
+
     // slug: category or tag
 	// grid: quantity to display
 	// button: display/hide the button
 	// cp: custom post type
+	// pods: Pods - Custom Content Types and Fields
 	// shape: number of shape to show
+	// nowidget: display real tiles on widget pages
 	
 	$result = NULL; 
-	$ids = NULL;
-	// Latest post not active
+	$grid_ids = NULL;
+	$posttype = NULL ;
+	$tax_name = NULL ;
+	$posts = null ;
+	$term = NULL ;
+	$pods_cat = array() ;
+	$wp_cat = array();
+	$cat_id = "0";
+	$tag_id = "0";
+	$PodsIdObj=NULL;
+	$pods_is_used="0";
 	$wud_latest_post="0";
-	global $gwfuncs, $grid_wud_widget;
-
-
+	$is_numbers=0;
+	$postids = array() ;
+	$custom_title=NULL;
+	
+	global $gwfuncs, $grid_wud_widget, $pods;
+		
+		//If pods is used
+		if(isset($atts["pods"]) && $atts["pods"]!='' && class_exists( 'PodsInit' )){
+			if(is_numeric($atts["pods"]) && $atts["pods"] > 0 && $atts["pods"] == round($atts["pods"], 0)){
+				if($atts["pods"] > 2){$atts["pods"] = 1;}
+				$pods_is_used="1";
+			}
+			else{
+				$atts["pods"] = 1;
+				$pods_is_used="1";
+				}
+		}
+		
+		//If custom post is used
+		if(isset($atts["cp"]) && $atts["cp"]!='' ){
+			if(is_numeric($atts["cp"]) && $atts["cp"] > 0 && $atts["cp"] == round($atts["cp"], 0)){
+				if($atts["cp"] > 2){$atts["cp"] = 1;}
+			}
+			else{$atts["cp"] = 1;}
+		}	
+		
+		//If custom post is used
+		if(isset($atts["title"]) && $atts["title"]!='' ){
+				$custom_title = trim(filter_var($atts["title"], FILTER_SANITIZE_STRING));
+		}
+		
 		//Show the style
 		if(isset($atts["shape"]) && $atts["shape"]!='' ){
 			if(is_numeric($atts["shape"]) && $atts["shape"] > 0 && $atts["shape"] == round($atts["shape"], 0)){
@@ -37,12 +76,11 @@ function grid_wud_comm( $atts ) {
 		}
 			
 // Read the Array data (Category or Tag)
-	if(isset($atts["slug"]) && $atts["slug"]!='' ){
+	if((isset($atts["slug"]) && $atts["slug"]!='' ) || (isset($atts["ids"]) && $atts["ids"]!='' )){
 		//Make var empty
 		$wud_quantity=0; 
 		$grid_wud_skip_post=$gwfuncs['grid_wud_skip_post'];
 		$grid_wud_button=0; 
-		$grid_wud_post_type=0;
 		$widgetfront=0;
 
 		//Show the button (yes/no)
@@ -82,14 +120,33 @@ function grid_wud_comm( $atts ) {
 				$widgetfront = 0;
 			}
 		}		
-		
-	  $posts = null;
 
-		//Custom Post
-		if (isset($atts["cp"]) && ($atts["cp"]=="1" || $atts["cp"]=="2")){
+ 	//If slug with ID's is used
+		if($posts == null && isset($atts["slug"]) && $atts["slug"]!='' ){
+			$postids = ctoarray($atts["slug"]);
+				foreach ($postids as $postid) {	
+					if(is_numeric($postid) && $postid > 0 && $postid == round($postid, 0)){
+						$is_numbers=1;
+					if(!get_post_status( $postid ) || get_post_type( $postid )!='post'){echo "<font color='red'>The ID: <b>".$postid."</b> given in <b>[gridwud slug=\"xx, xx\"]</b> is invalid!<br>Please check this.</font>";return;}
+					}
+				else{$is_numbers=0; break;}				
+				wp_reset_postdata();
+				}
+			$args = array(
+				'posts_per_page'   => -1,
+				'showposts'       => $wud_quantity,
+				'post_type'		   => 'post',
+				'post__in' => $postids,
+				'orderby' => 'post__in'
+			);
+			if ($is_numbers==1){$posts = get_posts( $args );} 	
+			if ($posts == null && $is_numbers==1){echo "<font color='red'>Some ID given in <b>[gridwud slug=\"xx, xx\"]</b> is invalid!<br>Please check this.</font>";return;}				
+		}	 
+
+	//Custom Post Type
+		if ($posts == null && isset($atts["cp"]) && $is_numbers==0 && ($atts["cp"]=="1" || $atts["cp"]=="2")){
 		$term = post_type_exists($atts["slug"]);
 		if ($term !== 0 && $term !== null) {
-			$grid_wud_post_type=1;
 			$args = array(
 				'posts_per_page'   => -1,
 				'offset'   => $grid_wud_skip_post,
@@ -101,10 +158,67 @@ function grid_wud_comm( $atts ) {
 			$posts = get_posts( $args );
 			} 
 		}
+		 
 		
-		//Category
-		$term = term_exists($atts["slug"], 'category');
-		if ($term !== 0 && $term !== null) {
+	//Post type Pods (Projects)
+		if (isset($atts["pods"]) &&  $pods_is_used=="1" && $is_numbers==0  ) {	
+		$post_typ= post_type_exists($atts["slug"]); //'project'
+		}
+		
+		if ($posts == null && $pods_is_used=="1"  && $is_numbers==0 && !empty($post_typ )  && $post_typ !== null && get_post_type( get_the_ID() ) == $post_typ) {			
+			$args = array(
+				'posts_per_page'   => -1,
+				'offset'   => $grid_wud_skip_post,
+				'showposts'       => $wud_quantity,
+				'post_type'		   => $atts["slug"],
+				'orderby'          => $gwfuncs['grid_wud_set_order_grid'],
+				'order'            => $gwfuncs['grid_wud_set_dir_grid']
+			);
+			$posts = get_posts( $args );
+			} 
+		//Taxonomy Pods (Project Types (all categories from the Taxonomy))
+		if ($posts == null &&  $pods_is_used=="1" && $is_numbers==0 ) {
+		$taxono = get_terms( $atts["slug"], array(  'orderby'    => 'count') );
+				foreach ($taxono as $taxonos) {	
+				if(isset($taxonos->slug)){
+					$tax_name = $atts["slug"];
+					array_push($pods_cat, $taxonos->slug);
+					}
+				}		
+			wp_reset_postdata();	
+		}	
+		//Category Pods (search by Taxonomy -> category)
+		if ($posts == null &&  $pods_is_used=="1"  && $is_numbers==0 && empty($tax_name )  && $tax_name == null) {
+			$args = array('posts_per_page'   => -1,	'post_type'   => '_pods_pod',);
+			$podstype = get_posts( $args );
+				foreach ($podstype as $pods_type) {	
+					$tax=$pods_type->post_name;				
+						if(term_exists($atts["slug"], $tax)){
+							$tax_name=$pods_type->post_name;
+						}
+				}		
+			wp_reset_postdata();
+		}
+		//Search and order the requested Pods
+		if ($posts == null &&  $pods_is_used=="1"  && $is_numbers==0 && !empty($tax_name )  && $tax_name !== null) {	
+			//$pods_cat is used by Taxonomy or category search
+			if(empty($pods_cat)){$pods_cat = array($atts["slug"]);}
+			$args = array(
+				'posts_per_page'   => -1,
+				'offset'   => $grid_wud_skip_post,
+				'showposts'       => $wud_quantity,
+				'post_type'		   => $post_typ,
+				'tax_query'		   => array(array('taxonomy' => $tax_name, 'field' => 'slug', 'terms' => $pods_cat)),
+				'orderby'          => $gwfuncs['grid_wud_set_order_grid'],
+				'order'            => $gwfuncs['grid_wud_set_dir_grid']
+			);
+			$posts = get_posts( $args );
+			} 			
+		
+	//Category
+		if ($posts == null) {$term = term_exists($atts["slug"], 'category');}
+		if ($posts == null && !empty($term )  && $term !== null) {
+			$wp_cat = array($atts["slug"]);
 			$args = array(
 				'posts_per_page'   => -1,
 				'offset'   => $grid_wud_skip_post,
@@ -118,9 +232,10 @@ function grid_wud_comm( $atts ) {
 			} 
 			
 
-		//Tag
-			$term = term_exists($atts["slug"], 'post_tag');
-			if ($term !== 0 && $term !== null) {	
+	//Tag
+		if ($posts == null) {$term = term_exists($atts["slug"], 'post_tag');}
+		if ($posts == null && !empty($term )  && $term !== null) {	
+			    $wp_cat = array($atts["slug"]);
 				$args = array(
 				'posts_per_page'   => -1,
 				'offset'   => $grid_wud_skip_post,
@@ -134,8 +249,8 @@ function grid_wud_comm( $atts ) {
 			}
 			
 			
-		//Latest post (all)
-			if(isset($atts["slug"]) && $atts["slug"]=='wud-latest' ){
+	//Latest post (all)
+		if($posts == null && isset($atts["slug"]) && $atts["slug"]=='wud-latest' ){
 				$args = array(
 				'posts_per_page'   => -1,
 				'offset'   => $grid_wud_skip_post,
@@ -148,23 +263,24 @@ function grid_wud_comm( $atts ) {
 			}
 		
 //-> Show the grid !
-
-		//if(isset($posts) && 'page' == get_option( 'show_on_front' )){
 		if(isset($posts)){	
 		$count_cats_tags= substr(round(microtime(true) * 1000),10,3);
 		// Remember current slug (cat_or_tag)
-		$slugs = $atts["slug"]; 
-		$CatIdObj = get_category_by_slug($slugs);  
+		if(isset($atts["slug"])){$slugs = $atts["slug"];} else{$slugs="No slug given";} 
+		$CatIdObj = get_category_by_slug($slugs);		
 		$TagIdObj = get_term_by('slug', $slugs, 'post_tag');
+		//If Pods Taxonomy or category is used
+		if(!empty($pods_cat) && $tax_name!=$slugs){$PodsIdObj = get_term_by('slug', $slugs, $tax_name);}
 	    // Category or Tag Name
 			$wud_cat_or_term_name = NULL; // Make the variable empty	
 			if (!empty($CatIdObj)){$wud_cat_or_term_name = $CatIdObj->name;}
 			if (!empty($TagIdObj)){$wud_cat_or_term_name = $TagIdObj->name;}
+			if (!empty($PodsIdObj)){$wud_cat_or_term_name = $PodsIdObj->name;}
 			if (empty($wud_cat_or_term_name)){
-			  if($atts["slug"]<>'wud-latest' ){	
-				if ($atts["cp"]=="1"){$wud_cat_or_term_name=$gwfuncs['grid_wud_cpt01'];}	
-				elseif ($atts["cp"]=="2"){$wud_cat_or_term_name=$gwfuncs['grid_wud_cpt02'];}
-				else {$wud_cat_or_term_name="No title was found ...";}
+			  if($slugs<>'wud-latest' ){	
+				if ((isset($atts["cp"]) && $atts["cp"]=="1") || (isset($atts["pods"]) && $atts["pods"]=="1")){$wud_cat_or_term_name=$gwfuncs['grid_wud_cpt01'];}	
+				elseif ((isset($atts["cp"]) && $atts["cp"]=="2") || (isset($atts["pods"]) && $atts["pods"]=="2")){$wud_cat_or_term_name=$gwfuncs['grid_wud_cpt02'];}
+				else {$wud_cat_or_term_name="";}
 			  }
 			  else{
 				// Latest post is active
@@ -172,10 +288,15 @@ function grid_wud_comm( $atts ) {
 				$wud_cat_or_term_name= $gwfuncs['grid_wud_news_title'];  
 			  }
 			}
+			if(!empty($custom_title)){$wud_cat_or_term_name=$custom_title;}
 		// Category or Tag URL
-				if (!empty($CatIdObj)){$cat_id = $CatIdObj->cat_ID; $wud_cat_or_term_url = get_category_link( $cat_id);} else{$cat_id="0";}
-				if (!empty($TagIdObj)){$tag_id = $TagIdObj->term_id; $wud_cat_or_term_url = get_term_link( $tag_id);} else{$tag_id="0";}
-				if (empty($wud_cat_or_term_url)){$wud_cat_or_term_url='#';}
+				if(!empty($pods_cat) && $tax_name!==$slugs){$cat_id = $PodsIdObj->term_id; $wud_cat_or_term_url = get_category_link( $cat_id);}
+				elseif (!empty($CatIdObj)){$cat_id = $CatIdObj->cat_ID; $wud_cat_or_term_url = get_category_link( $cat_id);}
+				elseif (!empty($TagIdObj)){$tag_id = $TagIdObj->term_id; $wud_cat_or_term_url = get_term_link( $tag_id);}
+				else{
+					//$result .= " -> Grids without category";
+					}
+				if (empty($wud_cat_or_term_url)){$wud_cat_or_term_url='#_';}
 				
 		//-> Container-start
 			$result .= "<!-- Grid WUD Version ".$gwfuncs['grid_wud_version']."-->";
@@ -195,7 +316,7 @@ function grid_wud_comm( $atts ) {
 					$result .= "<div class='grid-wud-h1' style='line-height:".$lineheight."vw; font-size:".$gwfuncs['grid_wud_h1_font_size']."vw; background-color:".$gwfuncs['grid_wud_cat_bcolor']."; color:".$gwfuncs['grid_wud_cat_fcolor'].";'><a href='".$wud_cat_or_term_url."' style='text-decoration: none;'>".$wud_cat_or_term_name."</a></div>";
 				}
 				else{
-					$result .= "<div class='grid-wud-h1' style='line-height:".$lineheight."vw; font-size:".$gwfuncs['grid_wud_h1_font_size']."vw; background-color:".$gwfuncs['grid_wud_cat_bcolor']."; color:".$gwfuncs['grid_wud_cat_fcolor'].";'>".$wud_cat_or_term_name."</div>";
+					$result .= "<div class='grid-wud-h1' style='line-height:".$lineheight."vw; font-size:".$gwfuncs['grid_wud_h1_font_size']."vw; background-color:".$gwfuncs['grid_wud_cat_bcolor']."; color:".$gwfuncs['grid_wud_cat_fcolor'].";'><a href='#_' style='text-decoration: none;'>".$wud_cat_or_term_name."</a></div>";
 				}
 			  }
 			  else{
@@ -203,7 +324,7 @@ function grid_wud_comm( $atts ) {
 					$result .= "<div class='grid-wud-h1' style='font-size:1.1vw; background-color:".$gwfuncs['grid_wud_cat_bcolor']."; color:".$gwfuncs['grid_wud_cat_fcolor'].";'><a href='".$wud_cat_or_term_url."' style='text-decoration: none;'>".$wud_cat_or_term_name."</a></div>";
 				}
 				else{
-					$result .= "<div class='grid-wud-h1' style='font-size:1.1vw; background-color:".$gwfuncs['grid_wud_cat_bcolor']."; color:".$gwfuncs['grid_wud_cat_fcolor'].";'>".$wud_cat_or_term_name."</div>";
+					$result .= "<div class='grid-wud-h1' style='font-size:1.1vw; background-color:".$gwfuncs['grid_wud_cat_bcolor']."; color:".$gwfuncs['grid_wud_cat_fcolor'].";'><a href='#_' style='text-decoration: none;'>".$wud_cat_or_term_name."</a></div>";
 				}				  
 			  }
 			}
@@ -211,7 +332,8 @@ function grid_wud_comm( $atts ) {
 			$wud_grid_nr = 1; //1-> one grid, 2-> four grid, 3-> five grid (total 20 grid)
 			
 			  foreach ($posts as $post) {
-				 $ids[] = $post->ID; 
+				  $posttype = get_post_type( $post->ID );
+				 $grid_ids[] = $post->ID; 
 				$wud_feat_image=NULL; // Make the variable empty
 				// CSS variable (size, a.o.)
 				if ($wud_grid_nr>20){$wud_grid_nr=1;}
@@ -257,7 +379,7 @@ function grid_wud_comm( $atts ) {
 						// If images found in post, take the first one // ???? the_post_thumbnail_url( 'thumbnail' ); ????
 						if (!empty($wud_feat_img)){
 							if($gwfuncs['grid_wud_thumb_img']==1 || $gwfuncs['grid_wud_thumb_img']==2){
-								$image_url = $wud_feat_img[0];
+								$image_url = $wud_feat_img[0]; 
 								$image_id = wud_get_image_id($image_url);
 								
 								if($gwfuncs['grid_wud_thumb_img']==1)
@@ -265,6 +387,7 @@ function grid_wud_comm( $atts ) {
 								elseif($gwfuncs['grid_wud_thumb_img']==2)
 									{$image_thumb = wp_get_attachment_image_src($image_id, 'medium');}
 									
+								if($image_id==0){$image_thumb = $wud_feat_img;}	
 								$wud_feat_image = $image_thumb[0];
 							}
 							else{$wud_feat_image = $wud_feat_img[0];}
@@ -316,10 +439,11 @@ function grid_wud_comm( $atts ) {
 				}
 
 	//URL START	
-    if($gwfuncs['grid_wud_nourl']==0){	
-	  $result .= "<a href='".get_post_permalink($post->ID)."' title='' alt='' >";
-	}
-
+         if($gwfuncs['grid_wud_nourl']==0 && post_type_exists( $posttype )){	$result .= "<a href='".@get_post_permalink($post->ID)."' title='' alt='' >"; }
+	else{if($gwfuncs['grid_wud_nourl']==0){	$result .= "<a href='#_' title='' alt='' >"; }}
+         if($gwfuncs['grid_wud_nourl']==2 && post_type_exists( $posttype )){	$result .= "<a href='".@get_permalink($post->ID)."' title='' alt='' >"; }
+	else{if($gwfuncs['grid_wud_nourl']==2){	$result .= "<a href='#_' title='' alt='' >"; }}
+	
 				//Category font/line height on a grid grid_wud_img_split
 				$h4font=1;
 				$h4height=1.1;
@@ -437,7 +561,7 @@ function grid_wud_comm( $atts ) {
 		//-> Wrapper-end
 					$result .= "</div>"; 
 	//URL END
-	if($gwfuncs['grid_wud_nourl']==0){
+	if($gwfuncs['grid_wud_nourl']==0 || $gwfuncs['grid_wud_nourl']==2){
       $result .= "</a>";
 	}	
 					$wud_grid_nr++; 		
@@ -451,6 +575,7 @@ function grid_wud_comm( $atts ) {
 			//New since 1.08 read more button
 
 			if( ($grid_wud_widget==0 && $grid_wud_button == 0)  ||  $widgetfront==1){
+				// Form value transfered to JQuery --> grid-wud-xtra
 				$result .= "<form method='post' id='grid_wud_form'>";
 				// # extra post by button
 				$result .= "<input type='hidden' name='grid_wud_set_more_grid' id='grid_wud_set_more_grid_".$count_cats_tags."' value='".$gwfuncs['grid_wud_set_more_grid']."'/>";
@@ -462,7 +587,7 @@ function grid_wud_comm( $atts ) {
 				$result .= "<input type='hidden' name='grid_wud_shape' id='grid_wud_shape_".$count_cats_tags."'  value='".$gwfuncs['gwcss']."'/>";
 				$result .= "<input type='hidden' name='grid_wud_latest' id='grid_wud_latest_".$count_cats_tags."'  value='".$wud_latest_post."'/>";
 				// post id's to deny
-				$result .= "<input type='hidden' name='grid_wud_ids' id='grid_wud_ids_".$count_cats_tags."'  value='".serialize($ids)."'/>";
+				$result .= "<input type='hidden' name='grid_wud_ids' id='grid_wud_ids_".$count_cats_tags."'  value='".serialize($grid_ids)."'/>";
 				if($gwfuncs['grid_wud_shadow'] ==1){
 					$result .= "<input type='hidden' name='grid_wud_shadow' id='grid_wud_shadow".$count_cats_tags."'  value='1'/>";
 				}
@@ -470,6 +595,14 @@ function grid_wud_comm( $atts ) {
 					$result .= "<input type='hidden' name='grid_wud_shadow' id='grid_wud_shadow".$count_cats_tags."'  value='0/>";
 				}
 				$result .= "<input type='hidden' name='count_cats_tags' id='count_cats_tags'  value='".$count_cats_tags."'/>";
+				$result .= "<input type='hidden' name='posttype' id='posttype".$count_cats_tags."'  value='".$posttype."'/>";
+				//Pods
+				$result .= "<input type='hidden' name='tax_name' id='tax_name".$count_cats_tags."'  value='".$tax_name."'/>";
+				if(!empty($pods_cat)){$result .= "<input type='hidden' name='pods_cat' id='pods_cat".$count_cats_tags."'  value='".implode(" ",$pods_cat)."'/>";}
+				else{$result .= "<input type='hidden' name='pods_cat' id='pods_cat".$count_cats_tags."'  value='".implode(" ",$wp_cat)."'/>";}
+				$result .= "<input type='hidden' name='pods_is_used' id='pods_is_used".$count_cats_tags."'  value='".$pods_is_used."'/>";
+				$result .= "<input type='hidden' name='is_numbers' id='is_numbers".$count_cats_tags."'  value='".$is_numbers."'/>";
+				$result .= "<input type='hidden' name='postids' id='postids".$count_cats_tags."'  value='".implode(" ",$postids)."'/>";
 //				
 				$buttonheight=$gwfuncs['grid_wud_but_font_size']+1;
 				
@@ -484,7 +617,7 @@ function grid_wud_comm( $atts ) {
 				$result .= "</form>";
 				
 				  //SHOW ARCHIVES
-				  if($gwfuncs['grid_wud_show_arch_grid']==1 && $atts["slug"]<>'wud-latest'){
+				  if($gwfuncs['grid_wud_show_arch_grid']==1 && $slugs <>'wud-latest'){
 					//Show text or + sign
 					if($gwfuncs['grid_wud_show_grid_button']=='')
 						{$result .= "</div><div class='grid-wud-bottom' style='font-family:".$gwfuncs['grid_wud_font_button']." !important;'><a href='".$wud_cat_or_term_url."' style='text-decoration: none;'><button id='grid_wud_button' class='grid-wud-h3-txt' style='border-radius:".$gwfuncs['grid_wud_round_button']."px; font-size:".$gwfuncs['grid_wud_but_font_size']."vw; line-height:".$buttonheight."vw;  background-color:".$gwfuncs['grid_wud_but_bcolor']."; color:".$gwfuncs['grid_wud_but_fcolor'].";' type='submit'> + </button></a></div>";}
@@ -498,7 +631,7 @@ function grid_wud_comm( $atts ) {
 			else{$result .= "</div><div class='grid-wud-bottom'></div>";}
 			
 		}
-		else{$result = '<font color="red">Something went wrong, no post to display for slug:'.$atts["slug"].'</font>';}
+		else{$result = '<br><font color="red">Something went wrong.</font><br>No post to display for: slug="'.$atts["slug"] .'"';}
 		
 	}
 		

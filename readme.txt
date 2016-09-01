@@ -5,13 +5,13 @@ Donate Reason: Stand together to help those in need!
 Donate link: https://www.icrc.org/eng/donations/
 Description: Grid WUD adds responsive, customizable and dynamic grids, tiles, galleries & widgets to WordPress posts and pages.
 Author: Danny WUD
-Author URI: http://wistudat.be/
-Plugin URI: http://wistudat.be/
-Tags: grid, grids, tile, tiles, latest post, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post tiles, post grid, post tile, image grid, filter, image tile, display, list, page, pages, posts, post, query, custom post type
+Author URI: http://wp.wistudat.be/
+Plugin URI: http://wp.wistudat.be/
+Tags: grid, grids, tile, tiles, gallery, galleries, widget, widgets, pods, latest post, youtube, vimeo, video, gallery, responsive, slug, shortcode, slugs, post grids, post tiles, post grid, post tile, image grid, filter, image tile, display, list, page, pages, posts, post, query, custom post type
 Requires at least: 3.6
-Tested up to: 4.5
-Stable tag: 1.2.1
-Version: 1.2.1
+Tested up to: 4.6
+Stable tag: 1.2.5
+Version: 1.2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,11 +21,12 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 = Welcome @ Grid WUD: Grids, Tiles, Galleries, Widgets & more! =
 
 * **FREE version, updates, PRO support and new features!**
-* Included: Widgets, Latest Post, Posts, Gallery, Custom post type, Vimeo or YouTube! 
+* Included: Widgets, Latest Post, Posts, Gallery, Custom post type, Pods,Vimeo or YouTube! 
 * Different grid lay-outs possible on the same post/ pages.
 * NEW: Change the Wordpress Gallery to **Grid WUD Gallery** with Light Box.
-* NEW: Re-sizable tiles, grids and galleries.
 * NEW: Load as grid/tile/gallery background: Full, Medium or Thumbnail images.
+* NEW: Grids/Tiles from: **Pods - Custom Content Types and Fields**
+* NEW: Grids/Tiles given and sorted by post ID.
 
 * More info [here](http://wp.wistudat.be/) in our online manual.
 
@@ -33,7 +34,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 * It enables a shortcode which, when inserted in a page or post, creates a series of link grids corresponding to the posts in a certain category or tag.
 * Do you have any question or do you need support? Click [here](https://wordpress.org/support/plugin/grid-wud)!
-* See Grid WUD in [action](http://wistudat.be/)
+* See Grid WUD in [action](http://wp.wistudat.be/)
 
 == Installation ==
 
@@ -64,19 +65,24 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 == Frequently Asked Questions ==
 
 = How can i activate the grids? =
-* **Standard schortcode**:
+* **Standard schort code**:
 * You can use the following shortcode: [gridwud slug="cat_or_tag"] where "cat_or_tag" is the slug from the category or tag you want.
 *
-* **Optional shortcodes**:
+* **Optional short codes**:
 * [grid="2"] to display x grids /category or tag, different number then defined in the settings from Grid WUD.
 * [button="1"] to hide the read more button.
 * [skip="x"] to skip x recent posts, where x is the quantity to skip.
 * [shape="x"] change the layout to the corresponding layout.
 * [nowidget="1"] force a post/page lay-out in a widget.
+* [title="My Custom Title"] force a custom title per shortcode used.
+* [slug="x,xxx,xx"] show and sort the grids per post ID, where x is the post ID.
 *
-* **Custom Post Type schortcodes**:
-* [cp="1"] or [cp="2"] to display all posts from the custom post type, where 1 or 2 is the title (can be set in the admin options/settings page).
-* Sample: [gridwud slug="custom_post_type_name" cp="1"] or [gridwud slug="custom_post_type_name" cp="2"].
+* **Custom Post Type and Pods schort codes**:
+* [pods="x"] force to show Pods Custom Content Types and Fields as grids.
+* [pods="x"] force to show Grid WUD Custom Title if no Pods Title is found.
+* 
+* [cp="x"] force to show Wordpress custom post types as grids.
+* [cp="x"] force to show Grid WUD Custom Title if no Custom Post Title is found. 
 
 = Can i have support? =
 > If you have any question or you need support, Get it directly [here](https://wordpress.org/support/plugin/grid-wud)!
@@ -86,6 +92,27 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 == Changelog ==
+= 1.2.5 =
+* Custom title per Grid WUD shortcode ([title="My Custom Title"])
+* Show and sort post per given ID ([slug="x,xxx,xx"] where x = post ID) 
+* Target grid/tile URL: to Seo friendly, Post/Page ID or no target (see settings page).
+
+= 1.2.4 =
+* Removed array error by Widgets.
+
+= 1.2.3 =
+* New grids/tiles from: Pods - Custom Content Types and Fields.
+* Show all Pods or Pods by category, taxonomy, project type and project.
+* New short code:[pods="x"] force to show Pods Custom Content Types and Fields as grids.
+* and [pods="x"] force to show Grid WUD Custom Title if no Pods title is found.
+* Make a grid/tile from custom size image.
+* Modification to the widget arguments.
+* Unset target URL grids/tiles if the custom post type is not active.
+
+= 1.2.2 =
+* JQuery script update for the Light Box and Buttons.
+* Latest Post and Custom Post query arguments updated.
+
 = 1.2.1 =
 * Critical update solving quantity maximum grids/tiles.
 
@@ -193,7 +220,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
 	
 == Screenshots ==
-1. Grids on Frontend.
-2. Tiles on Frontend.
-3. Admin menu
-4. Grid WUD WIDGETS (even with latetst post)
+1. Grid WUD Grids
+2. Grid WUD Tiles
+3. Grid WUD Gallery
+4. Grid WUD Light Box
+5. Grid WUD WIDGETS (even with latetst post)
+6. Admin menu

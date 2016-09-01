@@ -19,6 +19,13 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 		$wud_grid_shape = trim(filter_var($_POST['grid_wud_shape'], FILTER_SANITIZE_STRING));
 		$wud_grid_latest = trim(filter_var($_POST['grid_wud_latest'], FILTER_SANITIZE_STRING));
 		$grid_wud_shadow = trim(filter_var($_POST['grid_wud_shadow'], FILTER_SANITIZE_STRING));
+		$posttype = trim(filter_var($_POST['posttype'], FILTER_SANITIZE_STRING));
+		$tax_name = trim(filter_var($_POST['tax_name'], FILTER_SANITIZE_STRING));
+		$pods_cat = explode(" ",filter_var($_POST['pods_cat'], FILTER_SANITIZE_STRING));
+		$pods_is_used = trim(filter_var($_POST['pods_is_used'], FILTER_SANITIZE_STRING));
+		$is_numbers = trim(filter_var($_POST['is_numbers'], FILTER_SANITIZE_STRING));
+		$postids = explode(" ",filter_var($_POST['postids'], FILTER_SANITIZE_STRING));
+		
 		echo wud_grid_wud__more_post();
 		echo '</div>';
 	}
@@ -26,23 +33,46 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 // Get the 'see more' image
 	function wud_grid_wud__more_post(){
-		global $result, $args, $grid_wud_set_max_grid, $tags, $cats, $ids, $wud_grid_nr, $gwfuncs, $wud_grid_shape, $wud_grid_latest, $grid_wud_shadow ;
-
+		global $result, $args, $grid_wud_set_max_grid, $tags, $cats, $ids, $wud_grid_nr, $gwfuncs, $wud_grid_shape, $grid_wud_shadow, $posttype, $tax_name, $pods_cat, $pods_is_used, $is_numbers, $postids ;
 		
 		//Get the category or tag by name
 		$wud_cat_or_term_name ='';
 		if (!empty( $cats )){$wud_cat_or_term_name = get_the_category_by_ID($cats );}
 		elseif (!empty( $tags )){$wud_cat_or_term_name = get_term_by('term_id', $tags, 'post_tag')->name;}
-		
-		if (!empty( $cats )){$args = array( 'posts_per_page' => $grid_wud_set_max_grid , 'category' => $cats, 'post__not_in'=>$ids, 'orderby'=> $gwfuncs['grid_wud_set_order_grid'], 'order'=> $gwfuncs['grid_wud_set_dir_grid'] );}
-		if (!empty( $tags )){$args = array( 'posts_per_page' => $grid_wud_set_max_grid , 'tag_id' => $tags, 'post__not_in'=>$ids, 'orderby'=> $gwfuncs['grid_wud_set_order_grid'], 'order'=> $gwfuncs['grid_wud_set_dir_grid'] );}
-		if (empty( $tags ) && empty( $cats ) && $wud_grid_latest == 1){$args = array( 'posts_per_page' => $grid_wud_set_max_grid , 'post__not_in'=>$ids, 'orderby'=> 'date', 'order'=> 'DESC' );}
+
+		//Post type Pods
+		if ($pods_is_used=="1"&& $is_numbers =="0"){echo "pods";
+			if(empty($pods_cat[0]) && $cats=="0" && $tags=="0"){
+		//Show all Pods
+				$args = array( 'post_type' => $posttype, 'posts_per_page' => $grid_wud_set_max_grid , 'post__not_in'=>$ids, 'orderby'=> $gwfuncs['grid_wud_set_order_grid'], 'order'=> $gwfuncs['grid_wud_set_dir_grid'] );				
+			}
+			else{
+		//Show Pods by Taxonomy --> category (categories)
+				$args = array( 'post_type' => $posttype, 'posts_per_page' => $grid_wud_set_max_grid , 'tax_query' => array(array('taxonomy' => $tax_name, 'field' => 'slug', 'terms' => $pods_cat)), 'post__not_in'=>$ids, 'orderby'=> $gwfuncs['grid_wud_set_order_grid'], 'order'=> $gwfuncs['grid_wud_set_dir_grid'] );
+			}
+		}
+		//WP or Custom Post by category
+		elseif (!empty( $cats ) && $cats !="0")
+			{$args = array( 'post_type' => $posttype, 'posts_per_page' => $grid_wud_set_max_grid , 'category' => $cats, 'post__not_in'=>$ids, 'orderby'=> $gwfuncs['grid_wud_set_order_grid'], 'order'=> $gwfuncs['grid_wud_set_dir_grid'] );}
+		//WP or Custom Post by tag
+		elseif (!empty( $tags ) && $tags !="0")
+			{$args = array( 'post_type' => $posttype, 'posts_per_page' => $grid_wud_set_max_grid , 'tag_id' => $tags, 'post__not_in'=>$ids, 'orderby'=> $gwfuncs['grid_wud_set_order_grid'], 'order'=> $gwfuncs['grid_wud_set_dir_grid'] );}	
+		//WP post by given id's
+		elseif (!empty( $is_numbers ) && $is_numbers !="0"){
+			//post__in and post__not_in cannot used togheter, so search for the difference ... in the arrays at display
+			$clean1 = array_diff($postids, $ids); if (empty($clean1)){$clean1=array('0');}
+			$args = array( 'post__in' => $clean1, 'post_type' => $posttype, 'posts_per_page' => $grid_wud_set_max_grid,'orderby' => 'post__in' );
+			
+		}
+			//WP or Custom Post all posts
+		else
+			{$args = array( 'post_type' => $posttype, 'posts_per_page' => $grid_wud_set_max_grid , 'post__not_in'=>$ids, 'orderby'=> 'date', 'order'=> $gwfuncs['grid_wud_set_order_grid'] );}
 		
 			$myposts = get_posts( $args );
 			if(isset($myposts)){	
 			foreach ( $myposts as $post ) : setup_postdata( $post );
 				if ($wud_grid_nr>20){$wud_grid_nr=1;}
-				$wud_link = get_post_permalink($post->ID);
+			 if(post_type_exists( $posttype )){	$wud_link = @get_post_permalink($post->ID); } else{$wud_link = "#_";}
 				$wud_title = $post->post_title;
 					//If the real WP excerpt exist (fil in with your own content)
 					if(!empty($post->post_excerpt)){$wud_excerpt = strip_shortcodes ( wp_trim_words ( $post->post_excerpt, $gwfuncs['grid_wud_excerpt_words'] ) );}
@@ -89,6 +119,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 								elseif($gwfuncs['grid_wud_thumb_img']==2)
 									{$image_thumb = wp_get_attachment_image_src($image_id, 'medium');}
 									
+								if($image_id==0){$image_thumb = $wud_feat_img;}	
 								$wud_feat_image = $image_thumb[0];
 							}
 							else{$wud_feat_image = $wud_feat_img[0];}
